@@ -1,5 +1,5 @@
 ﻿<p>
-    <img src="@Url.Content("~/Content/img/ext-asana.png")" />
+    <img src="@System.Web.HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~//Content/img/ext-asana.png")" />
     &nbsp;
     Enter your Asana API key (get from <a href="http://app.asana.com/-/account_api" target="_blank">http://app.asana.com/-/account_api</a>):
 </p>

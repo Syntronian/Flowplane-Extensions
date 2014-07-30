@@ -25,6 +25,12 @@ namespace FlowplaneExtensions
                 routeTemplate: "api/register/getall",
                 defaults: new { controller = "Api_Register_GetAll" }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "Api_Process",
+                routeTemplate: "api/process/getassignees/{extid}",
+                defaults: new { controller = "Process" }
+            );
             
         }
     }

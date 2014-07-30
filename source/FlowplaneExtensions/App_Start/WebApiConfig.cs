@@ -29,7 +29,7 @@ namespace FlowplaneExtensions
             config.Routes.MapHttpRoute(
                 name: "Api_Process",
                 routeTemplate: "api/process/getassignees/{extid}",
-                defaults: new { controller = "Process" }
+                defaults: new { controller = "Api_Process" }
             );
             
         }

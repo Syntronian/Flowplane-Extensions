@@ -10,11 +10,6 @@ namespace FlowplaneExtensions.Models.api.Register
 {
     public class GetAll
     {
-        public enum CodeList
-        {
-            Asana = 1
-        }
-
         public class Extension
         {
             public IIdentity identity { get; set; }

@@ -14,11 +14,18 @@ namespace FlowplaneExtensions
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
+            config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
+
+            config.EnableCors();
+
+
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "Api_Register_GetAll",
+                routeTemplate: "api/register/getall",
+                defaults: new { controller = "Api_Register_GetAll" }
             );
+            
         }
     }
 }

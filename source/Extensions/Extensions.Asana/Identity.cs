@@ -19,11 +19,11 @@ namespace Extensions.Asana
             get { return "Asana"; }
         }
 
-        public Definitions.ProcessObjectTypes Type
+        public string Type
         {
             get
             {
-                return Definitions.ProcessObjectTypes.Activity;
+                return Definitions.ProcessObjectTypes.Activity.ToString();
             }
         }
     }

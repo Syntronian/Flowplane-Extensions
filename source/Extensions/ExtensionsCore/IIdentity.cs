@@ -11,6 +11,6 @@ namespace ExtensionsCore
     {
         string Code { get; }
         string Name { get; }
-        Definitions.ProcessObjectTypes Type { get; }
+        string Type { get; }
     }
 }

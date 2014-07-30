@@ -23,15 +23,16 @@ namespace FlowplaneExtensions.Models.api.Register
         public GetAll()
         {
             var url = new UrlHelper(HttpContext.Current.Request.RequestContext);
+            var urlPrefix = System.Web.HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
 
             this.extensions = new List<Extension>
             {
                 new Extension()
                 {
                     identity = new Extensions.Asana.Identity(),
-                    url_path_auth = url.Action("Auth", "Asana"),
-                    url_path_header = url.Action("Header", "Asana"),
-                    url_path_body = url.Action("Body", "Asana")
+                    url_path_auth = urlPrefix + url.Action("Auth", "Asana"),
+                    url_path_header = urlPrefix + url.Action("Header", "Asana"),
+                    url_path_body = urlPrefix + url.Action("Body", "Asana")
                 }
             };
         }

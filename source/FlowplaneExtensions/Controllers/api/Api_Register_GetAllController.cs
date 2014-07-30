@@ -12,7 +12,7 @@ namespace FlowplaneExtensions.Controllers.api
     public class Api_Register_GetAllController : ApiController
     {
         [AllowAnonymous]
-        public Models.api.Register.GetAll Get(int id)
+        public Models.api.Register.GetAll Get()
         {
             return new Models.api.Register.GetAll();
         }

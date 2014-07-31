@@ -18,5 +18,25 @@ namespace FlowplaneExtensions.Models.api.Process
             }
             throw new Exception("Invalid extension.");
         }
+
+        public dynamic GetWorkSpaces(string extId, string apiKey)
+        {
+            if (extId.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var ws = new Workspaces(new Auth(apiKey));
+                return ws.List();
+            }
+            throw new Exception("Invalid extension.");
+        }
+
+        public dynamic GetProjects(string extId, string apiKey, string wsId, bool? archived = null)
+        {
+            if (extId.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var p = new Projects(new Auth(apiKey));
+                return p.List(wsId, archived);
+            }
+            throw new Exception("Invalid extension.");
+        }
     }
 }

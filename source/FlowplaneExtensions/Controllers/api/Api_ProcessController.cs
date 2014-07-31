@@ -17,11 +17,33 @@ namespace FlowplaneExtensions.Controllers.api
         [AllowAnonymous]
         public IAssignees GetAssignees(FormDataCollection formData)
         {
-            var extId = formData.FirstOrDefault(a => a.Key == "extId").Value;
-            var apiKey = formData.FirstOrDefault(a => a.Key == "apiKey").Value;
-
-            var det = new Models.api.Process.Details();
-            return det.GetAssignees(extId, apiKey);
+            return new Models.api.Process.Details().GetAssignees(GetValue(formData, "extId")
+                                                                , GetValue(formData, "apiKey"));
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public dynamic GetWorkSpaces(FormDataCollection formData)
+        {
+            return new Models.api.Process.Details().GetWorkSpaces(GetValue(formData, "extId")
+                                                                , GetValue(formData, "apiKey"));
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public dynamic GetProjects(FormDataCollection formData)
+        {
+            bool archived;
+            return new Models.api.Process.Details().GetProjects(GetValue(formData, "extId")
+                                                    , GetValue(formData, "apiKey")
+                                                    , GetValue(formData, "workspaceId")
+                                                    , Boolean.TryParse(GetValue(formData, "archived"), out archived) ? (bool?)archived : null);
+        }
+
+        private string GetValue(FormDataCollection data, string key)
+        {
+            return data.FirstOrDefault(a => a.Key == key).Value;
+        }
+
     }
 }

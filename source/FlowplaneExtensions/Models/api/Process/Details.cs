@@ -9,11 +9,11 @@ namespace FlowplaneExtensions.Models.api.Process
 {
     public class Details
     {
-        public IAssignees GetAssignees(string extId)
+        public IAssignees GetAssignees(string extId, string apiKey)
         {
             if (extId.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var u = new Extensions.Asana.Users(new Auth("2XaGT9Ig.5VGoJUHAQwFOmuIsT2izPLx"));
+                var u = new Extensions.Asana.Users(new Auth(apiKey));
                 return u.List();
             }
             throw new Exception("Invalid extension.");

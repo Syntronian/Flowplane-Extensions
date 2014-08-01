@@ -11,16 +11,24 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
     [TestClass]
     public class paymo
     {
-        private const string myAPIKEY = "53828d2dda48075c9f35f94361ce3534";
-        private const string uName = "vaishakhip@gmail.com";
-        private const string pwd = "lion@123";
-
+        private const string myAPIKEY = "Replace_With_Your_API_Key";
+        private const string uName = "Replace_With_Your_UserName";
+        private const string pwd = "Replace_With_Your_Password";
+        private const string token = "Replace_With_Your_Token";
         [TestMethod]
         public void ListUsers()
         {
             var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol());
             this.Display(users);
         }
+
+        [TestMethod]
+        public void ListProjects()
+        {
+            var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetProjects(GetCol());
+            this.Display(users);
+        }
+
 
         private void Display(dynamic res)
         {
@@ -38,7 +46,8 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
                     { "extId",  "paymo"}, 
                     { "apiKey" , myAPIKEY}, 
                     { "userName" , uName} , 
-                    { "password" , pwd}  
+                    { "password" , pwd} ,
+                    {"authToken", token}
                 };
             return new FormDataCollection(pairs);
         }

@@ -33,13 +33,16 @@ namespace FlowplaneExtensions.Controllers.api
 
         [HttpPost]
         [AllowAnonymous]
-        public Extensions.Asana.Responses.Projects.List GetProjects(FormDataCollection formData)
+        public IProjects GetProjects(FormDataCollection formData)
         {
             bool archived;
             return new Models.api.Process.Details().GetProjects(GetValue(formData, "extId")
                                                     , GetValue(formData, "apiKey")
                                                     , GetValue(formData, "workspaceId")
-                                                    , Boolean.TryParse(GetValue(formData, "archived"), out archived) ? (bool?)archived : null);
+                                                    , Boolean.TryParse(GetValue(formData, "archived"), out archived) ? (bool?)archived : null
+                                                    , GetValue(formData, "userName")
+                                                    , GetValue(formData, "password")
+                                                    , GetValue(formData, "authToken"));
         }
 
         private string GetValue(FormDataCollection data, string key)

@@ -24,7 +24,7 @@ namespace Extensions.Paymo.Responses.Users
 
 
 
-    public class List
+    public class List : ExtensionsCore.IAssignees
     {
         private System.Xml.XmlDocument xml = new System.Xml.XmlDocument();
 

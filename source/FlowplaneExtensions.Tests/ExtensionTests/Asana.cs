@@ -19,44 +19,44 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         //    Console.Write(auth.TestGet());
         //}
 
-        [TestMethod]
-        public void ListUsers()
-        {
-            var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol());
-            this.Display(users);
-        }
+        //[TestMethod]
+        //public void ListUsers()
+        //{
+        //    var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol());
+        //    this.Display(users);
+        //}
 
-        [TestMethod]
-        public void ListWorkSpaces()
-        {
-            var ws = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetWorkSpaces(GetCol());
-            this.Display(ws);
-        }
+        //[TestMethod]
+        //public void ListWorkSpaces()
+        //{
+        //    var ws = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetWorkSpaces(GetCol());
+        //    this.Display(ws);
+        //}
 
-        [TestMethod]
-        public void ListProjects()
-        {
-            var p = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetProjects(GetCol());
-            this.Display(p);
-        }
+        //[TestMethod]
+        //public void ListProjects()
+        //{
+        //    var p = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetProjects(GetCol());
+        //    this.Display(p);
+        //}
 
-        private void Display(dynamic res)
-        {
-            foreach (var i in res.items)
-            {
-                Console.WriteLine("id: " + i.id);
-                Console.WriteLine("name: " + i.name);
-            }
-        }
+        //private void Display(dynamic res)
+        //{
+        //    foreach (var i in res.items)
+        //    {
+        //        Console.WriteLine("id: " + i.id);
+        //        Console.WriteLine("name: " + i.name);
+        //    }
+        //}
 
-        private FormDataCollection GetCol()
-        {
-            var pairs = new Dictionary<string, string> 
-                { 
-                    { "extId",  "asana"}, 
-                    { "apiKey" , myAPIKEY} 
-                };
-            return new FormDataCollection(pairs);
-        }
+        //private FormDataCollection GetCol()
+        //{
+        //    var pairs = new Dictionary<string, string> 
+        //        { 
+        //            { "extId",  "asana"}, 
+        //            { "apiKey" , myAPIKEY} 
+        //        };
+        //    return new FormDataCollection(pairs);
+        //}
     }
 }

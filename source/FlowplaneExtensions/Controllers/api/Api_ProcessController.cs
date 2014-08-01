@@ -18,12 +18,14 @@ namespace FlowplaneExtensions.Controllers.api
         public IAssignees GetAssignees(FormDataCollection formData)
         {
             return new Models.api.Process.Details().GetAssignees(GetValue(formData, "extId")
-                                                                , GetValue(formData, "apiKey"));
+                                                                , GetValue(formData, "apiKey")
+                                                                , GetValue(formData, "userName")
+                                                                , GetValue(formData, "password"));
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public dynamic GetWorkSpaces(FormDataCollection formData)
+        public Extensions.Asana.Responses.Workspaces.List GetWorkSpaces(FormDataCollection formData)
         {
             return new Models.api.Process.Details().GetWorkSpaces(GetValue(formData, "extId")
                                                                 , GetValue(formData, "apiKey"));
@@ -31,7 +33,7 @@ namespace FlowplaneExtensions.Controllers.api
 
         [HttpPost]
         [AllowAnonymous]
-        public dynamic GetProjects(FormDataCollection formData)
+        public Extensions.Asana.Responses.Projects.List GetProjects(FormDataCollection formData)
         {
             bool archived;
             return new Models.api.Process.Details().GetProjects(GetValue(formData, "extId")

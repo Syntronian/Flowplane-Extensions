@@ -42,6 +42,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -124,11 +127,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -174,6 +172,10 @@
     <Content Include="Views\Asana\Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\fpxt - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\fpxt - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\fpxt - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\fpxt - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\fpxt.pubxml" />
   </ItemGroup>
   <ItemGroup>

@@ -27,19 +27,19 @@ namespace FlowplaneExtensions
             );
 
             config.Routes.MapHttpRoute(
-                name: "Api_Process",
+                name: "Api_Process_GetAssignee",
                 routeTemplate: "api/process/getassignees",
                 defaults: new { controller = "Api_Process" }
             );
 
             config.Routes.MapHttpRoute(
-                name: "Api_ProcessWS",
+                name: "Api_Process_GetWorkspaces",
                 routeTemplate: "api/process/getworkspaces",
                 defaults: new { controller = "Api_Process" }
             );
 
             config.Routes.MapHttpRoute(
-                name: "Api_ProcessGP",
+                name: "Api_Process_GetProjects",
                 routeTemplate: "api/process/getprojects",
                 defaults: new { controller = "Api_Process" }
             );

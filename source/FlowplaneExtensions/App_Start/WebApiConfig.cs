@@ -43,6 +43,12 @@ namespace FlowplaneExtensions
                 routeTemplate: "api/process/getprojects",
                 defaults: new { controller = "Api_Process" }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "Api_Flow_FacebookUpdate",
+                routeTemplate: "api/flow/exec",
+                defaults: new { controller = "Api_Process" }
+            );
             
         }
     }

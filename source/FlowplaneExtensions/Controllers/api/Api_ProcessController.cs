@@ -17,18 +17,18 @@ namespace FlowplaneExtensions.Controllers.api
         [AllowAnonymous]
         public IAssignees GetAssignees(FormDataCollection formData)
         {
-            return new Models.api.Process.Details().GetAssignees(GetValue(formData, "extId")
-                                                                , GetValue(formData, "apiKey")
-                                                                , GetValue(formData, "userName")
-                                                                , GetValue(formData, "password"));
+            return new Models.api.Process.Details().GetAssignees(Common.GetValue(formData, "extId")
+                                                                , Common.GetValue(formData, "apiKey")
+                                                                , Common.GetValue(formData, "userName")
+                                                                , Common.GetValue(formData, "password"));
         }
 
         [HttpPost]
         [AllowAnonymous]
         public Extensions.Asana.Responses.Workspaces.List GetWorkSpaces(FormDataCollection formData)
         {
-            return new Models.api.Process.Details().GetWorkSpaces(GetValue(formData, "extId")
-                                                                , GetValue(formData, "apiKey"));
+            return new Models.api.Process.Details().GetWorkSpaces(Common.GetValue(formData, "extId")
+                                                                , Common.GetValue(formData, "apiKey"));
         }
 
         [HttpPost]
@@ -36,19 +36,16 @@ namespace FlowplaneExtensions.Controllers.api
         public IProjects GetProjects(FormDataCollection formData)
         {
             bool archived;
-            return new Models.api.Process.Details().GetProjects(GetValue(formData, "extId")
-                                                    , GetValue(formData, "apiKey")
-                                                    , GetValue(formData, "workspaceId")
-                                                    , Boolean.TryParse(GetValue(formData, "archived"), out archived) ? (bool?)archived : null
-                                                    , GetValue(formData, "userName")
-                                                    , GetValue(formData, "password")
-                                                    , GetValue(formData, "authToken"));
+            return new Models.api.Process.Details().GetProjects(Common.GetValue(formData, "extId")
+                                                    , Common.GetValue(formData, "apiKey")
+                                                    , Common.GetValue(formData, "workspaceId")
+                                                    , Boolean.TryParse(Common.GetValue(formData, "archived"), out archived) ? (bool?)archived : null
+                                                    , Common.GetValue(formData, "userName")
+                                                    , Common.GetValue(formData, "password")
+                                                    , Common.GetValue(formData, "authToken"));
         }
 
-        private string GetValue(FormDataCollection data, string key)
-        {
-            return data.FirstOrDefault(a => a.Key == key).Value;
-        }
+       
 
     }
 }

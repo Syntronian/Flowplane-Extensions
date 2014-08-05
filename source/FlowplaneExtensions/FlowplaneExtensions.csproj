@@ -131,13 +131,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\api\Api_FlowController.cs" />
     <Compile Include="Controllers\api\Api_Register_GetAllController.cs" />
     <Compile Include="Controllers\api\Api_ProcessController.cs" />
+    <Compile Include="Controllers\api\Common.cs" />
     <Compile Include="Controllers\AsanaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\api\flow\Exec.cs" />
     <Compile Include="Models\api\Process\Details.cs" />
     <Compile Include="Models\api\Register\GetAll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -182,6 +185,10 @@
     <ProjectReference Include="..\Extensions\Extensions.Asana\Extensions.Asana.csproj">
       <Project>{28e51644-7ef5-4e7e-949a-123dbe5a44ea}</Project>
       <Name>Extensions.Asana</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Extensions\Extensions.Facebook\Extensions.Facebook.csproj">
+      <Project>{75b0fab2-6462-41d0-8b37-4ce7cf9c6917}</Project>
+      <Name>Extensions.Facebook</Name>
     </ProjectReference>
     <ProjectReference Include="..\Extensions\Extensions.Paymo\Extensions.Paymo.csproj">
       <Project>{5e5a1181-7e9d-4c7e-9882-447a9d329de0}</Project>

@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Web
-VisualStudioVersion = 12.0.30501.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowplaneExtensions", "FlowplaneExtensions\FlowplaneExtensions.csproj", "{1F3234B9-BEE7-4DED-980D-43957A1DDAD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowplaneExtensions.Tests", "FlowplaneExtensions.Tests\FlowplaneExtensions.Tests.csproj", "{E20FBC08-D349-40BB-8656-1060C88C9618}"
@@ -21,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{096894
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Paymo", "Extensions\Extensions.Paymo\Extensions.Paymo.csproj", "{5E5A1181-7E9D-4C7E-9882-447A9D329DE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Facebook", "Extensions\Extensions.Facebook\Extensions.Facebook.csproj", "{75B0FAB2-6462-41D0-8B37-4CE7CF9C6917}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +48,10 @@ Global
 		{5E5A1181-7E9D-4C7E-9882-447A9D329DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E5A1181-7E9D-4C7E-9882-447A9D329DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E5A1181-7E9D-4C7E-9882-447A9D329DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75B0FAB2-6462-41D0-8B37-4CE7CF9C6917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75B0FAB2-6462-41D0-8B37-4CE7CF9C6917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75B0FAB2-6462-41D0-8B37-4CE7CF9C6917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75B0FAB2-6462-41D0-8B37-4CE7CF9C6917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,5 +60,6 @@ Global
 		{6753726C-A9A6-430D-84A0-7E387498CB4D} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
 		{28E51644-7EF5-4E7E-949A-123DBE5A44EA} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
 		{5E5A1181-7E9D-4C7E-9882-447A9D329DE0} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
+		{75B0FAB2-6462-41D0-8B37-4CE7CF9C6917} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
 	EndGlobalSection
 EndGlobal

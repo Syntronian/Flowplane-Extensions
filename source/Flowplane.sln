@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Paymo", "Extensi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Facebook", "Extensions\Extensions.Facebook\Extensions.Facebook.csproj", "{75B0FAB2-6462-41D0-8B37-4CE7CF9C6917}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Twitter", "Extensions\Extensions.Twitter\Extensions.Twitter.csproj", "{86A043EB-7788-44F2-8521-16CF95AD2481}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{75B0FAB2-6462-41D0-8B37-4CE7CF9C6917}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75B0FAB2-6462-41D0-8B37-4CE7CF9C6917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75B0FAB2-6462-41D0-8B37-4CE7CF9C6917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A043EB-7788-44F2-8521-16CF95AD2481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A043EB-7788-44F2-8521-16CF95AD2481}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A043EB-7788-44F2-8521-16CF95AD2481}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A043EB-7788-44F2-8521-16CF95AD2481}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,5 +67,6 @@ Global
 		{28E51644-7EF5-4E7E-949A-123DBE5A44EA} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
 		{5E5A1181-7E9D-4C7E-9882-447A9D329DE0} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
 		{75B0FAB2-6462-41D0-8B37-4CE7CF9C6917} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
+		{86A043EB-7788-44F2-8521-16CF95AD2481} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
 	EndGlobalSection
 EndGlobal

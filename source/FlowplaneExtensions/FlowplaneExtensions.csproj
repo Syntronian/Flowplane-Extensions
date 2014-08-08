@@ -194,6 +194,10 @@
       <Project>{5e5a1181-7e9d-4c7e-9882-447a9d329de0}</Project>
       <Name>Extensions.Paymo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Extensions\Extensions.Twitter\Extensions.Twitter.csproj">
+      <Project>{86a043eb-7788-44f2-8521-16cf95ad2481}</Project>
+      <Name>Extensions.Twitter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Extensions\ExtensionsCore\ExtensionsCore.csproj">
       <Project>{6753726c-a9a6-430d-84a0-7e387498cb4d}</Project>
       <Name>ExtensionsCore</Name>

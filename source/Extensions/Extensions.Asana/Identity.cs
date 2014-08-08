@@ -26,5 +26,25 @@ namespace Extensions.Asana
                 return Definitions.ProcessObjectTypes.Activity.ToString();
             }
         }
+
+        public string Toolbox_ID
+        {
+            get { return "tool-activity-asana"; }
+        }
+
+        public string Toolbox_Description
+        {
+            get { return "Asana task"; }
+        }
+
+        public string Toolbox_CSS
+        {
+            get { return "toolbox-activity-asana"; }
+        }
+
+        public string Toolbox_Drag_CSS
+        {
+            get { return "toolbox-activity-asana-drag"; }
+        }
     }
 }

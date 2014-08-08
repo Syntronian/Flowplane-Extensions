@@ -12,5 +12,12 @@ namespace ExtensionsCore
         string Code { get; }
         string Name { get; }
         string Type { get; }
+        string Toolbox_ID { get; }
+
+        string Toolbox_Description { get; }
+
+        string Toolbox_CSS { get; }
+
+        string Toolbox_Drag_CSS { get; }
     }
 }

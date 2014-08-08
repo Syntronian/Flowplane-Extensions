@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExtensionsCore;
+
 namespace Extensions.Twitter
 {
     public class Identity : ExtensionsCore.IIdentity
@@ -24,6 +25,26 @@ namespace Extensions.Twitter
             {
                 return Definitions.ProcessObjectTypes.Event.ToString();
             }
+        }
+
+        public string Toolbox_ID
+        {
+            get { return "tool-event-twitter"; }
+        }
+
+        public string Toolbox_Description
+        {
+            get { return "Twitter event"; }
+        }
+
+        public string Toolbox_CSS
+        {
+            get { return "toolbox-event-twitter"; }
+        }
+
+        public string Toolbox_Drag_CSS
+        {
+            get { return "toolbox-event-twitter-drag"; }
         }
     }
 }

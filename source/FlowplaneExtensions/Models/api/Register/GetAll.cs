@@ -17,6 +17,7 @@ namespace FlowplaneExtensions.Models.api.Register
             public string url_path_header { get; set; }
             public string url_path_body { get; set; }
             public string img_src { get; set; }
+            public List<AuthKey> auth_keys { get; set; }
         }
 
         public List<Extension> extensions { get; set; }
@@ -34,7 +35,11 @@ namespace FlowplaneExtensions.Models.api.Register
                     url_path_auth = urlPrefix + url.Action("Auth", "Asana"),
                     url_path_header = urlPrefix + url.Action("Header", "Asana"),
                     url_path_body = urlPrefix + url.Action("Body", "Asana"),
-                    img_src = urlPrefix + url.Content("~//Content/img/ext-asana.png")
+                    img_src = urlPrefix + url.Content("~//Content/img/ext-asana.png"),
+                    auth_keys = new List<AuthKey>()
+                    {
+                        new AuthKey() { key = "API_Key", controlId = "#txtAsanaAPIKey", controlDescription = "API key", required = true }
+                    }
                 }
             };
         }

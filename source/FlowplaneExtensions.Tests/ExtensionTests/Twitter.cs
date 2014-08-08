@@ -16,16 +16,14 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         private const string consumerSecret = "YOUR_CONSUMER_SECRET";
         private const string accessToken = "YOUR_ACCESS_TOKEN";
         private const string accessSecret = "YOUR_ACCESS_TOKEN_SECRET";
-
-        
         private const string extId = "twitter";
 
-        [TestMethod]
-        public void ShareUpdate()
-        {
-            var u = new FlowplaneExtensions.Controllers.api.Api_FlowController().ShareUpdate(GetCol("My fist post: Using Twitter web api's from flowplane"));
-            Console.WriteLine(System.Net.HttpStatusCode.OK);
-        }
+        //[TestMethod]
+        //public void ShareUpdate()
+        //{
+        //    var u = new FlowplaneExtensions.Controllers.api.Api_FlowController().ShareUpdate(GetCol("My fist post: Using Twitter web api's from flowplane"));
+        //    Console.WriteLine(System.Net.HttpStatusCode.OK);
+        //}
 
         private FormDataCollection GetCol(string message)
         {

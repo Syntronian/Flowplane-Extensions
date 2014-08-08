@@ -45,7 +45,19 @@ namespace FlowplaneExtensions.Controllers.api
                                                     , Common.GetValue(formData, "authToken"));
         }
 
-       
+        [HttpPost]
+        [AllowAnonymous]
+        public IOrganisations GetOrganisations(FormDataCollection formData)
+        {
+            int orgId;
+            Int32.TryParse(Common.GetValue(formData, "organizationId"),out orgId);
+            return new Models.api.Process.Details().GetOrganizations(Common.GetValue(formData, "extId")
+                                                    , Common.GetValue(formData, "clientId")
+                                                    , Common.GetValue(formData, "clientSecret")
+                                                    , Common.GetValue(formData, "accessToken")
+                                                    , orgId);
+
+        }
 
     }
 }

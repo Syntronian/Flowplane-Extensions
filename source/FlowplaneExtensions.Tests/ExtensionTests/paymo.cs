@@ -15,29 +15,19 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         private const string uName = "Replace_With_Your_UserName";
         private const string pwd = "Replace_With_Your_Password";
         private const string token = "Replace_With_Your_Token";
-        [TestMethod]
-        public void ListUsers()
-        {
-            var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol());
-            this.Display(users);
-        }
+        //[TestMethod]
+        //public void ListUsers()
+        //{
+        //    var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol());
+        //    Common.Display(users);
+        //}
 
-        [TestMethod]
-        public void ListProjects()
-        {
-            var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetProjects(GetCol());
-            this.Display(users);
-        }
-
-
-        private void Display(dynamic res)
-        {
-            foreach (var i in res.items)
-            {
-                Console.WriteLine("id: " + i.id);
-                Console.WriteLine("name: " + i.name);
-            }
-        }
+        //[TestMethod]
+        //public void ListProjects()
+        //{
+        //    var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetProjects(GetCol());
+        //    Common.Display(users);
+        //}
 
         private FormDataCollection GetCol()
         {

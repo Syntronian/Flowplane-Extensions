@@ -10,43 +10,27 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
     [TestClass]
     public class Asana
     {
-        private const string myAPIKEY = "2XaGT9Ig.5VGoJUHAQwFOmuIsT2izPLx";
-
-        //[TestMethod]
-        //public void Login()
-        //{
-        //    var auth = new Extensions.Asana.Auth(this.auth);
-        //    Console.Write(auth.TestGet());
-        //}
+        private const string myAPIKEY = "YOUR_API_KEY_HERE";
 
         //[TestMethod]
         //public void ListUsers()
         //{
         //    var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol());
-        //    this.Display(users);
+        //    Common.Display(users);
         //}
 
         //[TestMethod]
         //public void ListWorkSpaces()
         //{
         //    var ws = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetWorkSpaces(GetCol());
-        //    this.Display(ws);
+        //    Common.Display(ws);
         //}
 
         //[TestMethod]
         //public void ListProjects()
         //{
         //    var p = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetProjects(GetCol());
-        //    this.Display(p);
-        //}
-
-        //private void Display(dynamic res)
-        //{
-        //    foreach (var i in res.items)
-        //    {
-        //        Console.WriteLine("id: " + i.id);
-        //        Console.WriteLine("name: " + i.name);
-        //    }
+        //    Common.Display(p);
         //}
 
         //private FormDataCollection GetCol()

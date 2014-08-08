@@ -49,5 +49,17 @@ namespace FlowplaneExtensions.Models.api.Process
             }
             throw new Exception("Invalid extension.");
         }
+
+        public IOrganisations GetOrganizations(string extId, string clientId, string clientSecret, string accessToken,int? organisationId = null)
+        {
+            if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return new Extensions.Podio.Orgs(new Extensions.Podio.Auth(clientId,
+                                                     clientSecret,
+                                                     accessToken,
+                                                     organisationId)).List();
+            }
+            throw new Exception("Invalid extension.");
+        }
     }
 }

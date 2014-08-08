@@ -17,10 +17,16 @@ namespace FlowplaneExtensions.Controllers.api
         [AllowAnonymous]
         public IAssignees GetAssignees(FormDataCollection formData)
         {
+            int orgId;
+            Int32.TryParse(Common.GetValue(formData, "organisationId"), out orgId);
             return new Models.api.Process.Details().GetAssignees(Common.GetValue(formData, "extId")
                                                                 , Common.GetValue(formData, "apiKey")
                                                                 , Common.GetValue(formData, "userName")
-                                                                , Common.GetValue(formData, "password"));
+                                                                , Common.GetValue(formData, "password")
+                                                                , Common.GetValue(formData, "clientId")
+                                                                , Common.GetValue(formData, "clientSecret")
+                                                                , Common.GetValue(formData, "accessToken")
+                                                                , orgId);
         }
 
         [HttpPost]

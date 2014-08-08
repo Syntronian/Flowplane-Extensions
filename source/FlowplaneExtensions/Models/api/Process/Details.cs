@@ -9,10 +9,11 @@ namespace FlowplaneExtensions.Models.api.Process
 {
     public class Details
     {
-        public IAssignees GetAssignees(string extId, string apiKey, string uName = null, string password = null)
+        public IAssignees GetAssignees(string extId, string apiKey = null, string uName = null, string password = null, string clientId = null, string clientSecret = null, string accessToken = null, int? organisationId = null)
         {
             if (extId.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
+                if (apiKey == null) throw new Exception("Asana api key is mandatory.");
                 return new Extensions.Asana.Users(new Auth(apiKey)).List();
             }
             if (extId.Equals(new Extensions.Paymo.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
@@ -20,6 +21,13 @@ namespace FlowplaneExtensions.Models.api.Process
                 if (uName == null) throw new Exception("Paymo user name is mandatory.");
                 if (password == null) throw new Exception("Paymo password is mandatory.");
                 return new Extensions.Paymo.Users(new Extensions.Paymo.Auth(apiKey, uName, password)).List();
+            }
+            if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                if (clientId == null) throw new Exception("Podio client id is mandatory.");
+                if (clientSecret == null) throw new Exception("Podio client secret is mandatory.");
+                if (accessToken == null) throw new Exception("Podio auth token is mandatory.");
+                return new Extensions.Podio.Users(new Extensions.Podio.Auth(clientId, clientSecret, accessToken, organisationId)).List();
             }
             throw new Exception("Invalid extension.");
         }
@@ -45,12 +53,12 @@ namespace FlowplaneExtensions.Models.api.Process
             {
                 if (uName == null) throw new Exception("Paymo user name is mandatory.");
                 if (password == null) throw new Exception("Paymo password is mandatory.");
-                return new Extensions.Paymo.Projects(new Extensions.Paymo.Auth(apiKey, uName, password,authToken)).List();
+                return new Extensions.Paymo.Projects(new Extensions.Paymo.Auth(apiKey, uName, password, authToken)).List();
             }
             throw new Exception("Invalid extension.");
         }
 
-        public IOrganisations GetOrganizations(string extId, string clientId, string clientSecret, string accessToken,int? organisationId = null)
+        public IOrganisations GetOrganizations(string extId, string clientId, string clientSecret, string accessToken, int? organisationId = null)
         {
             if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {

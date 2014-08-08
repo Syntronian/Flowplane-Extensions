@@ -18,11 +18,18 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         [TestMethod]
         public void GetOrg()
         {
-            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetOrganisations(GetCol());
+            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetOrganisations(GetCol(null));
             Common.Display(o);
         }
-        
-        private FormDataCollection GetCol()
+
+        [TestMethod]
+        public void GetAssignees()
+        {
+            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol("YOUR_ORGANISATION_ID_HERE"));
+            Common.Display(o);
+        }
+
+        private FormDataCollection GetCol(string orgId = null)
         {
             var pairs = new Dictionary<string, string> 
                 { 
@@ -30,6 +37,7 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
                     { "clientId" , clientId } ,
                     { "clientSecret" , clientSecret } ,
                     { "accessToken" , accessToken} ,
+                    {"organisationId", orgId}
                 };
             return new FormDataCollection(pairs);
         }

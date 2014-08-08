@@ -24,7 +24,7 @@ namespace Extensions.Podio.Responses.Users
 
 
 
-    public class List
+    public class List : ExtensionsCore.IAssignees
     {
         public List<ExtensionsCore.IAssignee> items { get; set; }
 

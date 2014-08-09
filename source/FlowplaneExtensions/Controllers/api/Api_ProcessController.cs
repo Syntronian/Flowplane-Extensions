@@ -21,7 +21,7 @@ namespace FlowplaneExtensions.Controllers.api
             Int32.TryParse(Common.GetValue(formData, "organisationId"), out orgId);
             return new Models.api.Process.Details().GetAssignees(Common.GetValue(formData, "extId")
                                                                 , Common.GetValue(formData, "apiKey")
-                                                                , Common.GetValue(formData, "userName")
+                                                                , Common.GetValue(formData, "username")
                                                                 , Common.GetValue(formData, "password")
                                                                 , Common.GetValue(formData, "clientId")
                                                                 , Common.GetValue(formData, "clientSecret")
@@ -31,7 +31,7 @@ namespace FlowplaneExtensions.Controllers.api
 
         [HttpPost]
         [AllowAnonymous]
-        public Extensions.Asana.Responses.Workspaces.List GetWorkSpaces(FormDataCollection formData)
+        public IWorkspaces GetWorkSpaces(FormDataCollection formData)
         {
             return new Models.api.Process.Details().GetWorkSpaces(Common.GetValue(formData, "extId")
                                                                 , Common.GetValue(formData, "apiKey"));
@@ -46,7 +46,7 @@ namespace FlowplaneExtensions.Controllers.api
                                                     , Common.GetValue(formData, "apiKey")
                                                     , Common.GetValue(formData, "workspaceId")
                                                     , Boolean.TryParse(Common.GetValue(formData, "archived"), out archived) ? (bool?)archived : null
-                                                    , Common.GetValue(formData, "userName")
+                                                    , Common.GetValue(formData, "username")
                                                     , Common.GetValue(formData, "password")
                                                     , Common.GetValue(formData, "authToken"));
         }

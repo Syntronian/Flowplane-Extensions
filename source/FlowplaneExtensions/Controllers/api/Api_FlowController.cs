@@ -22,7 +22,7 @@ namespace FlowplaneExtensions.Controllers.api
                                                          , Common.GetValue(formData, "description")
                                                          , Common.GetValue(formData, "actionName")
                                                          , Common.GetValue(formData, "actionLinkUrl")
-                                                          , Common.GetValue(formData, "appId")
+                                                         , Common.GetValue(formData, "appId")
                                                          , Common.GetValue(formData, "appToken")
                                                          , Common.GetValue(formData, "consumerKey")
                                                          , Common.GetValue(formData, "consumerSecret")

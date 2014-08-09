@@ -46,6 +46,7 @@
     <Compile Include="IIdentity.cs" />
     <Compile Include="IOrganisation.cs" />
     <Compile Include="IProject.cs" />
+    <Compile Include="IWorkspace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

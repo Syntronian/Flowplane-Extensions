@@ -5,11 +5,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Net.Http.Formatting;
+using System.Web.Http.Cors;
+
 namespace FlowplaneExtensions.Controllers.api
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class Api_FlowController : ApiController
     {
-        // POST api/<controller>
         [HttpPost]
         [AllowAnonymous]
         public HttpResponseMessage Exec(FormDataCollection formData)

@@ -38,27 +38,33 @@ namespace FlowplaneExtensions
             );
 
             config.Routes.MapHttpRoute(
-                name: "Api_Process_GetAssignee",
+                name: "Api_Process_GetAssignees",
                 routeTemplate: "api/process/getassignees",
-                defaults: new { controller = "Api_Process" }
+                defaults: new { controller = "Api_Process", action = "GetAssignees" }
             );
 
             config.Routes.MapHttpRoute(
                 name: "Api_Process_GetWorkspaces",
                 routeTemplate: "api/process/getworkspaces",
-                defaults: new { controller = "Api_Process" }
+                defaults: new { controller = "Api_Process", action = "GetWorkSpaces" }
             );
 
             config.Routes.MapHttpRoute(
                 name: "Api_Process_GetProjects",
                 routeTemplate: "api/process/getprojects",
-                defaults: new { controller = "Api_Process" }
+                defaults: new { controller = "Api_Process", action = "GetProjects" }
             );
 
             config.Routes.MapHttpRoute(
-                name: "Api_Flow_FacebookUpdate",
+                name: "Api_Process_GetOrganisations",
+                routeTemplate: "api/process/getorganisations",
+                defaults: new { controller = "Api_Process", action = "GetOrganisations" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "Api_Flow_Exec",
                 routeTemplate: "api/flow/exec",
-                defaults: new { controller = "Api_Process" }
+                defaults: new { controller = "Api_Flow", action = "Exec" }
             );
         }
     }

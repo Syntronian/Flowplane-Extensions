@@ -7,21 +7,21 @@ namespace FlowplaneExtensions.Models.api.flow
 {
     public class Exec
     {
-        public HttpResponseMessage PostUpdate(string extId,
-                                              string message,
-                                              string linkUrl,
-                                              string pictureUrl,
-                                              string name,
-                                              string caption,
-                                              string description,
-                                              string actionName,
-                                              string actionLinkUrl,
-                                              string appId = null,
-                                              string appToken = null,
-                                              string consumerKey=null,
-                                              string consumerSecret = null,
-                                              string accessToken = null,
-                                              string accessTokenSecret = null)
+        public HttpResponseMessage Run(string extId,
+                                       string message,
+                                       string linkUrl,
+                                       string pictureUrl,
+                                       string name,
+                                       string caption,
+                                       string description,
+                                       string actionName,
+                                       string actionLinkUrl,
+                                       string appId = null,
+                                       string appToken = null,
+                                       string consumerKey=null,
+                                       string consumerSecret = null,
+                                       string accessToken = null,
+                                       string accessTokenSecret = null)
         {
             if (extId.Equals(new Extensions.Facebook.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {

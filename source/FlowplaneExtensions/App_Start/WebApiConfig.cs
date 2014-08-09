@@ -19,11 +19,22 @@ namespace FlowplaneExtensions
 
             config.EnableCors();
 
-
             config.Routes.MapHttpRoute(
                 name: "Api_Register_GetAll",
                 routeTemplate: "api/register/getall",
-                defaults: new { controller = "Api_Register_GetAll" }
+                defaults: new { controller = "Api_Register", action = "GetAll" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "Api_Register_GetObjectTypeNameActivity",
+                routeTemplate: "api/register/getobjecttypenameactivity",
+                defaults: new { controller = "Api_Register", action = "GetObjectTypeNameActivity" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "Api_Register_GetObjectTypeNameEvent",
+                routeTemplate: "api/register/getobjecttypenameevent",
+                defaults: new { controller = "Api_Register", action = "GetObjectTypeNameEvent" }
             );
 
             config.Routes.MapHttpRoute(
@@ -49,7 +60,6 @@ namespace FlowplaneExtensions
                 routeTemplate: "api/flow/exec",
                 defaults: new { controller = "Api_Process" }
             );
-            
         }
     }
 }

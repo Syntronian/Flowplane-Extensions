@@ -12,5 +12,6 @@ namespace ExtensionsCore
         public string controlId { get; set; }
         public string controlDescription { get; set; }
         public bool required { get; set; }
+        public string requiredMessage { get; set; }
     }
 }

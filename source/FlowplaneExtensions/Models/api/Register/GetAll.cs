@@ -38,7 +38,13 @@ namespace FlowplaneExtensions.Models.api.Register
                     img_src = urlPrefix + url.Content("~//Content/img/ext-asana.png"),
                     auth_keys = new List<AuthKey>()
                     {
-                        new AuthKey() { key = "API_Key", controlId = "txtAsanaAPIKey", controlDescription = "API key", required = true }
+                        new AuthKey() {
+                            key = "API_Key",
+                            controlId = "txtAsanaAPIKey",
+                            controlDescription = "API key",
+                            required = true,
+                            requiredMessage = "API key is required."
+                        }
                     }
                 }
             };

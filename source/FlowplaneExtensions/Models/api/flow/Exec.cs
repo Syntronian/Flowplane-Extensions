@@ -14,7 +14,7 @@ namespace FlowplaneExtensions.Models.api.flow
         {
             if (extId.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var apiKey = data["apiKey"];
+                var apiKey = data["API_Key"];
                 var daysDue = data["daysDue"];
                 var workspace = data["workspace"];
                 var project = data["project"];
@@ -78,7 +78,7 @@ namespace FlowplaneExtensions.Models.api.flow
         {
             if (extId.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var apiKey = data["apiKey"];
+                var apiKey = data["API_Key"];
                 var completed = data["completed"];
                 var taskId = data["taskId"];
 

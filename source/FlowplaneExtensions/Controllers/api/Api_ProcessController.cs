@@ -17,53 +17,28 @@ namespace FlowplaneExtensions.Controllers.api
         [AllowAnonymous]
         public IAssignees GetAssignees(FormDataCollection formData)
         {
-            int orgId;
-            Int32.TryParse(Common.GetValue(formData, "organisationId"), out orgId);
-            return new Models.api.Process.Details().GetAssignees(Common.GetValue(formData, "extId")
-                                                                , Common.GetValue(formData, "apiKey")
-                                                                , Common.GetValue(formData, "username")
-                                                                , Common.GetValue(formData, "password")
-                                                                , Common.GetValue(formData, "clientId")
-                                                                , Common.GetValue(formData, "clientSecret")
-                                                                , Common.GetValue(formData, "accessToken")
-                                                                , orgId);
+            return new Models.api.Process.Details().GetAssignees(Common.GetValue(formData, "extId"), formData);
         }
 
         [HttpPost]
         [AllowAnonymous]
         public IWorkspaces GetWorkSpaces(FormDataCollection formData)
         {
-            return new Models.api.Process.Details().GetWorkSpaces(Common.GetValue(formData, "extId")
-                                                                , Common.GetValue(formData, "apiKey"));
+            return new Models.api.Process.Details().GetWorkSpaces(Common.GetValue(formData, "extId"), formData);
         }
 
         [HttpPost]
         [AllowAnonymous]
         public IProjects GetProjects(FormDataCollection formData)
         {
-            bool archived;
-            return new Models.api.Process.Details().GetProjects(Common.GetValue(formData, "extId")
-                                                    , Common.GetValue(formData, "apiKey")
-                                                    , Common.GetValue(formData, "workspaceId")
-                                                    , Boolean.TryParse(Common.GetValue(formData, "archived"), out archived) ? (bool?)archived : null
-                                                    , Common.GetValue(formData, "username")
-                                                    , Common.GetValue(formData, "password")
-                                                    , Common.GetValue(formData, "authToken"));
+            return new Models.api.Process.Details().GetProjects(Common.GetValue(formData, "extId"), formData);
         }
 
         [HttpPost]
         [AllowAnonymous]
         public IOrganisations GetOrganisations(FormDataCollection formData)
         {
-            int orgId;
-            Int32.TryParse(Common.GetValue(formData, "organizationId"),out orgId);
-            return new Models.api.Process.Details().GetOrganizations(Common.GetValue(formData, "extId")
-                                                    , Common.GetValue(formData, "clientId")
-                                                    , Common.GetValue(formData, "clientSecret")
-                                                    , Common.GetValue(formData, "accessToken")
-                                                    , orgId);
-
+            return new Models.api.Process.Details().GetOrganizations(Common.GetValue(formData, "extId"), formData);
         }
-
     }
 }

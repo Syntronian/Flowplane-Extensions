@@ -14,24 +14,16 @@ namespace FlowplaneExtensions.Controllers.api
     {
         [HttpPost]
         [AllowAnonymous]
-        public HttpResponseMessage Exec(FormDataCollection formData)
+        public string ActivateObject(FormDataCollection formData)
         {
-            return new Models.api.flow.Exec().Run(Common.GetValue(formData, "extId"),
-                                                  Common.GetValue(formData, "message"),
-                                                  Common.GetValue(formData, "linkUrl"),
-                                                  Common.GetValue(formData, "pictureUrl"),
-                                                  Common.GetValue(formData, "name"),
-                                                  Common.GetValue(formData, "caption"),
-                                                  Common.GetValue(formData, "description"),
-                                                  Common.GetValue(formData, "actionName"),
-                                                  Common.GetValue(formData, "actionLinkUrl"),
-                                                  Common.GetValue(formData, "appId"),
-                                                  Common.GetValue(formData, "appToken"),
-                                                  Common.GetValue(formData, "consumerKey"),
-                                                  Common.GetValue(formData, "consumerSecret"),
-                                                  Common.GetValue(formData, "accessToken"),
-                                                  Common.GetValue(formData, "accessTokenSecret"));
+            return new Models.api.flow.Exec().ActivateObject(Common.GetValue(formData, "extId"), formData);
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public HttpResponseMessage CompleteActivity(FormDataCollection formData)
+        {
+            return new Models.api.flow.Exec().CompleteActivity(Common.GetValue(formData, "extId"), formData);
+        }
     }
 }

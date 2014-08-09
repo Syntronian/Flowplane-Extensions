@@ -21,7 +21,7 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         //[TestMethod]
         //public void ShareUpdate()
         //{
-        //    var u = new FlowplaneExtensions.Controllers.api.Api_FlowController().ShareUpdate(GetCol("My fist post: Using Twitter web api's from flowplane"));
+        //    var u = new FlowplaneExtensions.Controllers.api.Api_FlowController().ActivateObject(GetCol("My fist post: Using Twitter web api's from flowplane"));
         //    Console.WriteLine(System.Net.HttpStatusCode.OK);
         //}
 

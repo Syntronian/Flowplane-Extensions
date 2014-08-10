@@ -15,7 +15,7 @@ var fpxt;
         }
         ExtensionDialog.initialise = function (extCode, authKeys, objParams) {
             // Simple hack for now. Override this base url for debugging.
-            var baseApiUrl = 'https://fpxt.azurewebsites.net';
+            var baseApiUrl = 'https://fpxt.azurewebsites.net/';
 
             switch (extCode.toLowerCase()) {
                 case fpxt.forms.Asana.extId.toLowerCase():

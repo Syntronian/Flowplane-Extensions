@@ -11,8 +11,8 @@ module fpxt {
         public static initialise(extCode: string, authKeys: fpxtParam[], objParams: fpxtParam[]) {
             // Simple hack for now. Override this base url for debugging.
 
-            var baseApiUrl = 'https://fpxt.azurewebsites.net';
-
+            var baseApiUrl = 'https://fpxt.azurewebsites.net/';
+            // baseApiUrl = 'http://localhost/flowplaneextensions/';
 
             
             switch(extCode.toLowerCase()) {

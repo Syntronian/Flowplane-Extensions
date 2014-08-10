@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -22,6 +23,7 @@
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -134,13 +136,14 @@
     <Compile Include="Controllers\api\Api_FlowController.cs" />
     <Compile Include="Controllers\api\Api_RegisterController.cs" />
     <Compile Include="Controllers\api\Api_ProcessController.cs" />
-    <Compile Include="Controllers\api\Common.cs" />
+    <Compile Include="Models\api\Common.cs" />
     <Compile Include="Controllers\AsanaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\api\flow\Exec.cs" />
+    <Compile Include="Models\api\FpxtParam.cs" />
     <Compile Include="Models\api\Process\Details.cs" />
     <Compile Include="Models\api\Register\GetAll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -156,6 +159,9 @@
     <Content Include="Content\img\ext-paymo.png" />
     <Content Include="Content\img\ext-podio.png" />
     <Content Include="Content\img\ext-twitter.png" />
+    <Content Include="Content\js\forms\asana.js" />
+    <Content Include="Content\js\fpxt.js" />
+    <Content Include="Content\js\shearnie\tools.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -216,11 +222,21 @@
       <Name>ExtensionsCore</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Content\js\forms\asana.ts" />
+    <TypeScriptCompile Include="Content\js\fpxt.ts" />
+    <TypeScriptCompile Include="Content\js\refs.d.ts" />
+    <TypeScriptCompile Include="Content\js\shearnie\tools.ts" />
+    <TypeScriptCompile Include="Content\js\typescript-defs\bootstrap.d.ts" />
+    <TypeScriptCompile Include="Content\js\typescript-defs\jquery.d.ts" />
+    <TypeScriptCompile Include="Content\js\typescript-defs\linq.d.ts" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">

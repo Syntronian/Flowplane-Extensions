@@ -8,6 +8,13 @@ namespace FlowplaneExtensions
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            var optimise = true;
+#if DEBUG
+            optimise = false;
+#endif
+            BundleTable.EnableOptimizations = optimise;
+
+
             bundles.Add(new StyleBundle("~/Content/css/style").Include(
                 "~/Content/css/asana.css",
                 "~/Content/css/facebook.css",
@@ -15,9 +22,15 @@ namespace FlowplaneExtensions
                 "~/Content/css/podio.css"
             ));
 
-            // Set EnableOptimizations to false for debugging. For more information,
-            // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = true;
+            Bundle js = new ScriptBundle("~/Content/js/all");
+#if DEBUG
+            js = new Bundle("~/Content/js/all");
+#endif
+            bundles.Add(js.Include(
+                "~/Content/js/shearnie/tools.js",
+                "~/Content/js/fpxt.js",
+                "~/Content/js/forms/asana.js"
+            ));
         }
     }
 }

@@ -26,6 +26,15 @@ namespace FlowplaneExtensions
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+#if DEBUG
+            // don't cache
+            // http://stackoverflow.com/questions/1160105/disable-browser-cache-for-entire-asp-net-website
+            HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+            HttpContext.Current.Response.Cache.SetValidUntilExpires(false);
+            HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+            HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            HttpContext.Current.Response.Cache.SetNoStore();
+#endif
         }
     }
 }

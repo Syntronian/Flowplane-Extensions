@@ -17,28 +17,28 @@ namespace FlowplaneExtensions.Controllers.api
         [AllowAnonymous]
         public IAssignees GetAssignees(FormDataCollection formData)
         {
-            return new Models.api.Process.Details().GetAssignees(Common.GetValue(formData, "extId"), formData);
+            return new Models.api.Process.Details().GetAssignees(formData);
         }
 
         [HttpPost]
         [AllowAnonymous]
         public IWorkspaces GetWorkSpaces(FormDataCollection formData)
         {
-            return new Models.api.Process.Details().GetWorkSpaces(Common.GetValue(formData, "extId"), formData);
+            return new Models.api.Process.Details().GetWorkSpaces(formData);
         }
 
         [HttpPost]
         [AllowAnonymous]
         public IProjects GetProjects(FormDataCollection formData)
         {
-            return new Models.api.Process.Details().GetProjects(Common.GetValue(formData, "extId"), formData);
+            return new Models.api.Process.Details().GetProjects(formData);
         }
 
         [HttpPost]
         [AllowAnonymous]
         public IOrganisations GetOrganisations(FormDataCollection formData)
         {
-            return new Models.api.Process.Details().GetOrganizations(Common.GetValue(formData, "extId"), formData);
+            return new Models.api.Process.Details().GetOrganizations(formData);
         }
     }
 }

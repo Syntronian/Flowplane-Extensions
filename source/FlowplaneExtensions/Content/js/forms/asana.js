@@ -3,7 +3,8 @@ var fpxt;
 (function (fpxt) {
     (function (forms) {
         var Asana = (function () {
-            function Asana(authKeys, objParams) {
+            function Asana(baseApiUrl, authKeys, objParams) {
+                this.baseApiUrl = baseApiUrl;
                 this.authKeys = authKeys;
                 this.objParams = objParams;
                 $("#assignees-loading").show();
@@ -14,10 +15,9 @@ var fpxt;
                 shearnie.tools.html.fillCombo($("#cboActivityParamProject"), null, "Select workspace above");
 
                 // get data first
-                var baseUrl = 'http://localhost/flowplaneextensions/';
                 var pd = new Array();
-                pd.push(new shearnie.tools.PostData(baseUrl + 'api/process/getassignees', { extId: Asana.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
-                pd.push(new shearnie.tools.PostData(baseUrl + 'api/process/getworkspaces', { extId: Asana.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: Asana.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getworkspaces', { extId: Asana.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
                 var cd = [];
                 new shearnie.tools.Poster().SendAsync(pd, function (numErrs) {
@@ -58,7 +58,7 @@ var fpxt;
                     $("#cboActivityParamProject").empty();
                     $("#cboActivityParamProject").append($('<option>Loading projects...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
 
-                    var result = new shearnie.tools.Poster().SendSync(baseUrl + 'api/process/getprojects', {
+                    var result = new shearnie.tools.Poster().SendSync(baseApiUrl + 'api/process/getprojects', {
                         extId: Asana.extId,
                         authKeys: JSON.stringify(authKeys),
                         objParams: JSON.stringify([{

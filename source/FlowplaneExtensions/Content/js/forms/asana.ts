@@ -6,7 +6,7 @@ module fpxt.forms {
 
         public static extId: string = 'ASANA';
 
-        public static setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[]) {
+        public static setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             $("#assignees-loading").show();
             $("#workspaces-loading").show();
             $("#cboActivityParamAssignee").hide();
@@ -52,41 +52,81 @@ module fpxt.forms {
                 shearnie.tools.html.fillCombo($("#cboActivityParamWorkspace"), cd, "Select workspace");
                 $("#workspaces-loading").hide();
                 $("#cboActivityParamWorkspace").show();
+
+                onCompleted();
             });
 
             // load projects and workspace selected
             $("#cboActivityParamWorkspace").change(event => {
-                $("#cboActivityParamProject").empty();
-                $("#cboActivityParamProject").append($('<option>Loading projects...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
+                Asana.loadProjects(baseApiUrl, authKeys);
+            });
+        }
 
-                var result = new shearnie.tools.Poster().SendSync(
-                    baseApiUrl + 'api/process/getprojects',
-                    {
-                        extId: Asana.extId,
-                        authKeys: JSON.stringify(authKeys),
-                        objParams: JSON.stringify([
-                            {
-                                key: 'workspaceId',
-                                value: $("#cboActivityParamWorkspace").val()
-                            }])
-                    });
+        private static loadProjects(baseApiUrl: string, authKeys: fpxtParam[]) {
+            $("#cboActivityParamProject").empty();
+            $("#cboActivityParamProject").append($('<option>Loading projects...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
 
-                if (result.items.length == 0) {
-                    shearnie.tools.html.fillCombo($("#cboActivityParamProject"), null, "No projects");
-                    return;
-                }
-
-                cd = [];
-                cd.push({
-                    getItems: () => {
-                        var ret: shearnie.tools.html.comboItem[] = [];
-                        result.items.forEach(item => {
-                            ret.push({ value: item.id, display: item.name });
-                        });
-                        return ret;
-                    }
+            var result = new shearnie.tools.Poster().SendSync(
+                baseApiUrl + 'api/process/getprojects',
+                {
+                    extId: Asana.extId,
+                    authKeys: JSON.stringify(authKeys),
+                    objParams: JSON.stringify([
+                        {
+                            key: 'workspaceId',
+                            value: $("#cboActivityParamWorkspace").val()
+                        }])
                 });
-                shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
+
+            if (result.items.length == 0) {
+                shearnie.tools.html.fillCombo($("#cboActivityParamProject"), null, "No projects");
+                return;
+            }
+
+            var cd = [];
+            cd.push({
+                getItems: () => {
+                    var ret: shearnie.tools.html.comboItem[] = [];
+                    result.items.forEach(item => {
+                        ret.push({ value: item.id, display: item.name });
+                    });
+                    return ret;
+                }
+            });
+            shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
+        }
+
+        public static fill(baseApiUrl: string, authKeys: fpxtParam[], values: fpxtParam[]) {
+            $("#txtActivityParamTaskDesc").val('');
+            $("#txtActivityParamTaskDueDays").val('');
+            $("#cboActivityParamAssignee").val(null);
+            $("#cboActivityParamWorkspace").val(null);
+            $("#cboActivityParamProject").val(null);
+
+            if (values == null) return;
+            values.forEach((p) => {
+                switch (p.key) {
+                    case 'taskdesc':
+                        $("#txtActivityParamTaskDesc").val(p.value);
+                        break;
+                    case 'taskduedays':
+                        $("#txtActivityParamTaskDueDays").val(p.value);
+                        break;
+                    case 'taskassignee':
+                        $("#cboActivityParamAssignee").val(p.value);
+                        break;
+                    case 'taskworkspace':
+                        $("#cboActivityParamWorkspace").val(p.value);
+                        break;
+                }
+            });
+
+            values.forEach((p) => {
+                switch (p.key) {
+                    case 'taskproject':
+                        Asana.loadProjects(baseApiUrl, authKeys);
+                        break;
+                }
             });
         }
 

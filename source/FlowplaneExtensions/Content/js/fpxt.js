@@ -32,10 +32,18 @@ var fpxt;
     var ExtensionDialog = (function () {
         function ExtensionDialog() {
         }
-        ExtensionDialog.initialise = function (extCode, authKeys, objParams) {
+        ExtensionDialog.initialise = function (extCode, authKeys, objParams, onCompleted) {
             switch (extCode.toLowerCase()) {
                 case fpxt.forms.Asana.extId.toLowerCase():
-                    fpxt.forms.Asana.setup(BaseApiUrl.path, authKeys, objParams);
+                    fpxt.forms.Asana.setup(BaseApiUrl.path, authKeys, objParams, onCompleted);
+                    break;
+            }
+        };
+
+        ExtensionDialog.fill = function (extCode, authKeys, values) {
+            switch (extCode.toLowerCase()) {
+                case fpxt.forms.Asana.extId.toLowerCase():
+                    fpxt.forms.Asana.fill(BaseApiUrl.path, authKeys, values);
                     break;
             }
         };

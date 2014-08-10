@@ -19,11 +19,19 @@ module fpxt {
 
     export class ExtensionDialog {
         
-        public static initialise(extCode: string, authKeys: fpxtParam[], objParams: fpxtParam[]) {
+        public static initialise(extCode: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             switch(extCode.toLowerCase()) {
                 case forms.Asana.extId.toLowerCase():
-                    forms.Asana.setup(BaseApiUrl.path, authKeys, objParams);
+                    forms.Asana.setup(BaseApiUrl.path, authKeys, objParams, onCompleted);
                     break;
+            }
+        }
+
+        public static fill(extCode: string, authKeys: fpxtParam[], values: fpxtParam[]) {
+            switch (extCode.toLowerCase()) {
+                case forms.Asana.extId.toLowerCase():
+                    forms.Asana.fill(BaseApiUrl.path, authKeys, values);
+                break;
             }
         }
 

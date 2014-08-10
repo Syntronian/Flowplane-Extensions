@@ -117,10 +117,11 @@ var fpxt;
                     }
                 });
 
+                Asana.loadProjects(baseApiUrl, authKeys);
+
                 values.forEach(function (p) {
                     switch (p.key) {
                         case 'taskproject':
-                            Asana.loadProjects(baseApiUrl, authKeys);
                             $("#cboActivityParamProject").val(p.value);
                             break;
                     }

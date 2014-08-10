@@ -121,10 +121,11 @@ module fpxt.forms {
                 }
             });
 
+            Asana.loadProjects(baseApiUrl, authKeys);
+
             values.forEach((p) => {
                 switch (p.key) {
                     case 'taskproject':
-                        Asana.loadProjects(baseApiUrl, authKeys);
                         $("#cboActivityParamProject").val(p.value);
                         break;
                 }

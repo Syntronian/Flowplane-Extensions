@@ -3,10 +3,9 @@ var fpxt;
 (function (fpxt) {
     (function (forms) {
         var Asana = (function () {
-            function Asana(baseApiUrl, authKeys, objParams) {
-                this.baseApiUrl = baseApiUrl;
-                this.authKeys = authKeys;
-                this.objParams = objParams;
+            function Asana() {
+            }
+            Asana.setup = function (baseApiUrl, authKeys, objParams) {
                 $("#assignees-loading").show();
                 $("#workspaces-loading").show();
                 $("#cboActivityParamAssignee").hide();
@@ -84,7 +83,34 @@ var fpxt;
                     });
                     shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
                 });
-            }
+            };
+
+            Asana.getProperties = function () {
+                if ($("#txtActivityParamTaskDesc").val() == "")
+                    throw "Description is required.";
+
+                var ret = [];
+
+                ret.push({ key: "taskdesc", value: $("#txtActivityParamTaskDesc").val() });
+                ret.push({ key: "taskduedays", value: $("#txtActivityParamTaskDueDays").val() });
+
+                if ($("#cboActivityParamAssignee").val()) {
+                    ret.push({ key: "taskassignee", value: $("#cboActivityParamAssignee").val() });
+                    ret.push({ key: "taskassigneename", value: $("#cboActivityParamAssignee option:selected").text() });
+                }
+
+                if ($("#cboActivityParamWorkspace").val()) {
+                    ret.push({ key: "taskworkspace", value: $("#cboActivityParamWorkspace").val() });
+                    ret.push({ key: "taskworkspacename", value: $("#cboActivityParamWorkspace option:selected").text() });
+                }
+
+                if ($("#cboActivityParamProject").val()) {
+                    ret.push({ key: "taskproject", value: $("#cboActivityParamProject").val() });
+                    ret.push({ key: "taskprojectname", value: $("#cboActivityParamProject option:selected").text() });
+                }
+
+                return ret;
+            };
             Asana.extId = 'ASANA';
             return Asana;
         })();

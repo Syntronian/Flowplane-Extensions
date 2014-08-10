@@ -6,19 +6,34 @@ module fpxt {
         constructor(public key: string, public value: string) { }
     }
 
+    // Simple hack for now. Override this base url for debugging.
+    export class BaseApiUrl {
+        static _baseApiUrl: string = 'https://fpxt.azurewebsites.net/';
+
+        public static get path(): string {
+            var ret = BaseApiUrl._baseApiUrl;
+            // ret = 'http://localhost/flowplaneextensions/';
+            return ret;
+        }
+    }
+
     export class ExtensionDialog {
-
+        
         public static initialise(extCode: string, authKeys: fpxtParam[], objParams: fpxtParam[]) {
-            // Simple hack for now. Override this base url for debugging.
-
-            var baseApiUrl = 'https://fpxt.azurewebsites.net/';
-            // baseApiUrl = 'http://localhost/flowplaneextensions/';
-
-            
             switch(extCode.toLowerCase()) {
                 case forms.Asana.extId.toLowerCase():
-                    var frm = new forms.Asana(baseApiUrl, authKeys, objParams);
+                    forms.Asana.setup(BaseApiUrl.path, authKeys, objParams);
                     break;
+            }
+        }
+
+        public static getProperties(extCode: string): fpxtParam[] {
+            switch (extCode.toLowerCase()) {
+                case forms.Asana.extId.toLowerCase():
+                    return forms.Asana.getProperties();
+
+                default:
+                    return [];
             }
         }
 

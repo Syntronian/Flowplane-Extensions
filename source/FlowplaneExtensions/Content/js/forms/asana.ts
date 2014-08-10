@@ -6,7 +6,7 @@ module fpxt.forms {
 
         public static extId: string = 'ASANA';
 
-        constructor(public baseApiUrl: string, public authKeys: fpxtParam[], public objParams: fpxtParam[]) {
+        public static setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[]) {
             $("#assignees-loading").show();
             $("#workspaces-loading").show();
             $("#cboActivityParamAssignee").hide();
@@ -88,6 +88,33 @@ module fpxt.forms {
                 });
                 shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
             });
+        }
+
+        public static getProperties(): fpxtParam[] {
+            if ($("#txtActivityParamTaskDesc").val() == "")
+                throw "Description is required.";
+
+            var ret: fpxtParam[] = [];
+
+            ret.push({ key: "taskdesc", value: $("#txtActivityParamTaskDesc").val() });
+            ret.push({ key: "taskduedays", value: $("#txtActivityParamTaskDueDays").val() });
+
+            if ($("#cboActivityParamAssignee").val()) {
+                ret.push({ key: "taskassignee", value: $("#cboActivityParamAssignee").val() });
+                ret.push({ key: "taskassigneename", value: $("#cboActivityParamAssignee option:selected").text() });
+            }
+
+            if ($("#cboActivityParamWorkspace").val()) {
+                ret.push({ key: "taskworkspace", value: $("#cboActivityParamWorkspace").val() });
+                ret.push({ key: "taskworkspacename", value: $("#cboActivityParamWorkspace option:selected").text() });
+            }
+
+            if ($("#cboActivityParamProject").val()) {
+                ret.push({ key: "taskproject", value: $("#cboActivityParamProject").val() });
+                ret.push({ key: "taskprojectname", value: $("#cboActivityParamProject option:selected").text() });
+            }
+
+            return ret;
         }
     }
 }

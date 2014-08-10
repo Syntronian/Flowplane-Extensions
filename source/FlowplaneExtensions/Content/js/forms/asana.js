@@ -121,6 +121,7 @@ var fpxt;
                     switch (p.key) {
                         case 'taskproject':
                             Asana.loadProjects(baseApiUrl, authKeys);
+                            $("#cboActivityParamProject").val(p.value);
                             break;
                     }
                 });

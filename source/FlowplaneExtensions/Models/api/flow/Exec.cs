@@ -10,18 +10,24 @@ namespace FlowplaneExtensions.Models.api.flow
 {
     public class Exec
     {
-        public string ActivateObject(string extId,FormDataCollection data)
+        public string ActivateObject(FormDataCollection formData)
         {
+            var extId = Common.GetValue(formData, "extId");
+            var authKeys = Common.TryGetParams(formData["authKeys"]);
+            var objParams = Common.TryGetParams(formData["objParams"]);
+
             if (extId.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var apiKey = data["API_Key"];
-                var daysDue = data["daysDue"];
-                var workspace = data["workspace"];
-                var project = data["project"];
-                var name = data["name"];
-                var assigneeId = data["assigneeId"];
+                var apiKey = authKeys.FirstOrDefault(k => k.key == "API_Key");
+                if (apiKey == null) throw new Exception("Invalid API_Key");
+
+                var name = Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskdesc"));
+                var daysDue = Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskduedays"));
+                var assigneeId = Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskassignee"));
+                var workspace = Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskworkspace"));
+                var project = Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskproject"));
                 
-                var task = new Extensions.Asana.Tasks(new Auth(apiKey));
+                var task = new Extensions.Asana.Tasks(new Auth(apiKey.value));
 
                 if (string.IsNullOrEmpty(daysDue))
                 {
@@ -29,23 +35,23 @@ namespace FlowplaneExtensions.Models.api.flow
                 }
 
                 var taskDaysDue = 0;
-                if (!int.TryParse(daysDue, out taskDaysDue)) throw new Exception("daysDue is not a valid integer.");
+                if (!int.TryParse(daysDue, out taskDaysDue)) throw new Exception("Days due is not a valid integer.");
 
                 return task.Create(workspace, project, name, assigneeId, taskDaysDue).id;
             }
 
             if (extId.Equals(new Extensions.Facebook.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var appId = data["appId"];
-                var appToken = data["appToken"];
-                var message = data["message"];
-                var linkUrl = data["linkUrl"];
-                var pictureUrl = data["pictureUrl"];
-                var name = data["name"];
-                var caption = data["caption"];
-                var description = data["description"];
-                var actionName = data["actionName"];
-                var actionLinkUrl = data["actionLinkUrl"];
+                var appId = formData["appId"];
+                var appToken = formData["appToken"];
+                var message = formData["message"];
+                var linkUrl = formData["linkUrl"];
+                var pictureUrl = formData["pictureUrl"];
+                var name = formData["name"];
+                var caption = formData["caption"];
+                var description = formData["description"];
+                var actionName = formData["actionName"];
+                var actionLinkUrl = formData["actionLinkUrl"];
 
                 if (string.IsNullOrEmpty(appId)) throw new Exception("Facebook app id is mandatory.");
                 if (string.IsNullOrEmpty(appToken)) throw new Exception("Facebook app token is mandatory.");
@@ -55,11 +61,11 @@ namespace FlowplaneExtensions.Models.api.flow
 
             if (extId.Equals(new Extensions.Twitter.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var consumerKey = data["consumerKey"];
-                var consumerSecret = data["consumerSecret"];
-                var accessToken = data["accessToken"];
-                var accessTokenSecret = data["accessTokenSecret"];
-                var message = data["message"];
+                var consumerKey = formData["consumerKey"];
+                var consumerSecret = formData["consumerSecret"];
+                var accessToken = formData["accessToken"];
+                var accessTokenSecret = formData["accessTokenSecret"];
+                var message = formData["message"];
 
                 if (string.IsNullOrEmpty(consumerKey)) throw new Exception("Twitter consumer key is mandatory.");
                 if (string.IsNullOrEmpty(consumerSecret)) throw new Exception("Twitter consumer secret is mandatory.");
@@ -71,16 +77,20 @@ namespace FlowplaneExtensions.Models.api.flow
 
             throw new Exception("Invalid extension.");
         }
-        
 
 
-        public HttpResponseMessage CompleteActivity(string extId, FormDataCollection data)
+
+        public HttpResponseMessage CompleteActivity(FormDataCollection formData)
         {
+            var extId = Common.GetValue(formData, "extId");
+            var authKeys = Common.TryGetParams(formData["authKeys"]);
+            var objParams = Common.TryGetParams(formData["objParams"]);
+
             if (extId.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var apiKey = data["API_Key"];
-                var completed = data["completed"];
-                var taskId = data["taskId"];
+                var apiKey = formData["API_Key"];
+                var completed = formData["completed"];
+                var taskId = formData["taskId"];
 
                 var task = new Extensions.Asana.Tasks(new Auth(apiKey));
 

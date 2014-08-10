@@ -94,8 +94,8 @@ namespace FlowplaneExtensions.Models.api.Process
                 if (apiKey == null) throw new Exception("Invalid API_Key");
                 
                 return new Projects(new Auth(apiKey.value)).List(
-                    Common.TryGetString(authKeys.FirstOrDefault(k => k.key == "workspaceId")) ?? "",
-                    Common.TryGetBool(authKeys.FirstOrDefault(k => k.key == "archived")));
+                    Common.TryGetString(objParams.FirstOrDefault(k => k.key == "workspaceId")) ?? "",
+                    Common.TryGetBool(objParams.FirstOrDefault(k => k.key == "archived")));
             }
 
             if (extId.Equals(new Extensions.Paymo.Identity().Code, StringComparison.CurrentCultureIgnoreCase))

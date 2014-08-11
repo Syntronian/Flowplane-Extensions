@@ -1,0 +1,56 @@
+﻿<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <div class="col-sm-2"></div>
+        <div id="dlg-ProcObjProperties-error" class="col-sm-8" style="color: #c00;"></div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Create task:
+        </label>
+        <div class="col-sm-8">
+            <input type="text" name="txtActivityParamTaskDesc" id="txtActivityParamTaskDesc" placeholder="Description (required)" maxlength="1000" class="form-control" style="width:100%" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Due:
+        </label>
+        <div class="col-sm-1">
+            <input type="text" name="txtActivityParamTaskDueDays" id="txtActivityParamTaskDueDays" placeholder="Days" maxlength="3" class="form-control" style="width:50px;" />
+        </div>
+        <div class="col-sm-7">
+            days
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Assignee:
+        </label>
+        <div class="col-sm-8">
+            <div id="assignees-loading" class="frmLoader" style="width: 440px">
+                &nbsp;Loading assignees...
+            </div>
+            <select id="cboActivityParamAssignee" class="form-control" style="width: 440px"></select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Project:
+        </label>
+        <div class="col-sm-8">
+            <div id="projects-loading" class="frmLoader" style="width: 440px">
+                &nbsp;Loading projects...
+            </div>
+            <select id="cboActivityParamProject" class="form-control" style="width: 440px"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">
+            Task list:
+        </label>
+        <div class="col-sm-8">
+            <select id="cboActivityParamTaskList" class="form-control" style="width: 440px"></select>
+        </div>
+    </div>
+</form>

@@ -160,6 +160,8 @@
     <Content Include="Content\img\ext-podio.png" />
     <Content Include="Content\img\ext-twitter.png" />
     <Content Include="Content\js\forms\asana.js" />
+    <Content Include="Content\js\forms\paymo.js" />
+    <Content Include="Content\js\forms\paymo.ts" />
     <Content Include="Content\js\fpxt.js" />
     <Content Include="Content\js\shearnie\tools.js" />
     <Content Include="Global.asax" />
@@ -195,6 +197,9 @@
     <None Include="Properties\PublishProfiles\fpxt - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\fpxt - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\fpxt.pubxml" />
+    <Content Include="Views\Paymo\Auth.cshtml" />
+    <Content Include="Views\Paymo\Body.cshtml" />
+    <Content Include="Views\Paymo\Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Extensions.Asana\Extensions.Asana.csproj">

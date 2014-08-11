@@ -1,0 +1,56 @@
+﻿<form class="form-horizontal" role="form">
+    <h4>
+         <img src="@System.Web.HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~//Content/img/ext-paymo.png")" />
+    &nbsp;
+    </h4>
+    <div class="form-group">
+        <label class="col-sm-11">
+            Enter Paymo username:
+        </label>
+
+        <div class="col-sm-11">
+            <input id="txtPaymoUsername"
+                   name="txtPaymoUsername"
+                   class="form-control"
+                   placeholder="Username"
+                   style="width: 96%;"
+                   type="text"
+                   maxlength="500"
+                   value="" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label class="col-sm-11">
+            Paymo password:
+        </label>
+
+        <div class="col-sm-11">
+            <input id="txtPaymoPassword"
+                   name="txtPaymoPassword"
+                   class="form-control"
+                   placeholder="Password"
+                   style="width: 96%;"
+                   type="password"
+                   maxlength="500"
+                   value="" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <label class="col-sm-11">
+            API key:
+        </label>
+
+        <div class="col-sm-11">
+            <input id="txtPaymoAPIKey"
+                   name="txtPaymoAPIKey"
+                   class="form-control"
+                   placeholder="API Key"
+                   style="width: 96%;"
+                   type="text"
+                   maxlength="250"
+                   value="" />
+        </div>
+    </div>
+</form>

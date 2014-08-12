@@ -7,14 +7,18 @@ var fpxt;
                 this.extId = 'PAYMO';
             }
             Paymo.prototype.setup = function (baseApiUrl, authKeys, objParams, onCompleted) {
+                var _this = this;
                 $("#assignees-loading").show();
+                $("#projects-loading").show();
                 $("#cboActivityParamAssignee").hide();
-                $("#cboActivityParamProject").empty();
-                shearnie.tools.html.fillCombo($("#cboActivityParamProject"), null);
+                $("#cboActivityParamProject").hide();
+                $("#cboActivityParamTaskList").empty();
+                shearnie.tools.html.fillCombo($("#cboActivityParamTaskList"), null, "Select project above");
 
                 // get data first
                 var pd = new Array();
                 pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getprojects', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
                 var cd = [];
                 new shearnie.tools.Poster().SendAsync(pd, function (numErrs) {
@@ -33,39 +37,29 @@ var fpxt;
                     $("#assignees-loading").hide();
                     $("#cboActivityParamAssignee").show();
 
+                    // fill projects
+                    cd = [];
+                    cd.push({
+                        getItems: function () {
+                            var ret = [];
+                            pd[1].result.items.forEach(function (item) {
+                                ret.push({ value: item.id, display: item.name });
+                            });
+                            return ret;
+                        }
+                    });
+
+                    shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
+                    $("#projects-loading").hide();
+                    $("#cboActivityParamProject").show();
+
                     onCompleted();
                 });
 
-                // load projects and task lists selected
-                this.loadProjects(baseApiUrl, authKeys);
-                this.load_taskLists(baseApiUrl, authKeys);
-            };
-
-            Paymo.prototype.loadProjects = function (baseApiUrl, authKeys) {
-                $("#cboActivityParamProject").empty();
-                $("#cboActivityParamProject").append($('<option>Loading projects...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
-
-                var result = new shearnie.tools.Poster().SendSync(baseApiUrl + 'api/process/getprojects', {
-                    extId: this.extId,
-                    authKeys: JSON.stringify(authKeys)
+                // load projects and workspace selected
+                $("#cboActivityParamProject").change(function (event) {
+                    _this.load_taskLists(baseApiUrl, authKeys);
                 });
-
-                if (result.items.length == 0) {
-                    shearnie.tools.html.fillCombo($("#cboActivityParamProject"), null, "No projects");
-                    return;
-                }
-
-                var cd = [];
-                cd.push({
-                    getItems: function () {
-                        var ret = [];
-                        result.items.forEach(function (item) {
-                            ret.push({ value: item.id, display: item.name });
-                        });
-                        return ret;
-                    }
-                });
-                shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
             };
 
             Paymo.prototype.load_taskLists = function (baseApiUrl, authKeys) {
@@ -99,6 +93,7 @@ var fpxt;
                 $("#txtActivityParamTaskDueDays").val('');
                 $("#cboActivityParamAssignee").val(null);
                 $("#cboActivityParamProject").val(null);
+                $("#cboActivityParamTaskList").val(null);
 
                 if (values == null)
                     return;
@@ -113,19 +108,18 @@ var fpxt;
                         case 'taskassignee':
                             $("#cboActivityParamAssignee").val(p.value);
                             break;
+                        case 'taskproject':
+                            $("#cboActivityParamProject").val(p.value);
+                            break;
                     }
                 });
 
-                this.loadProjects(baseApiUrl, authKeys);
                 this.load_taskLists(baseApiUrl, authKeys);
 
                 values.forEach(function (p) {
                     switch (p.key) {
-                        case 'taskproject':
-                            $("#cboActivityParamProject").val(p.value);
-                            break;
                         case 'tasktasklist':
-                            $("#cboActivityParamProject").val(p.value);
+                            $("#cboActivityParamTaskList").val(p.value);
                     }
                 });
             };

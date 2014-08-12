@@ -8,13 +8,16 @@ module fpxt.forms {
 
         public setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             $("#assignees-loading").show();
+            $("#projects-loading").show();
             $("#cboActivityParamAssignee").hide();
-            $("#cboActivityParamProject").empty();
-            shearnie.tools.html.fillCombo($("#cboActivityParamProject"), null);
+            $("#cboActivityParamProject").hide();
+            $("#cboActivityParamTaskList").empty();
+            shearnie.tools.html.fillCombo($("#cboActivityParamTaskList"), null, "Select project above");
 
             // get data first
             var pd = new Array();
             pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getprojects', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
             var cd: shearnie.tools.html.comboData[] = [];
             new shearnie.tools.Poster().SendAsync(pd, numErrs => {
@@ -32,43 +35,31 @@ module fpxt.forms {
                 shearnie.tools.html.fillCombo($("#cboActivityParamAssignee"), cd, "Select assignee");
                 $("#assignees-loading").hide();
                 $("#cboActivityParamAssignee").show();
+                
 
+                // fill projects
+                cd = [];
+                cd.push({
+                    getItems: () => {
+                        var ret: shearnie.tools.html.comboItem[] = [];
+                        pd[1].result.items.forEach(item => {
+                            ret.push({ value: item.id, display: item.name });
+                        });
+                        return ret;
+                    }
+                });
+
+                shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
+                $("#projects-loading").hide();
+                $("#cboActivityParamProject").show();
 
                 onCompleted();
             });
 
-            // load projects and task lists selected
-            this.loadProjects(baseApiUrl, authKeys);
-            this.load_taskLists(baseApiUrl, authKeys);
-        }
-
-        private loadProjects(baseApiUrl: string, authKeys: fpxtParam[]) {
-            $("#cboActivityParamProject").empty();
-            $("#cboActivityParamProject").append($('<option>Loading projects...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
-
-            var result = new shearnie.tools.Poster().SendSync(
-                baseApiUrl + 'api/process/getprojects',
-                {
-                    extId: this.extId,
-                    authKeys: JSON.stringify(authKeys)
-                });
-
-            if (result.items.length == 0) {
-                shearnie.tools.html.fillCombo($("#cboActivityParamProject"), null, "No projects");
-                return;
-            }
-
-            var cd = [];
-            cd.push({
-                getItems: () => {
-                    var ret: shearnie.tools.html.comboItem[] = [];
-                    result.items.forEach(item => {
-                        ret.push({ value: item.id, display: item.name });
-                    });
-                    return ret;
-                }
+            // load projects and workspace selected
+            $("#cboActivityParamProject").change(event => {
+                this.load_taskLists(baseApiUrl, authKeys);
             });
-            shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
         }
 
         private load_taskLists(baseApiUrl: string, authKeys: fpxtParam[]) {
@@ -105,6 +96,7 @@ module fpxt.forms {
             $("#txtActivityParamTaskDueDays").val('');
             $("#cboActivityParamAssignee").val(null);
             $("#cboActivityParamProject").val(null);
+            $("#cboActivityParamTaskList").val(null);
 
             if (values == null) return;
             values.forEach((p) => {
@@ -118,19 +110,18 @@ module fpxt.forms {
                     case 'taskassignee':
                         $("#cboActivityParamAssignee").val(p.value);
                         break;
+                    case 'taskproject':
+                        $("#cboActivityParamProject").val(p.value);
+                        break;
                 }
             });
 
-            this.loadProjects(baseApiUrl, authKeys);
             this.load_taskLists(baseApiUrl, authKeys);
 
             values.forEach((p) => {
                 switch (p.key) {
-                    case 'taskproject':
-                        $("#cboActivityParamProject").val(p.value);
-                        break;
                     case 'tasktasklist':
-                        $("#cboActivityParamProject").val(p.value);
+                        $("#cboActivityParamTaskList").val(p.value);
                 }
             });
         }

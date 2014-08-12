@@ -61,17 +61,10 @@ namespace FlowplaneExtensions.Models.api.flow
 
             if (extId.Equals(new Extensions.Twitter.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var consumerKey = formData["consumerKey"];
-                var consumerSecret = formData["consumerSecret"];
-                var accessToken = formData["accessToken"];
-                var accessTokenSecret = formData["accessTokenSecret"];
-                var message = formData["message"];
+                var message = objParams.FirstOrDefault(k => k.key == "message");
+                if (message == null) throw new Exception("Invalid message");
 
-                if (string.IsNullOrEmpty(consumerKey)) throw new Exception("Twitter consumer key is mandatory.");
-                if (string.IsNullOrEmpty(consumerSecret)) throw new Exception("Twitter consumer secret is mandatory.");
-                if (string.IsNullOrEmpty(accessToken)) throw new Exception("Twitter access token is mandatory.");
-                if (string.IsNullOrEmpty(accessTokenSecret)) throw new Exception("Twitter access token secret is mandatory.");
-                new Extensions.Twitter.Tweets(consumerKey, consumerSecret, accessToken, accessTokenSecret).UpdateStatus(message);
+                new Extensions.Twitter.Tweets((Extensions.Twitter.Auth)Common.GetAuthObject(extId, authKeys, null)).UpdateStatus(message.value);
                 return System.Net.HttpStatusCode.OK.ToString();
             }
 

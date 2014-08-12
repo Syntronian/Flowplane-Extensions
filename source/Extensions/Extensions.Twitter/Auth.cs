@@ -4,18 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Twitterizer;
-
+using ExtensionsCore;
 namespace Extensions.Twitter
 {
-    public class Auth
+    public class Auth : IAuth
     {
         public string ConsumerKey { get; set; }
         public string ConsumerSecret { get; set; }
-        public string AccessToken { get; set; }
-        public string AccessTokenSecret { get; set; }
+        public string AuthToken { get; set; }
+        public string AuthTokenSecret { get; set; }
 
         public Auth()
         {
+        }
+        public Auth(string consumerKey,
+                    string consumerSecret,
+                    string authToken,
+                    string authTokenSecret)
+        {
+            this.ConsumerKey = consumerKey;
+            this.ConsumerSecret = consumerSecret;
+            this.AuthToken = authToken;
+            this.AuthTokenSecret = authTokenSecret;
         }
 
         public string GetRequestToken(string consumerKey,
@@ -42,12 +52,12 @@ namespace Extensions.Twitter
                 this.ConsumerSecret = consumerSecret;
             }
             var tokens = OAuthUtility.GetAccessToken(this.ConsumerKey, this.ConsumerSecret, requestToken, verifier);
-            this.AccessToken = tokens.Token;
-            this.AccessTokenSecret = tokens.TokenSecret;
+            this.AuthToken = tokens.Token;
+            this.AuthTokenSecret = tokens.TokenSecret;
             return new Dictionary<string, string>
                 {
-                    { "AccessToken", this.AccessToken },
-                    { "AccessTokenSecret", this.AccessTokenSecret }
+                    { "AccessToken", this.AuthToken },
+                    { "AccessTokenSecret", this.AuthTokenSecret }
                 };
         }
     }

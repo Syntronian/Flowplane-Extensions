@@ -65,7 +65,7 @@ namespace FlowplaneExtensions.Models.api
                     Common.TryGetInt(authKeys.FirstOrDefault(k => k.key == "organisationId")));
         }
 
-        internal static IAuth GetAuthObject(string extId, List<FpxtParam> authKeys, List<FpxtParam> objParams)
+        internal static IAuth GetAuthObject(string extId, List<FpxtParam> authKeys, List<FpxtParam> objParams = null)
         {
             var consumerKey = authKeys.FirstOrDefault(k => k.key == "consumerKey");
             if (consumerKey == null) throw new Exception("Invalid consumerKey");
@@ -86,6 +86,11 @@ namespace FlowplaneExtensions.Models.api
                 if (callback == null) throw new Exception("Invalid callback");
 
                 return new Extensions.Wrike.Auth(consumerKey.value, consumerSecret.value, accessToken.value, accessTokenSecret.value, callback.value);
+            }
+
+            if (extId.Equals(new Extensions.Twitter.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return new Extensions.Twitter.Auth(consumerKey.value, consumerSecret.value, accessToken.value, accessTokenSecret.value);
             }
             throw new Exception("Invalid extension.");
         }

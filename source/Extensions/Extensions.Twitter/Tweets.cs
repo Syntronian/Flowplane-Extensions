@@ -5,11 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using LinqToTwitter;
 
-namespace Extensions.Twitter
+namespace Extensions.Twitter 
 {
     public class Tweets
     {
         private TwitterContext twitterCtx;
+
+        public Tweets(Auth auth) : this(auth.ConsumerKey,auth.ConsumerSecret,auth.AuthToken,auth.AuthTokenSecret)
+        {}
 
         public Tweets(string consumerKey,
                       string consumerSecret,

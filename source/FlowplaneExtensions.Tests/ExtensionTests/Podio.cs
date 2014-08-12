@@ -28,6 +28,12 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
             var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol("YOUR_ORGANISATION_ID_HERE"));
             Common.Display(o);
         }
+        [TestMethod]
+        public void GetWorkSpaces()
+        {
+            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetWorkSpaces(GetCol("YOUR_ORGANISATION_ID_HERE"));
+            Common.Display(o);
+        }
 
         private FormDataCollection GetCol(string orgId = null)
         {

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExtensionsCore;
 
 namespace Extensions.Paymo.Responses.TaskLists
 {
-    public class Item
+    public class Item : ITask
     {
         public Item()
         {
@@ -24,15 +25,15 @@ namespace Extensions.Paymo.Responses.TaskLists
 
 
 
-    public class List
+    public class List : ITasks
     {
         private System.Xml.XmlDocument xml = new System.Xml.XmlDocument();
 
-        public List<Item> items { get; set; }
+        public List<ITask> items { get; set; }
 
         public List(string rs)
         {
-            this.items = new List<Item>();
+            this.items = new List<ITask>();
             this.xml.LoadXml(rs);
             if (!this.xml.DocumentElement.HasAttributes) throw new Exception("Invalid response.");
             if (!this.xml.DocumentElement.Attributes[0].Value.Equals("ok", StringComparison.CurrentCultureIgnoreCase))

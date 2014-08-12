@@ -18,18 +18,25 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         //[TestMethod]
         //public void ListUsers()
         //{
-        //    var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol());
+        //    var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol(null));
         //    Common.Display(users);
         //}
 
         //[TestMethod]
         //public void ListProjects()
         //{
-        //    var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetProjects(GetCol());
+        //    var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetProjects(GetCol(null));
         //    Common.Display(users);
         //}
 
-        private FormDataCollection GetCol()
+        //[TestMethod]
+        //public void ListTasks()
+        //{
+        //    var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetTasks(GetCol("YOUR_PROJECT_ID_HERE"));
+        //    Common.Display(users);
+        //}
+
+        private FormDataCollection GetCol(string projectId = null)
         {
             var pairs = new Dictionary<string, string> 
                 { 
@@ -37,7 +44,8 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
                     { "apiKey" , myAPIKEY}, 
                     { "userName" , uName} , 
                     { "password" , pwd} ,
-                    {"authToken", token}
+                    {"authToken", token},
+                    {"projectId",projectId}
                 };
             return new FormDataCollection(pairs);
         }

@@ -148,5 +148,34 @@ namespace FlowplaneExtensions.Models.api.Process
 
             throw new Exception("Invalid extension.");
         }
+
+        public ITasks GetTasks(FormDataCollection formData)
+        {
+            var extId = Common.GetValue(formData, "extId");
+            var authKeys = Common.TryGetParams(formData["authKeys"]);
+            var objParams = Common.TryGetParams(formData["objParams"]);
+
+            if (extId.Equals(new Extensions.Paymo.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                      var apiKey = authKeys.FirstOrDefault(k => k.key == "API_Key");
+                if (apiKey == null) throw new Exception("Invalid API_Key");
+
+                var username = authKeys.FirstOrDefault(k => k.key == "username");
+                if (username == null) throw new Exception("Paymo user name is mandatory.");
+
+                var password = authKeys.FirstOrDefault(k => k.key == "password");
+                if (password == null) throw new Exception("Paymo password is mandatory.");
+
+                var authToken = authKeys.FirstOrDefault(k => k.key == "authToken");
+
+                string projectId = objParams.FirstOrDefault(k => k.key == "projectId").ToString();
+
+                return new Extensions.Paymo.TaskLists(
+                    new Extensions.Paymo.Auth(
+                        apiKey.value, username.value, password.value, Common.TryGetString(authToken))).List(projectId);
+            }
+
+            throw new Exception("Invalid extension.");
+        }
     }
 }

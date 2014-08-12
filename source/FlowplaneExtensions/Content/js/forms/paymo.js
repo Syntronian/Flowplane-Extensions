@@ -124,7 +124,7 @@ var fpxt;
                             $("#cboActivityParamProject").val(p.value);
                             break;
                         case 'tasktasklist':
-                            $("#cboActivityParamProject").find("option:selected").val(), p.value;
+                            $("#cboActivityParamProject").val(p.value);
                     }
                 });
             };

@@ -40,5 +40,12 @@ namespace FlowplaneExtensions.Controllers.api
         {
             return new Models.api.Process.Details().GetOrganizations(formData);
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ITasks GetTasks(FormDataCollection formData)
+        {
+            return new Models.api.Process.Details().GetTasks(formData);
+        }
     }
 }

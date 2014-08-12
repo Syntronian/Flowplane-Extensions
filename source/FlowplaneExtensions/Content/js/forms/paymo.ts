@@ -1,10 +1,11 @@
-﻿/// <reference path="../refs.d.ts" />nj cjcb
+﻿/// <reference path="../refs.d.ts" />
 
 module fpxt.forms {
 
     export class Paymo {
 
         public static extId: string = 'PAYMO';
+
         public static setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             $("#assignees-loading").show();
             $("#cboActivityParamAssignee").hide();

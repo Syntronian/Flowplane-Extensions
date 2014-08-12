@@ -47,5 +47,19 @@ namespace FlowplaneExtensions.Controllers.api
         {
             return new Models.api.Process.Details().GetTasks(formData);
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IApps GetApps(FormDataCollection formData)
+        {
+            return new Models.api.Process.Details().GetApps(formData);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IItems GetItems(FormDataCollection formData)
+        {
+            return new Models.api.Process.Details().GetItems(formData);
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         [TestMethod]
         public void GetOrg()
         {
-            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetOrganisations(GetCol(null));
+            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetOrganisations(GetCol());
             Common.Display(o);
         }
 
@@ -35,7 +35,21 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
             Common.Display(o);
         }
 
-        private FormDataCollection GetCol(string orgId = null)
+        [TestMethod]
+        public void GetApps()
+        {
+            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetApps(GetCol("YOUR_SPACE_ID_HERE"));
+            Common.Display(o);
+        }
+
+        [TestMethod]
+        public void GetItems()
+        {
+            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetItems(GetCol("YOUR_APP_ID_HERE"));
+            Common.Display(o);
+        }
+
+        private FormDataCollection GetCol(string orgId = null, string spaceId = null, string appId = null)
         {
             var pairs = new Dictionary<string, string> 
                 { 
@@ -43,7 +57,9 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
                     { "clientId" , clientId } ,
                     { "clientSecret" , clientSecret } ,
                     { "accessToken" , accessToken} ,
-                    {"organisationId", orgId}
+                    {"organisationId", orgId} ,
+                    {"spaceId", spaceId} ,
+                    {"appId", appId}
                 };
             return new FormDataCollection(pairs);
         }

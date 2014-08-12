@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExtensionsCore;
 
 namespace Extensions.Podio.Responses.Workspaces
 {
-    public class Item
+    public class Item : IWorkspace
     {
         public Item()
         {
@@ -24,13 +25,13 @@ namespace Extensions.Podio.Responses.Workspaces
 
 
 
-    public class List
+    public class List : IWorkspaces
     {
-        public List<Item> items { get; set; }
+        public List<IWorkspace> items { get; set; }
 
         public List(IEnumerable<PodioAPI.Models.Space> spaces)
         {
-            this.items = new List<Item>();
+            this.items = new List<IWorkspace>();
             foreach (var space in spaces)
             {
                 this.items.Add(new Item(space.SpaceId.ToString(), space.Name));

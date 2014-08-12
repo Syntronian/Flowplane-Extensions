@@ -73,10 +73,26 @@ namespace FlowplaneExtensions.Models.api.Process
             {
                 var apiKey = authKeys.FirstOrDefault(k => k.key == "API_Key");
                 if (apiKey == null) throw new Exception("Invalid API_Key");
-                
-                return new Workspaces(new Auth(apiKey.value)).List();
+
+                return new Extensions.Asana.Workspaces(new Extensions.Asana.Auth(apiKey.value)).List();
             }
 
+            if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var clientId = authKeys.FirstOrDefault(k => k.key == "clientId");
+                if (clientId == null) throw new Exception("Invalid clientId");
+
+                var clientSecret = authKeys.FirstOrDefault(k => k.key == "clientSecret");
+                if (clientSecret == null) throw new Exception("Invalid clientSecret");
+
+                var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
+                if (accessToken == null) throw new Exception("Invalid accessToken");
+
+                return new Extensions.Podio.Workspaces(new Extensions.Podio.Auth(clientId.value, 
+                        clientSecret.value, 
+                        accessToken.value, 
+                        Common.TryGetInt(authKeys.FirstOrDefault(k => k.key == "organisationId")))).List();
+            }
             throw new Exception("Invalid extension.");
         }
 

@@ -10,45 +10,48 @@ using Newtonsoft.Json;
 namespace FlowplaneExtensions.Tests.ExtensionTests
 {
     [TestClass]
-    public class Twitter
+    public class Wrike
     {
         private const string consumerKey = "YOUR_CONSUMER_KEY_HERE";
-        private const string consumerSecret = "YOUR_CONSUMER_SECRET";
-        private const string accessToken = "YOUR_ACCESS_TOKEN";
-        private const string accessSecret = "YOUR_ACCESS_TOKEN_SECRET";
-        private const string extId = "twitter";
+        private const string consumerSecret = "YOUR_CONSUMER_SECRET_HERE";
+        private const string accessToken = "YOUR_ACCESS_TOKEN_HERE";
+        private const string accessTokenSecret = "YOUR_ACCESS_TOKEN_SECRET_HERE";
+        private const string callback = "YOUR_CALLBACK_URL_HERE";
 
-        //[TestMethod]
-        //public void ShareUpdate()
-        //{
-        //    var u = new FlowplaneExtensions.Controllers.api.Api_FlowController().ActivateObject(GetCol("My fist post: Using Twitter web api's from flowplane"));
-        //    Console.WriteLine(System.Net.HttpStatusCode.OK);
-        //}
-        private FormDataCollection GetCol(string message)
+        [TestMethod]
+        public void GetAssignees()
+        {
+            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol());
+            Common.Display(o);
+        }
+
+        private FormDataCollection GetCol()
         {
             var ak = new List<Models.api.FpxtParam>()
             {
                new  Models.api.FpxtParam { key = "consumerKey",value = consumerKey },
                new  Models.api.FpxtParam { key = "consumerSecret",value = consumerSecret },
                new  Models.api.FpxtParam { key = "accessToken",value = accessToken },
-               new  Models.api.FpxtParam { key = "accessTokenSecret",value = accessSecret }
+               new  Models.api.FpxtParam { key = "accessTokenSecret",value = accessTokenSecret }
             };
             var authKeys = JsonConvert.SerializeObject(ak);
 
             var obP = new List<Models.api.FpxtParam>()
             {
-               new  Models.api.FpxtParam { key = "message",value = message}
+               new  Models.api.FpxtParam { key = "callback",value = callback}
             };
             var objParams = JsonConvert.SerializeObject(obP);
 
             var finalCol = new Dictionary<string, string>
                 { 
-                    { "extId" , extId},
+                    { "extId" , "wrike"},
                     { "authKeys", authKeys},
                     {"objParams",objParams}
                 };
 
             return new FormDataCollection(finalCol);
         }
+
+
     }
 }

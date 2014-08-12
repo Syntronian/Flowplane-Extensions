@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Net.Http.Formatting;
 using Newtonsoft.Json;
-
+using ExtensionsCore;
 namespace FlowplaneExtensions.Models.api
 {
     public class Common
@@ -49,20 +49,45 @@ namespace FlowplaneExtensions.Models.api
 
         internal static Extensions.Podio.Auth GetAuthObject(List<FpxtParam> authKeys)
         {
-                var clientId = authKeys.FirstOrDefault(k => k.key == "clientId");
-                if (clientId == null) throw new Exception("Invalid clientId");
+            var clientId = authKeys.FirstOrDefault(k => k.key == "clientId");
+            if (clientId == null) throw new Exception("Invalid clientId");
 
-                var clientSecret = authKeys.FirstOrDefault(k => k.key == "clientSecret");
-                if (clientSecret == null) throw new Exception("Invalid clientSecret");
+            var clientSecret = authKeys.FirstOrDefault(k => k.key == "clientSecret");
+            if (clientSecret == null) throw new Exception("Invalid clientSecret");
 
-                var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
-                if (accessToken == null) throw new Exception("Invalid accessToken");
+            var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
+            if (accessToken == null) throw new Exception("Invalid accessToken");
 
-                return new Extensions.Podio.Auth(
-                        clientId.value,
-                        clientSecret.value,
-                        accessToken.value,
-                        Common.TryGetInt(authKeys.FirstOrDefault(k => k.key == "organisationId")));
+            return new Extensions.Podio.Auth(
+                    clientId.value,
+                    clientSecret.value,
+                    accessToken.value,
+                    Common.TryGetInt(authKeys.FirstOrDefault(k => k.key == "organisationId")));
+        }
+
+        internal static IAuth GetAuthObject(string extId, List<FpxtParam> authKeys, List<FpxtParam> objParams)
+        {
+            var consumerKey = authKeys.FirstOrDefault(k => k.key == "consumerKey");
+            if (consumerKey == null) throw new Exception("Invalid consumerKey");
+
+            var consumerSecret = authKeys.FirstOrDefault(k => k.key == "consumerSecret");
+            if (consumerSecret == null) throw new Exception("Invalid consumerSecret");
+
+            var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
+            if (accessToken == null) throw new Exception("Invalid accessToken");
+
+            var accessTokenSecret = authKeys.FirstOrDefault(k => k.key == "accessTokenSecret");
+            if (accessTokenSecret == null) throw new Exception("Invalid accessTokenSecret");
+
+
+            if (extId.Equals(new Extensions.Wrike.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var callback = objParams.FirstOrDefault(k => k.key == "callback");
+                if (callback == null) throw new Exception("Invalid callback");
+
+                return new Extensions.Wrike.Auth(consumerKey.value, consumerSecret.value, accessToken.value, accessTokenSecret.value, callback.value);
+            }
+            throw new Exception("Invalid extension.");
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Http.Formatting;
-
+using Newtonsoft.Json;
 namespace FlowplaneExtensions.Tests.ExtensionTests
 {
     [TestClass]
@@ -35,19 +35,31 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         //    var users = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetTasks(GetCol("YOUR_PROJECT_ID_HERE"));
         //    Common.Display(users);
         //}
-
         private FormDataCollection GetCol(string projectId = null)
         {
-            var pairs = new Dictionary<string, string> 
+            var ak = new List<Models.api.FpxtParam>()
+            {
+               new  Models.api.FpxtParam { key = "apiKey",value = myAPIKEY },
+               new  Models.api.FpxtParam { key = "userName",value = uName },
+               new  Models.api.FpxtParam { key = "password",value = pwd },
+               new  Models.api.FpxtParam { key = "authToken",value = token }
+            };
+            var authKeys = JsonConvert.SerializeObject(ak);
+
+            var obP = new List<Models.api.FpxtParam>()
+            {
+               new  Models.api.FpxtParam { key = "projectId",value = projectId}
+            };
+            var objParams = JsonConvert.SerializeObject(obP);
+
+            var finalCol = new Dictionary<string, string>
                 { 
-                    { "extId",  "paymo"}, 
-                    { "apiKey" , myAPIKEY}, 
-                    { "userName" , uName} , 
-                    { "password" , pwd} ,
-                    {"authToken", token},
-                    {"projectId",projectId}
+                    { "extId" , "paymo"},
+                    { "authKeys", authKeys},
+                    {"objParams",objParams}
                 };
-            return new FormDataCollection(pairs);
+
+            return new FormDataCollection(finalCol);
         }
     }
 }

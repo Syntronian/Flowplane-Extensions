@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FlowplaneExtensions;
 using System.Net.Http.Formatting;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace FlowplaneExtensions.Tests.ExtensionTests
 {
@@ -33,14 +34,22 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         //    Common.Display(p);
         //}
 
-        //private FormDataCollection GetCol()
-        //{
-        //    var pairs = new Dictionary<string, string> 
-        //        { 
-        //            { "extId",  "asana"}, 
-        //            { "apiKey" , myAPIKEY} 
-        //        };
-        //    return new FormDataCollection(pairs);
-        //}
+        private FormDataCollection GetCol()
+        {
+            var ak = new List<Models.api.FpxtParam>()
+            {
+               new  Models.api.FpxtParam { key = "apiKey",value = myAPIKEY }
+            };
+            var authKeys = JsonConvert.SerializeObject(ak);
+
+            var finalCol = new Dictionary<string, string>
+                { 
+                    { "extId" , "asana"},
+                    { "authKeys", authKeys}
+                };
+
+            return new FormDataCollection(finalCol);
+        }
+
     }
 }

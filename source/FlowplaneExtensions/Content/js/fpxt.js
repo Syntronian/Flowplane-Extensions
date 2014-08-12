@@ -32,30 +32,28 @@ var fpxt;
     var ExtensionDialog = (function () {
         function ExtensionDialog() {
         }
+        ExtensionDialog.getExtension = function (extCode) {
+            var exts = [];
+
+            // register extensions here
+            exts.push(new fpxt.forms.Asana());
+            exts.push(new fpxt.forms.Paymo());
+
+            return Enumerable.from(exts).firstOrDefault(function (x) {
+                return x.extId.toLowerCase() == extCode.toLowerCase();
+            });
+        };
+
         ExtensionDialog.initialise = function (extCode, authKeys, objParams, onCompleted) {
-            switch (extCode.toLowerCase()) {
-                case fpxt.forms.Asana.extId.toLowerCase():
-                    fpxt.forms.Asana.setup(BaseApiUrl.path, authKeys, objParams, onCompleted);
-                    break;
-            }
+            ExtensionDialog.getExtension(extCode).setup(BaseApiUrl.path, authKeys, objParams, onCompleted);
         };
 
         ExtensionDialog.fill = function (extCode, authKeys, values) {
-            switch (extCode.toLowerCase()) {
-                case fpxt.forms.Asana.extId.toLowerCase():
-                    fpxt.forms.Asana.fill(BaseApiUrl.path, authKeys, values);
-                    break;
-            }
+            ExtensionDialog.getExtension(extCode).fill(BaseApiUrl.path, authKeys, values);
         };
 
         ExtensionDialog.getProperties = function (extCode) {
-            switch (extCode.toLowerCase()) {
-                case fpxt.forms.Asana.extId.toLowerCase():
-                    return fpxt.forms.Asana.getProperties();
-
-                default:
-                    return [];
-            }
+            return ExtensionDialog.getExtension(extCode).getProperties();
         };
         return ExtensionDialog;
     })();

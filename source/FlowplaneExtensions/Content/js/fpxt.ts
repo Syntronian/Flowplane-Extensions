@@ -19,30 +19,26 @@ module fpxt {
 
     export class ExtensionDialog {
         
+        private static getExtension(extCode: string): forms.IForm {
+            var exts: forms.IForm[] = [];
+
+            // register extensions here
+            exts.push(new forms.Asana());
+            exts.push(new forms.Paymo());
+
+            return Enumerable.from(exts).firstOrDefault(x => { return x.extId.toLowerCase() == extCode.toLowerCase(); });
+        }
+
         public static initialise(extCode: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
-            switch(extCode.toLowerCase()) {
-                case forms.Asana.extId.toLowerCase():
-                    forms.Asana.setup(BaseApiUrl.path, authKeys, objParams, onCompleted);
-                    break;
-            }
+            ExtensionDialog.getExtension(extCode).setup(BaseApiUrl.path, authKeys, objParams, onCompleted);
         }
 
         public static fill(extCode: string, authKeys: fpxtParam[], values: fpxtParam[]) {
-            switch (extCode.toLowerCase()) {
-                case forms.Asana.extId.toLowerCase():
-                    forms.Asana.fill(BaseApiUrl.path, authKeys, values);
-                break;
-            }
+            ExtensionDialog.getExtension(extCode).fill(BaseApiUrl.path, authKeys, values);
         }
 
         public static getProperties(extCode: string): fpxtParam[] {
-            switch (extCode.toLowerCase()) {
-                case forms.Asana.extId.toLowerCase():
-                    return forms.Asana.getProperties();
-
-                default:
-                    return [];
-            }
+            return ExtensionDialog.getExtension(extCode).getProperties();
         }
 
     }

@@ -45,6 +45,39 @@ namespace FlowplaneExtensions.Models.api.Register
                             requiredMessage = "API key is required."
                         }
                     }
+                },
+
+                new Extension()
+                {
+                    identity = new Extensions.Paymo.Identity(),
+                    url_path_auth = urlPrefix + url.Action("Auth", "Paymo"),
+                    url_path_header = urlPrefix + url.Action("Header", "Paymo"),
+                    url_path_body = urlPrefix + url.Action("Body", "Paymo"),
+                    img_src = urlPrefix + url.Content("~//Content/img/ext-paymo.png"),
+                    auth_keys = new List<AuthKey>()
+                    {
+                        new AuthKey() {
+                            key = "API_Key",
+                            controlId = "txtPaymoAPIKey",
+                            controlDescription = "API key",
+                            required = true,
+                            requiredMessage = "API key is required."
+                        },
+                        new AuthKey() {
+                            key = "username",
+                            controlId = "txtPaymoUsername",
+                            controlDescription = "Username",
+                            required = true,
+                            requiredMessage = "Username is required."
+                        },
+                        new AuthKey() {
+                            key = "password",
+                            controlId = "txtPaymoPassword",
+                            controlDescription = "Password",
+                            required = true,
+                            requiredMessage = "Password is required."
+                        }
+                    }
                 }
             };
         }

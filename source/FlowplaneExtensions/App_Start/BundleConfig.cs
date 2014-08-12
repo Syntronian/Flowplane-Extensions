@@ -29,7 +29,8 @@ namespace FlowplaneExtensions
             bundles.Add(js.Include(
                 "~/Content/js/shearnie/tools.js",
                 "~/Content/js/fpxt.js",
-                "~/Content/js/forms/asana.js"
+                "~/Content/js/forms/asana.js",
+                "~/Content/js/forms/paymo.js"
             ));
         }
     }

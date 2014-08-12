@@ -2,11 +2,11 @@
 
 module fpxt.forms {
 
-    export class Asana {
+    export class Asana implements IForm {
 
-        public static extId: string = 'ASANA';
+        public extId: string = 'ASANA';
 
-        public static setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+        public setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             $("#assignees-loading").show();
             $("#workspaces-loading").show();
             $("#cboActivityParamAssignee").hide();
@@ -16,8 +16,8 @@ module fpxt.forms {
 
             // get data first
             var pd = new Array();
-            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: Asana.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
-            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getworkspaces', { extId: Asana.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getworkspaces', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
             var cd: shearnie.tools.html.comboData[] = [];
             new shearnie.tools.Poster().SendAsync(pd, numErrs => {
@@ -58,18 +58,18 @@ module fpxt.forms {
 
             // load projects and workspace selected
             $("#cboActivityParamWorkspace").change(event => {
-                Asana.loadProjects(baseApiUrl, authKeys);
+                this.loadProjects(baseApiUrl, authKeys);
             });
         }
 
-        private static loadProjects(baseApiUrl: string, authKeys: fpxtParam[]) {
+        private loadProjects(baseApiUrl: string, authKeys: fpxtParam[]) {
             $("#cboActivityParamProject").empty();
             $("#cboActivityParamProject").append($('<option>Loading projects...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
 
             var result = new shearnie.tools.Poster().SendSync(
                 baseApiUrl + 'api/process/getprojects',
                 {
-                    extId: Asana.extId,
+                    extId: this.extId,
                     authKeys: JSON.stringify(authKeys),
                     objParams: JSON.stringify([
                         {
@@ -96,7 +96,7 @@ module fpxt.forms {
             shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
         }
 
-        public static fill(baseApiUrl: string, authKeys: fpxtParam[], values: fpxtParam[]) {
+        public fill(baseApiUrl: string, authKeys: fpxtParam[], values: fpxtParam[]) {
             $("#txtActivityParamTaskDesc").val('');
             $("#txtActivityParamTaskDueDays").val('');
             $("#cboActivityParamAssignee").val(null);
@@ -121,7 +121,7 @@ module fpxt.forms {
                 }
             });
 
-            Asana.loadProjects(baseApiUrl, authKeys);
+            this.loadProjects(baseApiUrl, authKeys);
 
             values.forEach((p) => {
                 switch (p.key) {
@@ -132,7 +132,7 @@ module fpxt.forms {
             });
         }
 
-        public static getProperties(): fpxtParam[] {
+        public getProperties(): fpxtParam[] {
             if ($("#txtActivityParamTaskDesc").val() == "")
                 throw "Description is required.";
 

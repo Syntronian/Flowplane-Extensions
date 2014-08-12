@@ -4,8 +4,10 @@ var fpxt;
     (function (forms) {
         var Asana = (function () {
             function Asana() {
+                this.extId = 'ASANA';
             }
-            Asana.setup = function (baseApiUrl, authKeys, objParams, onCompleted) {
+            Asana.prototype.setup = function (baseApiUrl, authKeys, objParams, onCompleted) {
+                var _this = this;
                 $("#assignees-loading").show();
                 $("#workspaces-loading").show();
                 $("#cboActivityParamAssignee").hide();
@@ -15,8 +17,8 @@ var fpxt;
 
                 // get data first
                 var pd = new Array();
-                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: Asana.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
-                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getworkspaces', { extId: Asana.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getworkspaces', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
                 var cd = [];
                 new shearnie.tools.Poster().SendAsync(pd, function (numErrs) {
@@ -56,16 +58,16 @@ var fpxt;
 
                 // load projects and workspace selected
                 $("#cboActivityParamWorkspace").change(function (event) {
-                    Asana.loadProjects(baseApiUrl, authKeys);
+                    _this.loadProjects(baseApiUrl, authKeys);
                 });
             };
 
-            Asana.loadProjects = function (baseApiUrl, authKeys) {
+            Asana.prototype.loadProjects = function (baseApiUrl, authKeys) {
                 $("#cboActivityParamProject").empty();
                 $("#cboActivityParamProject").append($('<option>Loading projects...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
 
                 var result = new shearnie.tools.Poster().SendSync(baseApiUrl + 'api/process/getprojects', {
-                    extId: Asana.extId,
+                    extId: this.extId,
                     authKeys: JSON.stringify(authKeys),
                     objParams: JSON.stringify([{
                             key: 'workspaceId',
@@ -91,7 +93,7 @@ var fpxt;
                 shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
             };
 
-            Asana.fill = function (baseApiUrl, authKeys, values) {
+            Asana.prototype.fill = function (baseApiUrl, authKeys, values) {
                 $("#txtActivityParamTaskDesc").val('');
                 $("#txtActivityParamTaskDueDays").val('');
                 $("#cboActivityParamAssignee").val(null);
@@ -117,7 +119,7 @@ var fpxt;
                     }
                 });
 
-                Asana.loadProjects(baseApiUrl, authKeys);
+                this.loadProjects(baseApiUrl, authKeys);
 
                 values.forEach(function (p) {
                     switch (p.key) {
@@ -128,7 +130,7 @@ var fpxt;
                 });
             };
 
-            Asana.getProperties = function () {
+            Asana.prototype.getProperties = function () {
                 if ($("#txtActivityParamTaskDesc").val() == "")
                     throw "Description is required.";
 
@@ -154,7 +156,6 @@ var fpxt;
 
                 return ret;
             };
-            Asana.extId = 'ASANA';
             return Asana;
         })();
         forms.Asana = Asana;

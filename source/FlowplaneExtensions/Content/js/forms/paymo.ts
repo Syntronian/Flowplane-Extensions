@@ -2,11 +2,11 @@
 
 module fpxt.forms {
 
-    export class Paymo {
+    export class Paymo implements IForm {
 
-        public static extId: string = 'PAYMO';
+        public extId: string = 'PAYMO';
 
-        public static setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+        public setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             $("#assignees-loading").show();
             $("#cboActivityParamAssignee").hide();
             $("#cboActivityParamProject").empty();
@@ -14,7 +14,7 @@ module fpxt.forms {
 
             // get data first
             var pd = new Array();
-            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: Paymo.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
             var cd: shearnie.tools.html.comboData[] = [];
             new shearnie.tools.Poster().SendAsync(pd, numErrs => {
@@ -38,18 +38,18 @@ module fpxt.forms {
             });
 
             // load projects and task lists selected
-            Paymo.loadProjects(baseApiUrl, authKeys);
-            Paymo.load_taskLists(baseApiUrl, authKeys);
+            this.loadProjects(baseApiUrl, authKeys);
+            this.load_taskLists(baseApiUrl, authKeys);
         }
 
-        private static loadProjects(baseApiUrl: string, authKeys: fpxtParam[]) {
+        private loadProjects(baseApiUrl: string, authKeys: fpxtParam[]) {
             $("#cboActivityParamProject").empty();
             $("#cboActivityParamProject").append($('<option>Loading projects...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
 
             var result = new shearnie.tools.Poster().SendSync(
                 baseApiUrl + 'api/process/getprojects',
                 {
-                    extId: Paymo.extId,
+                    extId: this.extId,
                     authKeys: JSON.stringify(authKeys)
                 });
 
@@ -71,13 +71,13 @@ module fpxt.forms {
             shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
         }
 
-        private static load_taskLists(baseApiUrl: string, authKeys: fpxtParam[]) {
+        private load_taskLists(baseApiUrl: string, authKeys: fpxtParam[]) {
             $("#cboActivityParamTaskList").empty();
             $("#cboActivityParamTaskList").append($('<option>Loading task lists...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
             var result = new shearnie.tools.Poster().SendSync(
                 baseApiUrl + 'api/process/gettasks',
                 {
-                    extId: Paymo.extId,
+                    extId: this.extId,
                     authKeys: JSON.stringify(authKeys)
                 });
 
@@ -100,7 +100,7 @@ module fpxt.forms {
         }
 
 
-        public static fill(baseApiUrl: string, authKeys: fpxtParam[], values: fpxtParam[]) {
+        public fill(baseApiUrl: string, authKeys: fpxtParam[], values: fpxtParam[]) {
             $("#txtActivityParamTaskDesc").val('');
             $("#txtActivityParamTaskDueDays").val('');
             $("#cboActivityParamAssignee").val(null);
@@ -121,8 +121,8 @@ module fpxt.forms {
                 }
             });
 
-            Paymo.loadProjects(baseApiUrl, authKeys);
-            Paymo.load_taskLists(baseApiUrl, authKeys);
+            this.loadProjects(baseApiUrl, authKeys);
+            this.load_taskLists(baseApiUrl, authKeys);
 
             values.forEach((p) => {
                 switch (p.key) {
@@ -135,7 +135,7 @@ module fpxt.forms {
             });
         }
 
-        public static getProperties(): fpxtParam[] {
+        public getProperties(): fpxtParam[] {
             if ($("#txtActivityParamTaskDesc").val() == "")
                 throw "Description is required.";
 

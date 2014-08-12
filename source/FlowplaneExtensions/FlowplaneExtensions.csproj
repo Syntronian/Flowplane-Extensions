@@ -136,6 +136,7 @@
     <Compile Include="Controllers\api\Api_FlowController.cs" />
     <Compile Include="Controllers\api\Api_RegisterController.cs" />
     <Compile Include="Controllers\api\Api_ProcessController.cs" />
+    <Compile Include="Controllers\PaymoController.cs" />
     <Compile Include="Models\api\Common.cs" />
     <Compile Include="Controllers\AsanaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -233,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Content\js\forms\asana.ts" />
+    <TypeScriptCompile Include="Content\js\forms\IForm.d.ts" />
     <TypeScriptCompile Include="Content\js\fpxt.ts" />
     <TypeScriptCompile Include="Content\js\refs.d.ts" />
     <TypeScriptCompile Include="Content\js\shearnie\tools.ts" />

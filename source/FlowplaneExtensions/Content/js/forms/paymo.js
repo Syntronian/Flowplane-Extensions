@@ -1,11 +1,12 @@
-﻿/// <reference path="../refs.d.ts" />nj cjcb
+﻿/// <reference path="../refs.d.ts" />
 var fpxt;
 (function (fpxt) {
     (function (forms) {
         var Paymo = (function () {
             function Paymo() {
+                this.extId = 'PAYMO';
             }
-            Paymo.setup = function (baseApiUrl, authKeys, objParams, onCompleted) {
+            Paymo.prototype.setup = function (baseApiUrl, authKeys, objParams, onCompleted) {
                 $("#assignees-loading").show();
                 $("#cboActivityParamAssignee").hide();
                 $("#cboActivityParamProject").empty();
@@ -13,7 +14,7 @@ var fpxt;
 
                 // get data first
                 var pd = new Array();
-                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: Paymo.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
                 var cd = [];
                 new shearnie.tools.Poster().SendAsync(pd, function (numErrs) {
@@ -36,16 +37,16 @@ var fpxt;
                 });
 
                 // load projects and task lists selected
-                Paymo.loadProjects(baseApiUrl, authKeys);
-                Paymo.load_taskLists(baseApiUrl, authKeys);
+                this.loadProjects(baseApiUrl, authKeys);
+                this.load_taskLists(baseApiUrl, authKeys);
             };
 
-            Paymo.loadProjects = function (baseApiUrl, authKeys) {
+            Paymo.prototype.loadProjects = function (baseApiUrl, authKeys) {
                 $("#cboActivityParamProject").empty();
                 $("#cboActivityParamProject").append($('<option>Loading projects...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
 
                 var result = new shearnie.tools.Poster().SendSync(baseApiUrl + 'api/process/getprojects', {
-                    extId: Paymo.extId,
+                    extId: this.extId,
                     authKeys: JSON.stringify(authKeys)
                 });
 
@@ -67,11 +68,11 @@ var fpxt;
                 shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
             };
 
-            Paymo.load_taskLists = function (baseApiUrl, authKeys) {
+            Paymo.prototype.load_taskLists = function (baseApiUrl, authKeys) {
                 $("#cboActivityParamTaskList").empty();
                 $("#cboActivityParamTaskList").append($('<option>Loading task lists...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
                 var result = new shearnie.tools.Poster().SendSync(baseApiUrl + 'api/process/gettasks', {
-                    extId: Paymo.extId,
+                    extId: this.extId,
                     authKeys: JSON.stringify(authKeys)
                 });
 
@@ -93,7 +94,7 @@ var fpxt;
                 shearnie.tools.html.fillCombo($("#cboActivityParamTaskList"), cd, "Select task");
             };
 
-            Paymo.fill = function (baseApiUrl, authKeys, values) {
+            Paymo.prototype.fill = function (baseApiUrl, authKeys, values) {
                 $("#txtActivityParamTaskDesc").val('');
                 $("#txtActivityParamTaskDueDays").val('');
                 $("#cboActivityParamAssignee").val(null);
@@ -115,8 +116,8 @@ var fpxt;
                     }
                 });
 
-                Paymo.loadProjects(baseApiUrl, authKeys);
-                Paymo.load_taskLists(baseApiUrl, authKeys);
+                this.loadProjects(baseApiUrl, authKeys);
+                this.load_taskLists(baseApiUrl, authKeys);
 
                 values.forEach(function (p) {
                     switch (p.key) {
@@ -129,7 +130,7 @@ var fpxt;
                 });
             };
 
-            Paymo.getProperties = function () {
+            Paymo.prototype.getProperties = function () {
                 if ($("#txtActivityParamTaskDesc").val() == "")
                     throw "Description is required.";
 
@@ -155,10 +156,10 @@ var fpxt;
 
                 return ret;
             };
-            Paymo.extId = 'PAYMO';
             return Paymo;
         })();
         forms.Paymo = Paymo;
     })(fpxt.forms || (fpxt.forms = {}));
     var forms = fpxt.forms;
 })(fpxt || (fpxt = {}));
+//# sourceMappingURL=paymo.js.map

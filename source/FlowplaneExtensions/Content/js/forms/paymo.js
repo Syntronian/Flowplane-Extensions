@@ -67,11 +67,15 @@ var fpxt;
                 $("#cboActivityParamTaskList").append($('<option>Loading task lists...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
                 var result = new shearnie.tools.Poster().SendSync(baseApiUrl + 'api/process/gettasks', {
                     extId: this.extId,
-                    authKeys: JSON.stringify(authKeys)
+                    authKeys: JSON.stringify(authKeys),
+                    objParams: JSON.stringify([{
+                            key: 'project_id',
+                            value: $("#cboActivityParamProject").val()
+                        }])
                 });
 
                 if (result.items.length == 0) {
-                    shearnie.tools.html.fillCombo($("#cboActivityParamProject"), null, "No task lists");
+                    shearnie.tools.html.fillCombo($("#cboActivityParamTaskList"), null, "No task lists");
                     return;
                 }
 

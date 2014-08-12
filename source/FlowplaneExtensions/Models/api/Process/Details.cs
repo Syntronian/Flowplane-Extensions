@@ -183,7 +183,7 @@ namespace FlowplaneExtensions.Models.api.Process
 
             if (extId.Equals(new Extensions.Paymo.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                      var apiKey = authKeys.FirstOrDefault(k => k.key == "API_Key");
+                var apiKey = authKeys.FirstOrDefault(k => k.key == "API_Key");
                 if (apiKey == null) throw new Exception("Invalid API_Key");
 
                 var username = authKeys.FirstOrDefault(k => k.key == "username");
@@ -194,11 +194,14 @@ namespace FlowplaneExtensions.Models.api.Process
 
                 var authToken = authKeys.FirstOrDefault(k => k.key == "authToken");
 
-                string projectId = objParams.FirstOrDefault(k => k.key == "projectId").ToString();
+                var projectId = objParams.FirstOrDefault(k => k.key == "project_id");
 
                 return new Extensions.Paymo.TaskLists(
                     new Extensions.Paymo.Auth(
-                        apiKey.value, username.value, password.value, Common.TryGetString(authToken))).List(projectId);
+                        apiKey.value, 
+                        username.value, 
+                        password.value, 
+                        Common.TryGetString(authToken))).List(Common.TryGetString(projectId));
             }
 
             throw new Exception("Invalid extension.");

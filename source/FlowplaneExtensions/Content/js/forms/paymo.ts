@@ -69,11 +69,16 @@ module fpxt.forms {
                 baseApiUrl + 'api/process/gettasks',
                 {
                     extId: this.extId,
-                    authKeys: JSON.stringify(authKeys)
+                    authKeys: JSON.stringify(authKeys),
+                    objParams: JSON.stringify([
+                        {
+                            key: 'project_id',
+                            value: $("#cboActivityParamProject").val()
+                        }])
                 });
 
             if (result.items.length == 0) {
-                shearnie.tools.html.fillCombo($("#cboActivityParamProject"), null, "No task lists");
+                shearnie.tools.html.fillCombo($("#cboActivityParamTaskList"), null, "No task lists");
                 return;
             }
 

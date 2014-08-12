@@ -63,6 +63,12 @@ namespace FlowplaneExtensions
                 defaults: new { controller = "Api_Process", action = "GetOrganisations" }
             );
 
+            config.Routes.MapHttpRoute(
+                name: "Api_Process_GetTasks",
+                routeTemplate: "api/process/gettasks",
+                defaults: new { controller = "Api_Process", action = "GetTasks" }
+            );
+
 
 
             config.Routes.MapHttpRoute(

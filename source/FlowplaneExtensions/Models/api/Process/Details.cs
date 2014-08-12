@@ -78,21 +78,8 @@ namespace FlowplaneExtensions.Models.api.Process
             }
 
             if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
-            {
-                var clientId = authKeys.FirstOrDefault(k => k.key == "clientId");
-                if (clientId == null) throw new Exception("Invalid clientId");
-
-                var clientSecret = authKeys.FirstOrDefault(k => k.key == "clientSecret");
-                if (clientSecret == null) throw new Exception("Invalid clientSecret");
-
-                var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
-                if (accessToken == null) throw new Exception("Invalid accessToken");
-
-                return new Extensions.Podio.Workspaces(new Extensions.Podio.Auth(clientId.value, 
-                        clientSecret.value, 
-                        accessToken.value, 
-                        Common.TryGetInt(authKeys.FirstOrDefault(k => k.key == "organisationId")))).List();
-            }
+                return new Extensions.Podio.Workspaces(Common.GetAuthObject(authKeys)).List();
+            
             throw new Exception("Invalid extension.");
         }
 
@@ -135,7 +122,43 @@ namespace FlowplaneExtensions.Models.api.Process
             throw new Exception("Invalid extension.");
         }
 
+        public IApps GetApps(FormDataCollection formData)
+        {
+            var extId = Common.GetValue(formData, "extId");
+            var authKeys = Common.TryGetParams(formData["authKeys"]);
+            var objParams = Common.TryGetParams(formData["objParams"]);
 
+            if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var spaceId = objParams.FirstOrDefault(k => k.key == "spaceId");
+                int id;
+                if (spaceId == null) throw new Exception("Invalid spaceId");
+                else Int32.TryParse(spaceId.ToString(), out id);
+
+                return new Extensions.Podio.Apps(Common.GetAuthObject(authKeys)).List(id);
+            }
+
+            throw new Exception("Invalid extension.");
+        }
+
+        public IItems GetItems(FormDataCollection formData)
+        {
+            var extId = Common.GetValue(formData, "extId");
+            var authKeys = Common.TryGetParams(formData["authKeys"]);
+            var objParams = Common.TryGetParams(formData["objParams"]);
+
+            if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var appId = objParams.FirstOrDefault(k => k.key == "appId");
+                int id;
+                if (appId == null) throw new Exception("Invalid appId");
+                else Int32.TryParse(appId.ToString(), out id);
+
+                return new Extensions.Podio.Items(Common.GetAuthObject(authKeys)).List(id);
+            }
+
+            throw new Exception("Invalid extension.");
+        }
 
         public IOrganisations GetOrganizations(FormDataCollection formData)
         {
@@ -144,24 +167,8 @@ namespace FlowplaneExtensions.Models.api.Process
             var objParams = Common.TryGetParams(formData["objParams"]);
             
             if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
-            {
-                var clientId = authKeys.FirstOrDefault(k => k.key == "clientId");
-                if (clientId == null) throw new Exception("Invalid clientId");
-
-                var clientSecret = authKeys.FirstOrDefault(k => k.key == "clientSecret");
-                if (clientSecret == null) throw new Exception("Invalid clientSecret");
-
-                var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
-                if (accessToken == null) throw new Exception("Invalid accessToken");
-
-                return new Extensions.Podio.Orgs(
-                    new Extensions.Podio.Auth(
-                        clientId.value,
-                        clientSecret.value,
-                        accessToken.value,
-                        Common.TryGetInt(authKeys.FirstOrDefault(k => k.key == "organisationId")))).List();
-            }
-
+                return new Extensions.Podio.Orgs(Common.GetAuthObject(authKeys)).List();
+        
             throw new Exception("Invalid extension.");
         }
 
@@ -193,5 +200,7 @@ namespace FlowplaneExtensions.Models.api.Process
 
             throw new Exception("Invalid extension.");
         }
+
+        
     }
 }

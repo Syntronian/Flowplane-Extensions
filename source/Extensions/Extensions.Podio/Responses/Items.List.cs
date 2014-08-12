@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ExtensionsCore;
 
 namespace Extensions.Podio.Responses.Items
 {
-    public class Item
+    public class Item : IItem
     {
         public Item()
         {
@@ -24,13 +25,13 @@ namespace Extensions.Podio.Responses.Items
 
 
 
-    public class List
+    public class List : IItems
     {
-        public List<Item> items { get; set; }
+        public List<IItem> items { get; set; }
 
         public List(PodioAPI.Utils.PodioCollection<PodioAPI.Models.Item> items)
         {
-            this.items = new List<Item>();
+            this.items = new List<IItem>();
             foreach (var item in items.Items)
             {
                 this.items.Add(new Item(item.ItemId.ToString(), item.Title));

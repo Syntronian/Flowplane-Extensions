@@ -46,5 +46,23 @@ namespace FlowplaneExtensions.Models.api
             if (String.IsNullOrEmpty(data)) return new List<FpxtParam>();
             return JsonConvert.DeserializeObject<List<FpxtParam>>(data);
         }
+
+        internal static Extensions.Podio.Auth GetAuthObject(List<FpxtParam> authKeys)
+        {
+                var clientId = authKeys.FirstOrDefault(k => k.key == "clientId");
+                if (clientId == null) throw new Exception("Invalid clientId");
+
+                var clientSecret = authKeys.FirstOrDefault(k => k.key == "clientSecret");
+                if (clientSecret == null) throw new Exception("Invalid clientSecret");
+
+                var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
+                if (accessToken == null) throw new Exception("Invalid accessToken");
+
+                return new Extensions.Podio.Auth(
+                        clientId.value,
+                        clientSecret.value,
+                        accessToken.value,
+                        Common.TryGetInt(authKeys.FirstOrDefault(k => k.key == "organisationId")));
+        }
     }
 }

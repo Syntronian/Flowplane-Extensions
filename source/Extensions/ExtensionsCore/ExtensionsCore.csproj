@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthKey.cs" />
+    <Compile Include="IItem.cs" />
+    <Compile Include="IApp.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="Definitions.cs" />
     <Compile Include="IAssignee.cs" />

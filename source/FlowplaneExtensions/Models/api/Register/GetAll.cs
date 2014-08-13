@@ -78,6 +78,15 @@ namespace FlowplaneExtensions.Models.api.Register
                             requiredMessage = "Password is required."
                         }
                     }
+                },
+
+                new Extension()
+                {
+                    identity = new Extensions.Podio.Identity(),
+                    url_path_auth = urlPrefix + url.Action("Auth", "Podio"),
+                    url_path_header = urlPrefix + url.Action("Header", "Podio"),
+                    url_path_body = urlPrefix + url.Action("Body", "Podio"),
+                    img_src = urlPrefix + url.Content("~//Content/img/ext-podio.png")
                 }
             };
         }

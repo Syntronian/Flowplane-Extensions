@@ -1,0 +1,40 @@
+﻿<script>
+    var podioAuthPopup = function() {
+        var w = 1000;
+        var h = 640;
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
+        window.open("@Url.Action('Podio', 'oauth')",
+			"_blank",
+			"width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ", toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no");
+    };
+</script>
+<div id="dlg-podio-step1">
+	<p>
+		<img src="@Url.Content("~/Content/fp/img/ext-podio.png")" />
+		&nbsp;
+		Connect to your podio account.
+	</p>
+	<a href="javascript:;" 
+		onclick="podioAuthPopup();"
+		class="btn green" target="_top">Connect to Podio</a>
+	<input id="txtPodioAuthCode" name="txtPodioAuthCode" style="visibility: hidden;" type="text" value="" />
+	<input id="txtPodioAccessToken" name="txtPodioAccessToken" style="visibility: hidden;" type="text" value="" />
+	<input id="chkReady" name="chkReady" style="visibility: hidden;" type="checkbox" />
+</div>
+
+<div id="dlg-podio-step2" style="display: none;">
+	<p>
+		<img src="@Url.Content("~/Content/fp/img/ext-podio.png")" />
+		&nbsp;
+		Organisation:
+	</p>
+	<div id="podio-orgs-loading" class="frmLoader" style="width: 440px">
+		&nbsp;Loading organisations...
+	</div>
+	<select id="cboPodioOrg" class="form-control" style="width: 90%">
+		<option value="" selected="selected">Select org:</option>
+	</select>
+	<div style="height: 20px;"></div>
+	<a href="javascript:;" onclick="podioAuthPopup();" class="btn green" target="_top">Reconnect to Podio</a>
+</div>

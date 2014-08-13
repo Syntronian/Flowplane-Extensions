@@ -86,7 +86,17 @@ namespace FlowplaneExtensions.Models.api.Register
                     url_path_auth = urlPrefix + url.Action("Auth", "Podio"),
                     url_path_header = urlPrefix + url.Action("Header", "Podio"),
                     url_path_body = urlPrefix + url.Action("Body", "Podio"),
-                    img_src = urlPrefix + url.Content("~//Content/img/ext-podio.png")
+                    img_src = urlPrefix + url.Content("~//Content/img/ext-podio.png"),
+                    auth_keys = new List<AuthKey>()
+                    {
+                        new AuthKey() {
+                            key = "Connect",
+                            controlId = "btnConnectPodio",
+                            controlDescription = "oAuth button",
+                            required = true,
+                            requiredMessage = "Connect to podio first."
+                        }
+                    }
                 }
             };
         }

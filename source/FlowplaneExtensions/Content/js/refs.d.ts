@@ -7,3 +7,4 @@
 /// <reference path="forms/IForm.d.ts" />
 /// <reference path="forms/asana.ts" />
 /// <reference path="forms/paymo.ts" />
+/// <reference path="forms/podio.ts" />

@@ -25,6 +25,7 @@ module fpxt {
             // register extensions here
             exts.push(new forms.Asana());
             exts.push(new forms.Paymo());
+            exts.push(new forms.Podio());
 
             return Enumerable.from(exts).firstOrDefault(x => { return x.extId.toLowerCase() == extCode.toLowerCase(); });
         }

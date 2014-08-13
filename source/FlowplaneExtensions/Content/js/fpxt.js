@@ -38,6 +38,7 @@ var fpxt;
             // register extensions here
             exts.push(new fpxt.forms.Asana());
             exts.push(new fpxt.forms.Paymo());
+            exts.push(new fpxt.forms.Podio());
 
             return Enumerable.from(exts).firstOrDefault(function (x) {
                 return x.extId.toLowerCase() == extCode.toLowerCase();

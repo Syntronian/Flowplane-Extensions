@@ -30,7 +30,8 @@ namespace FlowplaneExtensions
                 "~/Content/js/shearnie/tools.js",
                 "~/Content/js/fpxt.js",
                 "~/Content/js/forms/asana.js",
-                "~/Content/js/forms/paymo.js"
+                "~/Content/js/forms/paymo.js",
+                "~/Content/js/forms/podio.js"
             ));
         }
     }

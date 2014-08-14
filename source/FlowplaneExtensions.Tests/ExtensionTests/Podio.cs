@@ -38,17 +38,32 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         //[TestMethod]
         //public void GetApps()
         //{
-        //    var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetApps(GetCol("YOUR_SPACE_ID_HERE"));
+        //    var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetApps(GetCol(null,"YOUR_SPACE_ID_HERE"));
         //    Common.Display(o);
         //}
 
         //[TestMethod]
         //public void GetItems()
         //{
-        //    var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetItems(GetCol("YOUR_APP_ID_HERE"));
+        //    var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetItems(GetCol(null,null,"YOUR_APP_ID_HERE"));
         //    Common.Display(o);
         //}
-        private FormDataCollection GetCol(string orgId = null, string spaceId = null, string appId = null)
+
+        //[TestMethod]
+        //public void GetLoginUrl()
+        //{
+        //    var o = new FlowplaneExtensions.Controllers.api.Api_OAuthController().GetLoginUrl(GetCol(null,null,null,"YOUR_REDIRECT_URI_HERE"));
+        //    Assert.IsTrue(o != null);
+        //}
+
+        //[TestMethod]
+        //public void GetAccessToken()
+        //{
+        //    var o = new FlowplaneExtensions.Controllers.api.Api_OAuthController().GetAccessToken(GetCol(null,null,null,"YOUR_REDIRECT_URI_HERE", "YOUR_AUTH_CODE_HERE"));
+        //    Assert.IsTrue(o != null);
+        //}
+
+        private FormDataCollection GetCol(string orgId = null, string spaceId = null, string appId = null, string redirectUri = null, string authCode = null)
         {
             var ak = new List<Models.api.FpxtParam>()
             {
@@ -62,7 +77,9 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
             {
                new  Models.api.FpxtParam { key = "organisationId",value = orgId},
                new  Models.api.FpxtParam { key = "spaceId",value = spaceId},
-               new  Models.api.FpxtParam { key = "appId",value = appId}
+               new  Models.api.FpxtParam { key = "appId",value = appId},
+                new  Models.api.FpxtParam { key = "redirectUri",value = redirectUri},
+               new  Models.api.FpxtParam { key = "code",value = authCode}
             };
             var objParams = JsonConvert.SerializeObject(obP);
 

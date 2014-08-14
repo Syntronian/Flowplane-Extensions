@@ -210,6 +210,9 @@
     <Content Include="Views\Podio\Auth.cshtml" />
     <Content Include="Views\Podio\Body.cshtml" />
     <Content Include="Views\Podio\Header.cshtml" />
+    <Content Include="Views\Facebook\Auth.cshtml" />
+    <Content Include="Views\Facebook\Body.cshtml" />
+    <Content Include="Views\Facebook\Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Extensions.Asana\Extensions.Asana.csproj">

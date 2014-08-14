@@ -161,6 +161,7 @@
     <Content Include="Content\img\ext-podio.png" />
     <Content Include="Content\img\ext-twitter.png" />
     <Content Include="Content\js\forms\asana.js" />
+    <Content Include="Content\js\forms\podio.js" />
     <Content Include="Content\js\forms\podio.ts" />
     <Content Include="Content\js\forms\paymo.js" />
     <Content Include="Content\js\forms\paymo.ts" />

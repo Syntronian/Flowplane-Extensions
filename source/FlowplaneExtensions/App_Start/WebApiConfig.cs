@@ -82,6 +82,18 @@ namespace FlowplaneExtensions
                 routeTemplate: "api/flow/completeactivity",
                 defaults: new { controller = "Api_Flow", action = "CompleteActivity" }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "Api_OAuth_GetLoginUrl",
+                routeTemplate: "api/oauth/getloginurl",
+                defaults: new { controller = "Api_OAuth", action = "GetLoginUrl" }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "Api_OAuth_GetAccessToken",
+                routeTemplate: "api/oauth/getaccesstoken",
+                defaults: new { controller = "Api_OAuth", action = "GetAccessToken" }
+            );
         }
     }
 }

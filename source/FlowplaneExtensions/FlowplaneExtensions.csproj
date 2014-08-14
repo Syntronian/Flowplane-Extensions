@@ -223,6 +223,10 @@
       <Project>{75b0fab2-6462-41d0-8b37-4ce7cf9c6917}</Project>
       <Name>Extensions.Facebook</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Extensions\Extensions.LinkedIn\Extensions.LinkedIn.csproj">
+      <Project>{c33e0143-3220-4d64-b3b7-88b2e7ee7314}</Project>
+      <Name>Extensions.LinkedIn</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Extensions\Extensions.Paymo\Extensions.Paymo.csproj">
       <Project>{5e5a1181-7e9d-4c7e-9882-447a9d329de0}</Project>
       <Name>Extensions.Paymo</Name>
@@ -230,6 +234,10 @@
     <ProjectReference Include="..\Extensions\Extensions.Podio\Extensions.Podio.csproj">
       <Project>{26b0e78b-7a12-4903-bae1-416bcd5f2676}</Project>
       <Name>Extensions.Podio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Extensions\Extensions.Signatureio\Extensions.Signatureio.csproj">
+      <Project>{b96af45a-68ec-4372-96d8-24e3139ee658}</Project>
+      <Name>Extensions.Signatureio</Name>
     </ProjectReference>
     <ProjectReference Include="..\Extensions\Extensions.Twitter\Extensions.Twitter.csproj">
       <Project>{86a043eb-7788-44f2-8521-16cf95ad2481}</Project>

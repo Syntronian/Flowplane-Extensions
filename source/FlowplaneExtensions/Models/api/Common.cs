@@ -76,20 +76,31 @@ namespace FlowplaneExtensions.Models.api
             var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
             if (accessToken == null) throw new Exception("Invalid accessToken");
 
-            var accessTokenSecret = authKeys.FirstOrDefault(k => k.key == "accessTokenSecret");
-            if (accessTokenSecret == null) throw new Exception("Invalid accessTokenSecret");
-
 
             if (extId.Equals(new Extensions.Wrike.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var callback = objParams.FirstOrDefault(k => k.key == "callback");
+                var accessTokenSecret = authKeys.FirstOrDefault(k => k.key == "accessTokenSecret");
+                if (accessTokenSecret == null) throw new Exception("Invalid accessTokenSecret");
+
+                var callback = authKeys.FirstOrDefault(k => k.key == "callback");
                 if (callback == null) throw new Exception("Invalid callback");
 
                 return new Extensions.Wrike.Auth(consumerKey.value, consumerSecret.value, accessToken.value, accessTokenSecret.value, callback.value);
             }
 
+            if (extId.Equals(new Extensions.LinkedIn.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var callback = authKeys.FirstOrDefault(k => k.key == "callback");
+                if (callback == null) throw new Exception("Invalid callback");
+
+                return new Extensions.LinkedIn.Auth(consumerKey.value, consumerSecret.value, accessToken.value, callback.value);
+            }
+
             if (extId.Equals(new Extensions.Twitter.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
+                var accessTokenSecret = authKeys.FirstOrDefault(k => k.key == "accessTokenSecret");
+                if (accessTokenSecret == null) throw new Exception("Invalid accessTokenSecret");
+
                 return new Extensions.Twitter.Auth(consumerKey.value, consumerSecret.value, accessToken.value, accessTokenSecret.value);
             }
             throw new Exception("Invalid extension.");

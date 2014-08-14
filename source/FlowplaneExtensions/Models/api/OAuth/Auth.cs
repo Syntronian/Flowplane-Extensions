@@ -11,12 +11,16 @@ namespace FlowplaneExtensions.Models.api.OAuth
         {
             var extId = Common.GetValue(formData, "extId");
             var authKeys = Common.TryGetParams(formData["authKeys"]);
-             var objParams = Common.TryGetParams(formData["objParams"]);
+            var objParams = Common.TryGetParams(formData["objParams"]);
 
             if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
                 var redirectUri = objParams.FirstOrDefault(k => k.key == "redirectUri");
                 return new Extensions.Podio.Auth(Common.GetAuthObject(authKeys)).GetLoginUrl(redirectUri.value);
+            }
+            if (extId.Equals(new Extensions.LinkedIn.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return new Extensions.LinkedIn.Tokens((Extensions.LinkedIn.Auth)Common.GetAuthObject(extId, authKeys, objParams)).GetRequestURL();
             }
             throw new Exception("Invalid extension.");
         }
@@ -26,12 +30,15 @@ namespace FlowplaneExtensions.Models.api.OAuth
             var extId = Common.GetValue(formData, "extId");
             var authKeys = Common.TryGetParams(formData["authKeys"]);
             var objParams = Common.TryGetParams(formData["objParams"]);
-
+            var accessCode = objParams.FirstOrDefault(k => k.key == "code");
             if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var accessCode = objParams.FirstOrDefault(k => k.key == "code");
                 var redirectUri = objParams.FirstOrDefault(k => k.key == "redirectUri");
                 return new Extensions.Podio.Auth(Common.GetAuthObject(authKeys)).GetAccessToken(accessCode.value, redirectUri.value);
+            }
+            if (extId.Equals(new Extensions.LinkedIn.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return new Extensions.LinkedIn.Tokens((Extensions.LinkedIn.Auth)Common.GetAuthObject(extId, authKeys, objParams)).GetAccessToken(accessCode.value);
             }
             throw new Exception("Invalid extension.");
         }

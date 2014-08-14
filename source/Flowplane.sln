@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Podio", "Extensi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Wrike", "Extensions\Extensions.Wrike\Extensions.Wrike.csproj", "{9962BA37-592A-4D89-AAD6-E749D64B9E7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Signatureio", "Extensions\Extensions.Signatureio\Extensions.Signatureio.csproj", "{B96AF45A-68EC-4372-96D8-24E3139EE658}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{9962BA37-592A-4D89-AAD6-E749D64B9E7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9962BA37-592A-4D89-AAD6-E749D64B9E7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9962BA37-592A-4D89-AAD6-E749D64B9E7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B96AF45A-68EC-4372-96D8-24E3139EE658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B96AF45A-68EC-4372-96D8-24E3139EE658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B96AF45A-68EC-4372-96D8-24E3139EE658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B96AF45A-68EC-4372-96D8-24E3139EE658}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,5 +88,6 @@ Global
 		{86A043EB-7788-44F2-8521-16CF95AD2481} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
 		{26B0E78B-7A12-4903-BAE1-416BCD5F2676} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
 		{9962BA37-592A-4D89-AAD6-E749D64B9E7F} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
+		{B96AF45A-68EC-4372-96D8-24E3139EE658} = {E3C934E7-5A3F-4A93-B662-30610003E20A}
 	EndGlobalSection
 EndGlobal

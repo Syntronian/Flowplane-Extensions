@@ -137,6 +137,7 @@
     <Compile Include="Controllers\api\Api_OAuthController.cs" />
     <Compile Include="Controllers\api\Api_RegisterController.cs" />
     <Compile Include="Controllers\api\Api_ProcessController.cs" />
+    <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\PodioController.cs" />
     <Compile Include="Controllers\PaymoController.cs" />
     <Compile Include="Models\api\Common.cs" />

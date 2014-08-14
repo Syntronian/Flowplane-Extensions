@@ -1,0 +1,58 @@
+﻿<script>
+	var facebookAuthPopup = function () {
+		var w = 1000;
+		var h = 640;
+		var left = (screen.width / 2) - (w / 2);
+		var top = (screen.height / 2) - (h / 2);
+		window.open("about:blank",
+			"frmFacebookAuth",
+			"width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ", toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no");
+		document.getElementById('frm-facebook-app-keys').submit();
+	};
+	$(document).ready(function () {
+		$('#chkFacebookOauthOption').bootstrapSwitch().on('switchChange.bootstrapSwitch', function (event, state) {
+			if (state == false) {
+				$('.facebook-app-keys').show();
+				$('#txtFacebookAppId').focus();
+			} else {
+				$('.facebook-app-keys').hide();
+			}
+		});
+	});
+</script>
+<p>
+	<img src="@System.Web.HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~//Content/img/ext-facebook.png")" />
+	&nbsp;
+	Connect to your Facebook account.
+</p>
+<div id="btnConnectFacebook" class="row" style="margin-top: 20px;">
+	<div class="col-md-6">
+		<p>
+			Oauth with Flowplane:&nbsp;
+			<input type="checkbox" id="chkFacebookOauthOption" data-size="medium" data-on-text="Yes" data-off-text="No" checked>
+		</p>
+		<form id="frm-facebook-app-keys" method="post" action="@Url.Action("Facebook", "oauth")" target="frmFacebookAuth">
+			<div class="facebook-app-keys" class="form-group" style="display: none; margin-bottom: 20px;">
+				<label>
+					App Id:
+				</label>
+				<input id="txtFacebookAppId" name="txtFacebookAppId" class="form-control" autocomplete="off" placeholder="App Id" type="text" value="" />
+			</div>
+			<div class="facebook-app-keys" class="form-group" style="display: none;">
+				<label>
+					App Secret:
+				</label>
+				<input id="txtFacebookAppSecret" name="txtFacebookAppSecret" class="form-control" autocomplete="off" placeholder="App Secret" type="text" value="" />
+			</div>
+		</form>
+	</div>
+	<div class="col-md-1"></div>
+	<div class="col-md-3">
+		<a href="javascript:;"
+		   onclick="facebookAuthPopup();"
+		   class="btn green" target="_top">Connect to Facebook</a>
+	</div>
+</div>
+
+<input id="txtFacebookAccessToken" name="txtFacebookAccessToken" style="visibility: hidden;" type="text" value="" />
+<h4 id="lblConnectedToFacebook" style="display: none;"><i class="fa fa-check"></i>&nbsp; Connected.</h4>

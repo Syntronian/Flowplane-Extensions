@@ -136,6 +136,7 @@
     <Compile Include="Controllers\api\Api_FlowController.cs" />
     <Compile Include="Controllers\api\Api_RegisterController.cs" />
     <Compile Include="Controllers\api\Api_ProcessController.cs" />
+    <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\PaymoController.cs" />
     <Compile Include="Models\api\Common.cs" />
     <Compile Include="Controllers\AsanaController.cs" />
@@ -206,6 +207,9 @@
     <Content Include="Views\Podio\Auth.cshtml" />
     <Content Include="Views\Podio\Body.cshtml" />
     <Content Include="Views\Podio\Header.cshtml" />
+    <Content Include="Views\Facebook\Auth.cshtml" />
+    <Content Include="Views\Facebook\Body.cshtml" />
+    <Content Include="Views\Facebook\Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Extensions.Asana\Extensions.Asana.csproj">

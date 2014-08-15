@@ -18,6 +18,8 @@ namespace ExtensionsCore
 
         string Toolbox_CSS { get; }
 
+        string Toolbox_Content { get; }
+
         string Toolbox_Drag_CSS { get; }
     }
 }

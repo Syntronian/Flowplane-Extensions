@@ -42,6 +42,11 @@ namespace Extensions.Twitter
             get { return "toolbox-event-twitter"; }
         }
 
+        public string Toolbox_Content
+        {
+            get { return "<i class=\"fa-twitter fa fa-2x toolbox-event-twitter-bird\"></i>"; }
+        }
+
         public string Toolbox_Drag_CSS
         {
             get { return "toolbox-event-twitter-drag"; }

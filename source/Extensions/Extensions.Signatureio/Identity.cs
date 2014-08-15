@@ -41,6 +41,11 @@ namespace Extensions.Signatureio
             get { return "toolbox-activity-signatureio"; }
         }
 
+        public string Toolbox_Content
+        {
+            get { return ""; }
+        }
+
         public string Toolbox_Drag_CSS
         {
             get { return "toolbox-activity-signatureio-drag"; }

@@ -42,6 +42,11 @@ namespace Extensions.Podio
             get { return "toolbox-activity-podio"; }
         }
 
+        public string Toolbox_Content
+        {
+            get { return ""; }
+        }
+
         public string Toolbox_Drag_CSS
         {
             get { return "toolbox-activity-podio-drag"; }

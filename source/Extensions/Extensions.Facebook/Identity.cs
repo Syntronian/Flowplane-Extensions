@@ -42,6 +42,11 @@ namespace Extensions.Facebook
             get { return "toolbox-event-facebook"; }
         }
 
+        public string Toolbox_Content
+        {
+            get { return "<i class=\"fa-facebook-square fa fa-2x toolbox-event-facebook-f\"></i>"; }
+        }
+
         public string Toolbox_Drag_CSS
         {
             get { return "toolbox-event-facebook-drag"; }

@@ -42,6 +42,11 @@ namespace Extensions.Wrike
             get { return "toolbox-activity-wrike"; }
         }
 
+        public string Toolbox_Content
+        {
+            get { return ""; }
+        }
+
         public string Toolbox_Drag_CSS
         {
             get { return "toolbox-activity-wrike-drag"; }

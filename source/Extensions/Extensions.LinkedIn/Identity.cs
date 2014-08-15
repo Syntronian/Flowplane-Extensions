@@ -41,6 +41,11 @@ namespace Extensions.LinkedIn
             get { return "toolbox-event-linkedin"; }
         }
 
+        public string Toolbox_Content
+        {
+            get { return "<i class=\"fa-linkedin-square fa fa-2x toolbox-event-linkedin-l\"></i>"; }
+        }
+
         public string Toolbox_Drag_CSS
         {
             get { return "toolbox-event-linkedin-drag"; }

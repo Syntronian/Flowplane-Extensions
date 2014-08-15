@@ -30,6 +30,25 @@ namespace FlowplaneExtensions.Models.api.Register
             {
                 new Extension()
                 {
+                    identity = new Extensions.Facebook.Identity(),
+                    url_path_auth = urlPrefix + url.Action("Auth", "Facebook"),
+                    url_path_header = urlPrefix + url.Action("Header", "Facebook"),
+                    url_path_body = urlPrefix + url.Action("Body", "Facebook"),
+                    img_src = urlPrefix + url.Content("~//Content/img/ext-facebook.png"),
+                    auth_keys = new List<AuthKey>()
+                    {
+                        new AuthKey() {
+                            key = "API_Key",
+                            controlId = "txtAsanaAPIKey",
+                            controlDescription = "API key",
+                            required = true,
+                            requiredMessage = "API key is required."
+                        }
+                    }
+                },
+
+                new Extension()
+                {
                     identity = new Extensions.Asana.Identity(),
                     url_path_auth = urlPrefix + url.Action("Auth", "Asana"),
                     url_path_header = urlPrefix + url.Action("Header", "Asana"),

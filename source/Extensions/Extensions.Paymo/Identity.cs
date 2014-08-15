@@ -34,6 +34,11 @@ namespace Extensions.Paymo
             get { return "toolbox-activity-paymo"; }
         }
 
+        public string Toolbox_Content
+        {
+            get { return ""; }
+        }
+
         public string Toolbox_Drag_CSS
         {
             get { return "toolbox-activity-paymo-drag"; }

@@ -59,7 +59,7 @@ namespace FlowplaneExtensions.Models.api.Process
             }
 
             if (extId.Equals(new Extensions.Wrike.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
-                return new Extensions.Wrike.Users((Extensions.Wrike.Auth)Common.GetAuthObject(extId, authKeys, objParams)).Get();
+                return new Extensions.Wrike.Users((Extensions.Wrike.Auth)Common.GetAuthObject(extId, authKeys, null)).Get();
             
             throw new Exception("Invalid extension.");
         }

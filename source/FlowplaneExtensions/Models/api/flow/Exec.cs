@@ -26,7 +26,7 @@ namespace FlowplaneExtensions.Models.api.flow
                 var assigneeId = Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskassignee"));
                 var workspace = Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskworkspace"));
                 var project = Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskproject"));
-                
+
                 var task = new Extensions.Asana.Tasks(new Auth(apiKey.value));
 
                 if (string.IsNullOrEmpty(daysDue))
@@ -67,7 +67,17 @@ namespace FlowplaneExtensions.Models.api.flow
                 new Extensions.Twitter.Tweets((Extensions.Twitter.Auth)Common.GetAuthObject(extId, authKeys, null)).UpdateStatus(message.value);
                 return System.Net.HttpStatusCode.OK.ToString();
             }
+            if (extId.Equals(new Extensions.LinkedIn.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var message = objParams.FirstOrDefault(k => k.key == "message");
+                if (message == null) throw new Exception("Invalid message");
 
+                var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
+                if (accessToken == null) throw new Exception("Invalid accessToken");
+
+                new Extensions.LinkedIn.Share((Extensions.LinkedIn.Auth)Common.GetAuthObject(extId, authKeys, null)).LinkedInShare(message.value);
+                return System.Net.HttpStatusCode.OK.ToString();
+            }
             throw new Exception("Invalid extension.");
         }
 

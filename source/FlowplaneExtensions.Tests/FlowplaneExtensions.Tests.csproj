@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="ExtensionTests\Asana.cs" />
     <Compile Include="ExtensionTests\Common.cs" />
+    <Compile Include="ExtensionTests\LinkedIn.cs" />
     <Compile Include="ExtensionTests\Facebook.cs" />
     <Compile Include="ExtensionTests\paymo.cs" />
     <Compile Include="ExtensionTests\Podio.cs" />

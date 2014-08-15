@@ -32,21 +32,17 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
                new  Models.api.FpxtParam { key = "consumerKey",value = consumerKey },
                new  Models.api.FpxtParam { key = "consumerSecret",value = consumerSecret },
                new  Models.api.FpxtParam { key = "accessToken",value = accessToken },
-               new  Models.api.FpxtParam { key = "accessTokenSecret",value = accessTokenSecret }
+               new  Models.api.FpxtParam { key = "accessTokenSecret",value = accessTokenSecret },
+                new  Models.api.FpxtParam { key = "callback",value = callback}
             };
             var authKeys = JsonConvert.SerializeObject(ak);
 
-            var obP = new List<Models.api.FpxtParam>()
-            {
-               new  Models.api.FpxtParam { key = "callback",value = callback}
-            };
-            var objParams = JsonConvert.SerializeObject(obP);
 
             var finalCol = new Dictionary<string, string>
                 { 
                     { "extId" , "wrike"},
                     { "authKeys", authKeys},
-                    {"objParams",objParams}
+                    {"objParams",null}
                 };
 
             return new FormDataCollection(finalCol);

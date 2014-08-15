@@ -9,6 +9,14 @@ namespace FlowplaneExtensions.Models.api
 {
     public class Common
     {
+        public static string FlowplaneDotCom
+        {
+            get
+            {
+                return "https://flowplane.com";
+            }
+        }
+
         internal static string GetValue(FormDataCollection data, string key)
         {
             return data.FirstOrDefault(a => a.Key == key).Value ?? "";

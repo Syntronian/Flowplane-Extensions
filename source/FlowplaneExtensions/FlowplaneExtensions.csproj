@@ -215,6 +215,7 @@
     <Content Include="Views\Facebook\Body.cshtml" />
     <Content Include="Views\Facebook\Header.cshtml" />
     <Content Include="Views\Facebook\OAuthComplete.cshtml" />
+    <Content Include="Views\Podio\OAuthComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Extensions.Asana\Extensions.Asana.csproj">

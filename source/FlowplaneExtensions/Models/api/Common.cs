@@ -13,7 +13,11 @@ namespace FlowplaneExtensions.Models.api
         {
             get
             {
+#if DEBUG
+                return "http://localhost/flowplane";
+#endif
                 return "https://flowplane.com";
+
             }
         }
 

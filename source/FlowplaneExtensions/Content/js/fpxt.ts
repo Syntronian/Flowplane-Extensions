@@ -24,6 +24,7 @@ module fpxt {
 
             // register extensions here
             exts.push(new forms.Asana());
+            exts.push(new forms.Facebook());
             exts.push(new forms.Paymo());
             exts.push(new forms.Podio());
 

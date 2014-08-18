@@ -10,6 +10,15 @@ module fpxt.forms {
             onCompleted();
         }
 
+        public setupAuth(authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+            if ($('#txtFacebookAppId').val() != '' && $('#txtFacebookAppSecret').val() != '') {
+                var bswitch: any = $('#chkFacebookOauthOption');
+                bswitch.bootstrapSwitch('toggleState');
+            }
+
+            onCompleted();
+        }
+
         public fill(baseApiUrl: string, authKeys: fpxtParam[], values: fpxtParam[]) {
             $("#txtEventParamFacebookStatus").val('');
 

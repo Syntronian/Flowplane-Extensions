@@ -10,6 +10,15 @@ var fpxt;
                 onCompleted();
             };
 
+            Facebook.prototype.setupAuth = function (authKeys, objParams, onCompleted) {
+                if ($('#txtFacebookAppId').val() != '' && $('#txtFacebookAppSecret').val() != '') {
+                    var bswitch = $('#chkFacebookOauthOption');
+                    bswitch.bootstrapSwitch('toggleState');
+                }
+
+                onCompleted();
+            };
+
             Facebook.prototype.fill = function (baseApiUrl, authKeys, values) {
                 $("#txtEventParamFacebookStatus").val('');
 

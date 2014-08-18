@@ -92,6 +92,10 @@ var fpxt;
                 shearnie.tools.html.fillCombo($("#cboActivityParamTaskList"), cd, "Select task");
             };
 
+            Paymo.prototype.setupAuth = function (authKeys, objParams, onCompleted) {
+                onCompleted();
+            };
+
             Paymo.prototype.fill = function (baseApiUrl, authKeys, values) {
                 $("#txtActivityParamTaskDesc").val('');
                 $("#txtActivityParamTaskDueDays").val('');

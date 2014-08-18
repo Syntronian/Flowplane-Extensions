@@ -50,6 +50,10 @@ var fpxt;
             ExtensionDialog.getExtension(extCode).setup(BaseApiUrl.path, authKeys, objParams, onCompleted);
         };
 
+        ExtensionDialog.initialiseAuth = function (extCode, authKeys, objParams, onCompleted) {
+            ExtensionDialog.getExtension(extCode).setupAuth(authKeys, objParams, onCompleted);
+        };
+
         ExtensionDialog.fill = function (extCode, authKeys, values) {
             ExtensionDialog.getExtension(extCode).fill(BaseApiUrl.path, authKeys, values);
         };

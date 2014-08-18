@@ -37,16 +37,19 @@ namespace FlowplaneExtensions.Controllers
                 var httpClient = new HttpClient();
                 var rs = httpClient.GetAsync(
                     string.Format(Common.FlowplaneDotCom + "/api/oauth/getloginurl/{0}?returnurl={1}",
-                                  new Extensions.Facebook.Identity().Code, 
-                                  Request.Url.AbsoluteUri)).Result;
+                        new Extensions.Facebook.Identity().Code,
+                        Request.Url.AbsoluteUri)).Result;
                 if (!rs.IsSuccessStatusCode) throw new Exception(rs.ReasonPhrase);
 
                 var url = JsonConvert.DeserializeObject<string>(rs.Content.ReadAsStringAsync().Result);
 
                 return Redirect(HttpUtility.UrlDecode(url));
             }
-
-            throw new Exception("Unsupported extension.");
+            else
+            {
+                var auth = new Extensions.Facebook.Auth();
+                return Redirect(HttpUtility.UrlDecode(auth.GetLoginUrl(txtFacebookAppId, txtFacebookAppSecret, Request.Url.AbsoluteUri)));
+            }
         }
 
         public ActionResult oauth()
@@ -72,8 +75,13 @@ namespace FlowplaneExtensions.Controllers
 
                 return View("OAuthComplete");
             }
+            else
+            {
+                var auth = new Extensions.Facebook.Auth();
+                ViewBag.AccessToken = auth.GetAccessToken(txtFacebookAppId, txtFacebookAppSecret, Request["code"], Request.Url.AbsoluteUri);
 
-            throw new Exception("Unsupported extension.");
+                return View("OAuthComplete");
+            }
         }
     }
 }

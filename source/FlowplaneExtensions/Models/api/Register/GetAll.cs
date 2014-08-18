@@ -38,11 +38,25 @@ namespace FlowplaneExtensions.Models.api.Register
                     auth_keys = new List<AuthKey>()
                     {
                         new AuthKey() {
-                            key = "API_Key",
-                            controlId = "txtAsanaAPIKey",
-                            controlDescription = "API key",
+                            key = "AppId",
+                            controlId = "txtFacebookAppId",
+                            controlDescription = "App Id",
+                            required = false,
+                            requiredMessage = ""
+                        },
+                        new AuthKey() {
+                            key = "AppSecret",
+                            controlId = "txtFacebookAppSecret",
+                            controlDescription = "App Secret",
+                            required = false,
+                            requiredMessage = ""
+                        },
+                        new AuthKey() {
+                            key = "AccessToken",
+                            controlId = "txtFacebookAccessToken",
+                            controlDescription = "Access token",
                             required = true,
-                            requiredMessage = "API key is required."
+                            requiredMessage = "Access token is required."
                         }
                     }
                 },

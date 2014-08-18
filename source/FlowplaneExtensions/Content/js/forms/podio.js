@@ -98,6 +98,10 @@ var fpxt;
                 shearnie.tools.html.fillCombo($("#" + target), cd, "Select " + loading);
             };
 
+            Podio.prototype.setupAuth = function (authKeys, objParams, onCompleted) {
+                onCompleted();
+            };
+
             Podio.prototype.fill = function (baseApiUrl, authKeys, values) {
                 $("#txtActivityParamTaskDesc").val('');
                 $("#txtActivityParamTaskDueDays").val('');

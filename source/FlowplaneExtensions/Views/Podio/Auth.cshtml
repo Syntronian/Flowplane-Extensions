@@ -1,13 +1,24 @@
 ﻿<script>
-    var podioAuthPopup = function() {
+    var podioAuthPopup = function () {
         var w = 1000;
         var h = 640;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
-        window.open("@Url.Action("Podio", "oauth")",
-			"_blank",
-			"width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ", toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no");
+        window.open("about:blank",
+               "frmPodioAuth",
+               "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ", toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no");
+        document.getElementById('frm-podio-app-keys').submit();
     };
+    $(document).ready(function () {
+        $('#chkPodioOauthOption').bootstrapSwitch().on('switchChange.bootstrapSwitch', function (event, state) {
+            if (state == false) {
+                $('.podio-app-keys').show();
+                $('#txtPodioAppId').focus();
+            } else {
+                $('.podio-app-keys').hide();
+            }
+        });
+    });
 </script>
 <div id="dlg-podio-step1">
 	<p>
@@ -15,9 +26,34 @@
 		&nbsp;
 		Connect to your podio account.
 	</p>
-	<a href="javascript:;" id="btnConnectPodio" 
-		onclick="podioAuthPopup();"
-		class="btn green" target="_top">Connect to Podio</a>
+<div id="btnConnectPodio" class="row" style="margin-top: 20px;">
+	<div class="col-md-6">
+		<p>
+			Oauth with Flowplane:&nbsp;
+			<input type="checkbox" id="chkPodioOauthOption" data-size="medium" data-on-text="Yes" data-off-text="No" checked>
+		</p>
+		<form id="frm-podio-app-keys" method="post" action="@Url.Action("oauth", "Podio")" target="frmPodioAuth">
+			<div class="podio-app-keys" class="form-group" style="display: none; margin-bottom: 20px;">
+				<label>
+					Client Id:
+				</label>
+				<input id="txtPodioAppId" name="txtPodioAppId" class="form-control" autocomplete="off" placeholder="Client Id" type="text" value="" />
+			</div>
+			<div class="podio-app-keys" class="form-group" style="display: none;">
+				<label>
+					Client Secret:
+				</label>
+				<input id="txtPodioAppSecret" name="txtPodioAppSecret" class="form-control" autocomplete="off" placeholder="Client Secret" type="text" value="" />
+			</div>
+		</form>
+	</div>
+	<div class="col-md-1"></div>
+	<div class="col-md-3">
+		<a href="javascript:;"
+		   onclick="podioAuthPopup();"
+		   class="btn green" target="_top">Connect to Podio</a>
+	</div>
+
 	<input id="txtPodioAuthCode" name="txtPodioAuthCode" style="visibility: hidden;" type="text" value="" />
 	<input id="txtPodioAccessToken" name="txtPodioAccessToken" style="visibility: hidden;" type="text" value="" />
 	<input id="chkReady" name="chkReady" style="visibility: hidden;" type="checkbox" />

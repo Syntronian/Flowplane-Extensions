@@ -51,10 +51,7 @@ namespace FlowplaneExtensions.Models.api.flow
 
             if (extId.Equals(new Extensions.Twitter.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var message = objParams.FirstOrDefault(k => k.key == "message");
-                if (message == null) throw new Exception("Invalid message");
-
-                new Extensions.Twitter.Tweets((Extensions.Twitter.Auth)Common.GetAuthObject(extId, authKeys, null)).UpdateStatus(message.value);
+                new Extensions.Twitter.Tweets((Extensions.Twitter.Auth)Common.GetAuthObject(extId, authKeys, null)).UpdateStatus(Common.TryGetString(objParams.FirstOrDefault(k => k.key == "tweetstatus")));
                 return System.Net.HttpStatusCode.OK.ToString();
             }
 

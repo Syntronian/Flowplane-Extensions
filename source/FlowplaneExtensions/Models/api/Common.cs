@@ -14,6 +14,7 @@ namespace FlowplaneExtensions.Models.api
             get
             {
                 return "https://flowplane.com";
+
             }
         }
 
@@ -57,13 +58,13 @@ namespace FlowplaneExtensions.Models.api
 
         internal static Extensions.Podio.Auth GetAuthObject(List<FpxtParam> authKeys)
         {
-            var clientId = authKeys.FirstOrDefault(k => k.key == "clientId");
+            var clientId = authKeys.FirstOrDefault(k => k.key == "ClientId");
             if (clientId == null) throw new Exception("Invalid clientId");
 
-            var clientSecret = authKeys.FirstOrDefault(k => k.key == "clientSecret");
+            var clientSecret = authKeys.FirstOrDefault(k => k.key == "ClientSecret");
             if (clientSecret == null) throw new Exception("Invalid clientSecret");
 
-            var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
+            var accessToken = authKeys.FirstOrDefault(k => k.key == "AccessToken");
             if (accessToken == null) throw new Exception("Invalid accessToken");
 
             return new Extensions.Podio.Auth(
@@ -75,19 +76,19 @@ namespace FlowplaneExtensions.Models.api
 
         internal static IAuth GetAuthObject(string extId, List<FpxtParam> authKeys, List<FpxtParam> objParams = null)
         {
-            var consumerKey = authKeys.FirstOrDefault(k => k.key == "consumerKey");
+            var consumerKey = authKeys.FirstOrDefault(k => k.key == "ConsumerKey");
             if (consumerKey == null) throw new Exception("Invalid consumerKey");
 
-            var consumerSecret = authKeys.FirstOrDefault(k => k.key == "consumerSecret");
+            var consumerSecret = authKeys.FirstOrDefault(k => k.key == "ConsumerSecret");
             if (consumerSecret == null) throw new Exception("Invalid consumerSecret");
 
-            var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
+            var accessToken = authKeys.FirstOrDefault(k => k.key == "AccessToken");
             if (accessToken == null) throw new Exception("Invalid accessToken");
 
 
             if (extId.Equals(new Extensions.Wrike.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var accessTokenSecret = authKeys.FirstOrDefault(k => k.key == "accessTokenSecret");
+                var accessTokenSecret = authKeys.FirstOrDefault(k => k.key == "AccessTokenSecret");
                 if (accessTokenSecret == null) throw new Exception("Invalid accessTokenSecret");
 
                 var callback = authKeys.FirstOrDefault(k => k.key == "callback");
@@ -106,7 +107,7 @@ namespace FlowplaneExtensions.Models.api
 
             if (extId.Equals(new Extensions.Twitter.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var accessTokenSecret = authKeys.FirstOrDefault(k => k.key == "accessTokenSecret");
+                var accessTokenSecret = authKeys.FirstOrDefault(k => k.key == "AccessTokenSecret");
                 if (accessTokenSecret == null) throw new Exception("Invalid accessTokenSecret");
 
                 return new Extensions.Twitter.Auth(consumerKey.value, consumerSecret.value, accessToken.value, accessTokenSecret.value);

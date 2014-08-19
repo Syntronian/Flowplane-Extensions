@@ -11,12 +11,10 @@ namespace Extensions.Facebook
     public class Status
     {
         private FacebookClient fbc { get; set; }
-        private string appId { get; set; }
 
-        public Status(string appToken, string appId)
+        public Status(string appToken)
         {
             this.fbc = new FacebookClient(appToken);
-            this.appId = appId;
         }
 
         public void UpdateStatus(

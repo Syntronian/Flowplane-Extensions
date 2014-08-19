@@ -64,7 +64,7 @@ namespace FlowplaneExtensions.Controllers
                 // use flowplane
                 var httpClient = new HttpClient();
                 var rs = httpClient.GetAsync(
-                    string.Format(Common.FlowplaneDotCom + "/api/oauth/getaccesstokens/{0}?returnurl=&facebookCode=&twitterOauth_token={1}&twitterOauth_verifier={2}",
+                    string.Format(Common.FlowplaneDotCom + "/api/oauth/getaccesstokens/{0}?twitterOauthToken={1}&twitterOauthVerifier={2}",
                                   new Extensions.Twitter.Identity().Code,
                                   Request["oauth_token"],
                                   Request["oauth_verifier"])).Result;

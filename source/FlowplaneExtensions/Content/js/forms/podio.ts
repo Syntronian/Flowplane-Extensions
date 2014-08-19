@@ -6,6 +6,43 @@ module fpxt.forms {
 
         public extId: string = 'PODIO';
 
+        public static load_orgs(baseApiUrl: string, setval?: string) {
+            $("#podio-orgs-loading").show();
+            $("#cboPodioOrg").hide();
+
+            $("#cboPodioOrg").empty();
+
+            var result = new shearnie.tools.Poster().SendSync(
+                baseApiUrl + 'api/process/getorganisations',
+                {
+                    data: JSON.stringify({
+                        "access_token": $('#txtPodioAccessToken').val()
+                    })
+                });
+
+            if (result.items.length == 0) {
+                shearnie.tools.html.fillCombo($("#cboPodioOrg"), null, "No orgs");
+                return;
+            }
+
+            var cd = [];
+            cd.push({
+                getItems: () => {
+                    var ret: shearnie.tools.html.comboItem[] = [];
+                    result.items.forEach(item => {
+                        ret.push({ value: item.id, display: item.name });
+                    });
+                    return ret;
+                }
+            });
+            shearnie.tools.html.fillCombo($("#cboPodioOrg"), cd, "Select organisation");
+
+            if (setval != null)
+                $("#cboPodioOrg").val(setval);
+            $("#podio-orgs-loading").hide();
+            $("#cboPodioOrg").show();
+        }
+
         public setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             $("#assignees-loading").show();
             $("#workspaces-loading").show();
@@ -20,7 +57,7 @@ module fpxt.forms {
             var pd = new Array();
             pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
             pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getworkspaces', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
-            
+
             var cd: shearnie.tools.html.comboData[] = [];
             new shearnie.tools.Poster().SendAsync(pd, numErrs => {
                 // fill assignees
@@ -37,7 +74,7 @@ module fpxt.forms {
                 shearnie.tools.html.fillCombo($("#cboActivityParamAssignee"), cd, "Select assignee");
                 $("#assignees-loading").hide();
                 $("#cboActivityParamAssignee").show();
-                
+
 
                 // fill projects
                 cd = [];
@@ -68,7 +105,7 @@ module fpxt.forms {
             });
         }
 
-        private load_Combo(baseApiUrl: string, authKeys: fpxtParam[],source: string,sourceKey:string,target: string,loading:string,method:string) {
+        private load_Combo(baseApiUrl: string, authKeys: fpxtParam[], source: string, sourceKey: string, target: string, loading: string, method: string) {
             $("#" + target).empty();
             $("#" + target).append($('<option>Loading ' + loading + '...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
             var result = new shearnie.tools.Poster().SendSync(

@@ -6,6 +6,41 @@ var fpxt;
             function Podio() {
                 this.extId = 'PODIO';
             }
+            Podio.load_orgs = function (baseApiUrl, setval) {
+                $("#podio-orgs-loading").show();
+                $("#cboPodioOrg").hide();
+
+                $("#cboPodioOrg").empty();
+
+                var result = new shearnie.tools.Poster().SendSync(baseApiUrl + 'api/process/getorganisations', {
+                    data: JSON.stringify({
+                        "access_token": $('#txtPodioAccessToken').val()
+                    })
+                });
+
+                if (result.items.length == 0) {
+                    shearnie.tools.html.fillCombo($("#cboPodioOrg"), null, "No orgs");
+                    return;
+                }
+
+                var cd = [];
+                cd.push({
+                    getItems: function () {
+                        var ret = [];
+                        result.items.forEach(function (item) {
+                            ret.push({ value: item.id, display: item.name });
+                        });
+                        return ret;
+                    }
+                });
+                shearnie.tools.html.fillCombo($("#cboPodioOrg"), cd, "Select organisation");
+
+                if (setval != null)
+                    $("#cboPodioOrg").val(setval);
+                $("#podio-orgs-loading").hide();
+                $("#cboPodioOrg").show();
+            };
+
             Podio.prototype.setup = function (baseApiUrl, authKeys, objParams, onCompleted) {
                 var _this = this;
                 $("#assignees-loading").show();

@@ -36,7 +36,7 @@ namespace FlowplaneExtensions.Controllers
                 var httpClient = new HttpClient();
                 var rs = httpClient.GetAsync(
                     string.Format(Common.FlowplaneDotCom + "/api/oauth/getloginurl/{0}?returnurl={1}",
-                                  new Extensions.Facebook.Identity().Code,
+                                  new Extensions.Podio.Identity().Code,
                                   Request.Url.AbsoluteUri)).Result;
                 if (!rs.IsSuccessStatusCode) throw new Exception(rs.ReasonPhrase);
 
@@ -63,11 +63,11 @@ namespace FlowplaneExtensions.Controllers
                 var httpClient = new HttpClient();
                 var rs = httpClient.GetAsync(
                     string.Format(Common.FlowplaneDotCom + "/api/oauth/getaccesstoken/{0}?code={1}&returnurl={2}",
-                                  new Extensions.Facebook.Identity().Code,
+                                  new Extensions.Podio.Identity().Code,
                                   Request["code"],
                                   Request.Url.AbsoluteUri)).Result;
                 if (!rs.IsSuccessStatusCode) throw new Exception(rs.ReasonPhrase);
-
+                ViewBag.AuthCode = Request["code"];
                 ViewBag.AccessToken = JsonConvert.DeserializeObject<string>(rs.Content.ReadAsStringAsync().Result);
 
                 return View("OAuthComplete");

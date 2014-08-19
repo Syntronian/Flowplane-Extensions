@@ -16,21 +16,7 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         private const string consumerSecret = "YOUR_CONSUMER_SECRET";
         private const string accessToken = "YOUR_ACCESS_TOKEN";
         private const string extId = "linkedin";
-
-        [TestMethod]
-        public void GetLoginUrl()
-        {
-            var o = new FlowplaneExtensions.Controllers.api.Api_OAuthController().GetLoginUrl(GetCol("YOUR_CALLBACK_URL_HERE"));
-            Assert.IsTrue(o != null);
-        }
-
-        [TestMethod]
-        public void GetAccessToken()
-        {
-            var o = new FlowplaneExtensions.Controllers.api.Api_OAuthController().GetAccessToken(GetCol("YOUR_CALLBACK_URL_HERE"));
-            Assert.IsTrue(o != null);
-        }
-
+        
         [TestMethod]
         public void ShareUpdate()
         {

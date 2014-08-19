@@ -134,7 +134,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\api\Api_FlowController.cs" />
-    <Compile Include="Controllers\api\Api_OAuthController.cs" />
     <Compile Include="Controllers\api\Api_RegisterController.cs" />
     <Compile Include="Controllers\api\Api_ProcessController.cs" />
     <Compile Include="Controllers\FacebookController.cs" />
@@ -149,7 +148,6 @@
     </Compile>
     <Compile Include="Models\api\flow\Exec.cs" />
     <Compile Include="Models\api\FpxtParam.cs" />
-    <Compile Include="Models\api\OAuth\Auth.cs" />
     <Compile Include="Models\api\Process\Details.cs" />
     <Compile Include="Models\api\Register\GetAll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

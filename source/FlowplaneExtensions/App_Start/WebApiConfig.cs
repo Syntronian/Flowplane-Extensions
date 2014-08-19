@@ -30,14 +30,14 @@ namespace FlowplaneExtensions
                 routeTemplate: "api/register/getobjecttypenameactivity",
                 defaults: new { controller = "Api_Register", action = "GetObjectTypeNameActivity" }
             );
-
-
-
+            
             config.Routes.MapHttpRoute(
                 name: "Api_Register_GetObjectTypeNameEvent",
                 routeTemplate: "api/register/getobjecttypenameevent",
                 defaults: new { controller = "Api_Register", action = "GetObjectTypeNameEvent" }
             );
+
+
 
             config.Routes.MapHttpRoute(
                 name: "Api_Process_GetAssignees",
@@ -81,18 +81,6 @@ namespace FlowplaneExtensions
                 name: "Api_Flow_CreateTask",
                 routeTemplate: "api/flow/completeactivity",
                 defaults: new { controller = "Api_Flow", action = "CompleteActivity" }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: "Api_OAuth_GetLoginUrl",
-                routeTemplate: "api/oauth/getloginurl",
-                defaults: new { controller = "Api_OAuth", action = "GetLoginUrl" }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: "Api_OAuth_GetAccessToken",
-                routeTemplate: "api/oauth/getaccesstoken",
-                defaults: new { controller = "Api_OAuth", action = "GetAccessToken" }
             );
         }
     }

@@ -6,23 +6,26 @@ var fpxt;
             function Podio() {
                 this.extId = 'PODIO';
             }
-            Podio.prototype.authDialog_docInit = function () {
+            Podio.prototype.authDialog_docInit = function (baseApiUrl, authKeys) {
                 var _this = this;
                 $('#chkReady').change(function (event) {
                     $("#dlg-podio-step1").hide();
                     $("#dlg-podio-step2").show();
-                    _this.load_orgs(null);
+                    _this.load_orgs(baseApiUrl, authKeys);
                 });
             };
-            Podio.prototype.load_orgs = function (baseApiUrl, setval) {
+            Podio.prototype.load_orgs = function (baseApiUrl, authKeys, setval) {
                 $("#podio-orgs-loading").show();
                 $("#cboPodioOrg").hide();
                 $("#cboPodioOrg").empty();
-
+                alert(this.extId + ":" + JSON.stringify(authKeys) + ":" + $('#txtPodioAccessToken').val());
                 var result = new shearnie.tools.Poster().SendSync(baseApiUrl + 'api/process/getorganisations', {
-                    data: JSON.stringify({
-                        "access_token": $('#txtPodioAccessToken').val()
-                    })
+                    extId: this.extId,
+                    authKeys: JSON.stringify(authKeys),
+                    objParams: JSON.stringify([{
+                            key: "access_token",
+                            value: $('#txtPodioAccessToken').val()
+                        }])
                 });
 
                 if (result.items.length == 0) {

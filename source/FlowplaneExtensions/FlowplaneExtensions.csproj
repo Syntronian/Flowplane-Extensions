@@ -221,6 +221,7 @@
     <Content Include="Views\Twitter\Body.cshtml" />
     <Content Include="Views\Twitter\Header.cshtml" />
     <Content Include="Views\Twitter\OAuthComplete.cshtml" />
+    <Content Include="Views\Podio\OAuthComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Extensions.Asana\Extensions.Asana.csproj">

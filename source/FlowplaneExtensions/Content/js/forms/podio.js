@@ -6,10 +6,17 @@ var fpxt;
             function Podio() {
                 this.extId = 'PODIO';
             }
-            Podio.load_orgs = function (baseApiUrl, setval) {
+            Podio.prototype.authDialog_docInit = function () {
+                var _this = this;
+                $('#chkReady').change(function (event) {
+                    $("#dlg-podio-step1").hide();
+                    $("#dlg-podio-step2").show();
+                    _this.load_orgs(null);
+                });
+            };
+            Podio.prototype.load_orgs = function (baseApiUrl, setval) {
                 $("#podio-orgs-loading").show();
                 $("#cboPodioOrg").hide();
-
                 $("#cboPodioOrg").empty();
 
                 var result = new shearnie.tools.Poster().SendSync(baseApiUrl + 'api/process/getorganisations', {

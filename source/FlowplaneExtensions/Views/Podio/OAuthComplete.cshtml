@@ -14,9 +14,8 @@
     <script>
         window.opener.document.getElementById('txtPodioAuthCode').value = '@Html.Raw(ViewBag.AuthCode)';
         window.opener.document.getElementById('txtPodioAccessToken').value = '@Html.Raw(ViewBag.AccessTOken)';
-        $("#dlg-podio-step1").hide();
-        $("#dlg-podio-step2").show();
-        //load_orgs('https://fpxt.azurewebsites.net/', null);
+        var chk = $(window.opener.document).find('#chkReady');
+        chk.trigger('click');
         window.close();
     </script>
 </head>

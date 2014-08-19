@@ -19,7 +19,7 @@ module fpxt {
 
     export class ExtensionDialog {
         
-        private static getExtension(extCode: string): forms.IForm {
+        public static getExtension(extCode: string): forms.IForm {
             var exts: forms.IForm[] = [];
 
             // register extensions here

@@ -6,10 +6,16 @@ module fpxt.forms {
 
         public extId: string = 'PODIO';
 
-        public static load_orgs(baseApiUrl: string, setval?: string) {
+        public authDialog_docInit() {
+            $('#chkReady').change(event => {
+                $("#dlg-podio-step1").hide();
+                $("#dlg-podio-step2").show();
+                this.load_orgs(null);
+            });
+        }
+        private load_orgs(baseApiUrl: string, setval?: string) {
             $("#podio-orgs-loading").show();
             $("#cboPodioOrg").hide();
-
             $("#cboPodioOrg").empty();
 
             var result = new shearnie.tools.Poster().SendSync(

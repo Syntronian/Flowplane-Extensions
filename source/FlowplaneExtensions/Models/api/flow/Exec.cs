@@ -42,31 +42,19 @@ namespace FlowplaneExtensions.Models.api.flow
 
             if (extId.Equals(new Extensions.Facebook.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var appId = formData["appId"];
-                var appToken = formData["appToken"];
-                var message = formData["message"];
-                var linkUrl = formData["linkUrl"];
-                var pictureUrl = formData["pictureUrl"];
-                var name = formData["name"];
-                var caption = formData["caption"];
-                var description = formData["description"];
-                var actionName = formData["actionName"];
-                var actionLinkUrl = formData["actionLinkUrl"];
+                var accessToken = authKeys.FirstOrDefault(k => k.key == "AccessToken");
+                if (accessToken == null) throw new Exception("Facebook app token is mandatory.");
 
-                if (string.IsNullOrEmpty(appId)) throw new Exception("Facebook app id is mandatory.");
-                if (string.IsNullOrEmpty(appToken)) throw new Exception("Facebook app token is mandatory.");
-                new Extensions.Facebook.Status(appToken, appId).UpdateStatus(message, linkUrl, pictureUrl, name, caption, description, actionName, actionLinkUrl);
+                new Extensions.Facebook.Status(accessToken.value).UpdateStatus(Common.TryGetString(objParams.FirstOrDefault(k => k.key == "facebookstatus")));
                 return System.Net.HttpStatusCode.OK.ToString();
             }
 
             if (extId.Equals(new Extensions.Twitter.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var message = objParams.FirstOrDefault(k => k.key == "message");
-                if (message == null) throw new Exception("Invalid message");
-
-                new Extensions.Twitter.Tweets((Extensions.Twitter.Auth)Common.GetAuthObject(extId, authKeys, null)).UpdateStatus(message.value);
+                new Extensions.Twitter.Tweets((Extensions.Twitter.Auth)Common.GetAuthObject(extId, authKeys, null)).UpdateStatus(Common.TryGetString(objParams.FirstOrDefault(k => k.key == "tweetstatus")));
                 return System.Net.HttpStatusCode.OK.ToString();
             }
+
             if (extId.Equals(new Extensions.LinkedIn.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
                 var message = objParams.FirstOrDefault(k => k.key == "message");
@@ -78,6 +66,7 @@ namespace FlowplaneExtensions.Models.api.flow
                 new Extensions.LinkedIn.Share((Extensions.LinkedIn.Auth)Common.GetAuthObject(extId, authKeys, null)).LinkedInShare(message.value);
                 return System.Net.HttpStatusCode.OK.ToString();
             }
+
             throw new Exception("Invalid extension.");
         }
 

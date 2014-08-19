@@ -173,7 +173,6 @@
     <Content Include="Content\js\fpxt.js" />
     <Content Include="Content\js\shearnie\tools.js" />
     <Content Include="Global.asax" />
-    <Content Include="Views\Podio\HtmlPage1.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

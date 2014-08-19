@@ -44,12 +44,15 @@ namespace FlowplaneExtensions.Controllers
 
                 return Redirect(HttpUtility.UrlDecode(url));
             }
-
-            throw new Exception("Unsupported extension.");
+            else
+            {
+                var auth = new Extensions.Podio.Auth(txtPodioAppId, txtPodioAppSecret);
+                return Redirect(HttpUtility.UrlDecode(auth.GetLoginUrl(Request.Url.AbsoluteUri)));
+            }
         }
 
 
-        public ActionResult oAuth()
+        public ActionResult oauth()
         {
             if (Request["code"] == null)
                 throw new Exception("Invalid auth code.");
@@ -62,18 +65,21 @@ namespace FlowplaneExtensions.Controllers
                 // use flowplane
                 var httpClient = new HttpClient();
                 var rs = httpClient.GetAsync(
-                    string.Format(Common.FlowplaneDotCom + "/api/oauth/getaccesstoken/{0}?code={1}&returnurl={2}",
+                    string.Format(Common.FlowplaneDotCom + "/api/oauth/getaccesstokens/{0}?podiocode={1}&returnurl={2}",
                                   new Extensions.Podio.Identity().Code,
                                   Request["code"],
                                   Request.Url.AbsoluteUri)).Result;
                 if (!rs.IsSuccessStatusCode) throw new Exception(rs.ReasonPhrase);
                 ViewBag.AuthCode = Request["code"];
-                ViewBag.AccessToken = JsonConvert.DeserializeObject<string>(rs.Content.ReadAsStringAsync().Result);
-
-                return View("OAuthComplete");
+                ViewBag.AccessToken = JsonConvert.DeserializeObject<Dictionary<string, string>>(rs.Content.ReadAsStringAsync().Result)["AccessToken"];
+            }
+            else
+            {
+                var auth = new Extensions.Podio.Auth(txtPodioAppId, txtPodioAppSecret);
+                ViewBag.AccessToken = auth.GetAccessToken(Request["code"], Request.Url.AbsoluteUri);
             }
 
-            throw new Exception("Unsupported extension.");
+            return View("OAuthComplete");
         }
     }
 }

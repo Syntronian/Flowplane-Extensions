@@ -1,19 +1,10 @@
 ﻿<html>
 <head>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"></script>
-    <script>window.jQuery || document.write('<script src="@Url.Content("~//Content/plugins/jquery-1.10.2.min.js")"><\/script>');</script>
-
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" media="screen" />
-    <script>
-        $.fn.modal || function () {
-            document.write('<script src="@Url.Content("~//Content/plugins/bootstrap/js/bootstrap.min.js")"><\/script>');
-            document.write('<script src="@Url.Content("~//Content/plugins/bootstrap/css/bootstrap.min.css")"><\/script>');
-        };
-    </script>
     <script>
         window.opener.document.getElementById('txtPodioAuthCode').value = '@Html.Raw(ViewBag.AuthCode)';
-        window.opener.document.getElementById('txtPodioAccessToken').value = '@Html.Raw(ViewBag.AccessTOken)';
+        window.opener.document.getElementById('txtPodioAccessToken').value = '@Html.Raw(ViewBag.AccessToken)';
+
         var chk = $(window.opener.document).find('#chkReady');
         chk.trigger('click');
         window.close();

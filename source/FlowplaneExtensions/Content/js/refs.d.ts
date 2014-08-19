@@ -9,3 +9,4 @@
 /// <reference path="forms/facebook.ts" />
 /// <reference path="forms/paymo.ts" />
 /// <reference path="forms/podio.ts" />
+/// <reference path="forms/twitter.ts" />

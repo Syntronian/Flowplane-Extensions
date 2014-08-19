@@ -1,0 +1,59 @@
+﻿<script>
+	var twitterAuthPopup = function () {
+		var w = 1000;
+		var h = 640;
+		var left = (screen.width / 2) - (w / 2);
+		var top = (screen.height / 2) - (h / 2);
+		window.open("about:blank",
+			"frmTwitterAuth",
+			"width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ", toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no");
+		document.getElementById('frm-twitter-consumer-keys').submit();
+	};
+	$(document).ready(function () {
+		$('#chkTwitterOauthOption').bootstrapSwitch().on('switchChange.bootstrapSwitch', function (event, state) {
+			if (state == false) {
+				$('.twitter-consumer-keys').show();
+				$('#txtTwitterConsumerKey').focus();
+			} else {
+				$('.twitter-consumer-keys').hide();
+			}
+		});
+	});
+</script>
+<p>
+	<img src="@Url.Content("~/Content/img/ext-twitter.png")" />
+	&nbsp;
+	Connect to your Twitter account.
+</p>
+<div id="btnConnectTwitter" class="row" style="margin-top: 20px;">
+	<div class="col-md-6">
+		<p>
+			Oauth with Flowplane:&nbsp;
+			<input type="checkbox" id="chkTwitterOauthOption" data-size="medium" data-on-text="Yes" data-off-text="No" checked>
+		</p>
+		<form id="frm-twitter-consumer-keys" method="post" action="@Url.Action("oauth", "Twitter")" target="frmTwitterAuth">
+			<div class="twitter-consumer-keys" class="form-group" style="display: none; margin-bottom: 20px;">
+				<label>
+					Consumer Key:
+				</label>
+				<input id="txtTwitterConsumerKey" name="txtTwitterConsumerKey" class="form-control" autocomplete="off" placeholder="Consumer Key" type="text" value="" />
+			</div>
+			<div class="twitter-consumer-keys" class="form-group" style="display: none;">
+				<label>
+					Consumer Secret:
+				</label>
+				<input id="txtTwitterConsumerSecret" name="txtTwitterConsumerSecret" class="form-control" autocomplete="off" placeholder="Consumer Secret" type="text" value="" />
+			</div>
+		</form>
+	</div>
+	<div class="col-md-1"></div>
+	<div class="col-md-3">
+		<a href="javascript:;"
+		   onclick="twitterAuthPopup();"
+		   class="btn green" target="_top">Connect to Twitter</a>
+	</div>
+</div>
+
+<input id="txtTwitterAccessToken" name="txtTwitterAccessToken" style="visibility: hidden;" type="text" value="" />
+<input id="txtTwitterAccessTokenSecret" name="txtTwitterAccessTokenSecret" style="visibility: hidden;" type="text" value="" />
+<h4 id="lblConnectedToTwitter" style="display: none;"><i class="fa fa-check"></i>&nbsp; Connected.</h4>

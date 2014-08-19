@@ -1,0 +1,18 @@
+﻿<html>
+<head>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"></script>
+    <script>
+        window.opener.document.getElementById('txtTwitterAccessToken').value = '@Html.Raw(ViewBag.AccessToken)';
+        window.opener.document.getElementById('txtTwitterAccessTokenSecret').value = '@Html.Raw(ViewBag.AccessTokenSecret)';
+
+        var btn = $(window.opener.document).find('#btnConnectTwitter');
+        var lbl = $(window.opener.document).find('#lblConnectedToTwitter');
+        $(btn).hide();
+        $(lbl).show();
+
+        window.close();
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -140,6 +140,7 @@
     <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\PodioController.cs" />
     <Compile Include="Controllers\PaymoController.cs" />
+    <Compile Include="Controllers\TwitterController.cs" />
     <Compile Include="Models\api\Common.cs" />
     <Compile Include="Controllers\AsanaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -170,6 +171,7 @@
     <Content Include="Content\js\forms\podio.ts" />
     <Content Include="Content\js\forms\paymo.js" />
     <Content Include="Content\js\forms\paymo.ts" />
+    <Content Include="Content\js\forms\twitter.js" />
     <Content Include="Content\js\fpxt.js" />
     <Content Include="Content\js\shearnie\tools.js" />
     <Content Include="Global.asax" />
@@ -215,6 +217,10 @@
     <Content Include="Views\Facebook\Body.cshtml" />
     <Content Include="Views\Facebook\Header.cshtml" />
     <Content Include="Views\Facebook\OAuthComplete.cshtml" />
+    <Content Include="Views\Twitter\Auth.cshtml" />
+    <Content Include="Views\Twitter\Body.cshtml" />
+    <Content Include="Views\Twitter\Header.cshtml" />
+    <Content Include="Views\Twitter\OAuthComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Extensions.Asana\Extensions.Asana.csproj">
@@ -258,6 +264,7 @@
     <TypeScriptCompile Include="Content\js\forms\asana.ts" />
     <TypeScriptCompile Include="Content\js\forms\facebook.ts" />
     <TypeScriptCompile Include="Content\js\forms\IForm.d.ts" />
+    <TypeScriptCompile Include="Content\js\forms\twitter.ts" />
     <TypeScriptCompile Include="Content\js\fpxt.ts" />
     <TypeScriptCompile Include="Content\js\refs.d.ts" />
     <TypeScriptCompile Include="Content\js\shearnie\tools.ts" />

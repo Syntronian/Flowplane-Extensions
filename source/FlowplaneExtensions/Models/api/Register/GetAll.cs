@@ -56,7 +56,47 @@ namespace FlowplaneExtensions.Models.api.Register
                             controlId = "txtFacebookAccessToken",
                             controlDescription = "Access token",
                             required = true,
-                            requiredMessage = "Access token is required."
+                            requiredMessage = "Access token is required, connect to Facebook first."
+                        }
+                    }
+                },
+
+                new Extension()
+                {
+                    identity = new Extensions.Twitter.Identity(),
+                    url_path_auth = urlPrefix + url.Action("Auth", "Twitter"),
+                    url_path_header = urlPrefix + url.Action("Header", "Twitter"),
+                    url_path_body = urlPrefix + url.Action("Body", "Twitter"),
+                    img_src = urlPrefix + url.Content("~//Content/img/ext-twitter.png"),
+                    auth_keys = new List<AuthKey>()
+                    {
+                        new AuthKey() {
+                            key = "ConsumerKey",
+                            controlId = "txtTwitterConsumerKey",
+                            controlDescription = "Consumer key",
+                            required = false,
+                            requiredMessage = ""
+                        },
+                        new AuthKey() {
+                            key = "ConsumerSecret",
+                            controlId = "txtTwitterConsumerSecret",
+                            controlDescription = "Consumer secret",
+                            required = false,
+                            requiredMessage = ""
+                        },
+                        new AuthKey() {
+                            key = "AccessToken",
+                            controlId = "txtTwitterAccessToken",
+                            controlDescription = "Access token",
+                            required = true,
+                            requiredMessage = "Access token is required, connect to Facebook first."
+                        },
+                        new AuthKey() {
+                            key = "AccessTokenSecret",
+                            controlId = "txtTwitterAccessTokenSecret",
+                            controlDescription = "Secret access token",
+                            required = true,
+                            requiredMessage = "Secret access token is required, connect to Facebook first."
                         }
                     }
                 },

@@ -27,6 +27,7 @@ module fpxt {
             exts.push(new forms.Facebook());
             exts.push(new forms.Paymo());
             exts.push(new forms.Podio());
+            exts.push(new forms.Twitter());
 
             return Enumerable.from(exts).firstOrDefault(x => { return x.extId.toLowerCase() == extCode.toLowerCase(); });
         }

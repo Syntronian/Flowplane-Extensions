@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twitterizer;
 using ExtensionsCore;
+using Twitterizer;
 namespace Extensions.Twitter
 {
     public class Auth : IAuth
@@ -17,6 +17,7 @@ namespace Extensions.Twitter
         public Auth()
         {
         }
+
         public Auth(string consumerKey,
                     string consumerSecret,
                     string authToken,
@@ -28,36 +29,24 @@ namespace Extensions.Twitter
             this.AuthTokenSecret = authTokenSecret;
         }
 
-        public string GetRequestToken(string consumerKey,
-                                      string consumerSecret,
-                                      string callbackUrl)
+        public string GetLoginUrl(string callbackUrl)
         {
-            if (!string.IsNullOrEmpty(consumerKey) && !string.IsNullOrEmpty(consumerSecret))
-            {
-                this.ConsumerKey = consumerKey;
-                this.ConsumerSecret = consumerSecret;
-            }
+            return string.Format("https://twitter.com/oauth/authorize?oauth_token={0}", this.GetRequestToken(callbackUrl));
+        }
+
+        public string GetRequestToken(string callbackUrl)
+        {
             var rs = OAuthUtility.GetRequestToken(this.ConsumerKey, this.ConsumerSecret, callbackUrl);
             return rs.Token;
         }
 
-        public Dictionary<string, string> GetAccessToken(string consumerKey,
-                                                         string consumerSecret,
-                                                         string requestToken,
-                                                         string verifier)
+        public Dictionary<string, string> GetAccessTokens(string requestToken, string verifier)
         {
-            if (!string.IsNullOrEmpty(consumerKey) && !string.IsNullOrEmpty(consumerSecret))
-            {
-                this.ConsumerKey = consumerKey;
-                this.ConsumerSecret = consumerSecret;
-            }
             var tokens = OAuthUtility.GetAccessToken(this.ConsumerKey, this.ConsumerSecret, requestToken, verifier);
-            this.AuthToken = tokens.Token;
-            this.AuthTokenSecret = tokens.TokenSecret;
             return new Dictionary<string, string>
                 {
-                    { "AccessToken", this.AuthToken },
-                    { "AccessTokenSecret", this.AuthTokenSecret }
+                    { "AccessToken", tokens.Token },
+                    { "AccessTokenSecret", tokens.TokenSecret }
                 };
         }
     }

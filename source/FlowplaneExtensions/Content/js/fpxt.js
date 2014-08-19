@@ -40,6 +40,7 @@ var fpxt;
             exts.push(new fpxt.forms.Facebook());
             exts.push(new fpxt.forms.Paymo());
             exts.push(new fpxt.forms.Podio());
+            exts.push(new fpxt.forms.Twitter());
 
             return Enumerable.from(exts).firstOrDefault(function (x) {
                 return x.extId.toLowerCase() == extCode.toLowerCase();

@@ -95,7 +95,11 @@ module fpxt.forms {
             shearnie.tools.html.fillCombo($("#cboActivityParamTaskList"), cd, "Select task");
         }
 
-        public setupAuth(authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+        public setupAuthPre(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+            onCompleted();
+        }
+
+        public setupAuthPost(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             onCompleted();
         }
 

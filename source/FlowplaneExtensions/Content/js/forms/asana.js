@@ -93,7 +93,11 @@ var fpxt;
                 shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
             };
 
-            Asana.prototype.setupAuth = function (authKeys, objParams, onCompleted) {
+            Asana.prototype.setupAuthPre = function (baseApiUrl, authKeys, objParams, onCompleted) {
+                onCompleted();
+            };
+
+            Asana.prototype.setupAuthPost = function (baseApiUrl, authKeys, objParams, onCompleted) {
                 onCompleted();
             };
 

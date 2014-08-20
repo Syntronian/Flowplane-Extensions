@@ -96,7 +96,11 @@ module fpxt.forms {
             shearnie.tools.html.fillCombo($("#cboActivityParamProject"), cd, "Select project");
         }
 
-        public setupAuth(authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+        public setupAuthPre(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+            onCompleted();
+        }
+
+        public setupAuthPost(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             onCompleted();
         }
 

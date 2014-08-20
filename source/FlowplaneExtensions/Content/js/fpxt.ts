@@ -36,8 +36,12 @@ module fpxt {
             ExtensionDialog.getExtension(extCode).setup(BaseApiUrl.path, authKeys, objParams, onCompleted);
         }
 
-        public static initialiseAuth(extCode: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
-            ExtensionDialog.getExtension(extCode).setupAuth(authKeys, objParams, onCompleted);
+        public static initialiseAuthPre(extCode: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+            ExtensionDialog.getExtension(extCode).setupAuthPre(BaseApiUrl.path, authKeys, objParams, onCompleted);
+        }
+
+        public static initialiseAuthPost(extCode: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+            ExtensionDialog.getExtension(extCode).setupAuthPost(BaseApiUrl.path, authKeys, objParams, onCompleted);
         }
 
         public static fill(extCode: string, authKeys: fpxtParam[], values: fpxtParam[]) {

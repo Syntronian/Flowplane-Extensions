@@ -10,6 +10,13 @@
 		document.getElementById('frm-podio-app-keys').submit();
 	};
 	$(document).ready(function () {
+	    $('#chkReady').change(function (event) {
+	        $("#dlg-podio-step1").hide();
+	        $("#dlg-podio-step2").show();
+	        var podio = new fpxt.forms.Podio();
+	        podio.load_orgs(BaseApiUrl.path, authKeys);
+	    });
+
 		$('#chkPodioOauthOption').bootstrapSwitch().on('switchChange.bootstrapSwitch', function (event, state) {
 			if (state == false) {
 				$('.podio-app-keys').show();

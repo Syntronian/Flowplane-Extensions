@@ -92,7 +92,11 @@ var fpxt;
                 shearnie.tools.html.fillCombo($("#cboActivityParamTaskList"), cd, "Select task");
             };
 
-            Paymo.prototype.setupAuth = function (authKeys, objParams, onCompleted) {
+            Paymo.prototype.setupAuthPre = function (baseApiUrl, authKeys, objParams, onCompleted) {
+                onCompleted();
+            };
+
+            Paymo.prototype.setupAuthPost = function (baseApiUrl, authKeys, objParams, onCompleted) {
                 onCompleted();
             };
 

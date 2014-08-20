@@ -6,53 +6,6 @@ module fpxt.forms {
 
         public extId: string = 'PODIO';
 
-        public authDialog_docInit(baseApiUrl: string, authKeys: fpxtParam[]) {
-            $('#chkReady').change(event => {
-                $("#dlg-podio-step1").hide();
-                $("#dlg-podio-step2").show();
-                this.load_orgs(baseApiUrl, authKeys);
-            });
-        }
-        private load_orgs(baseApiUrl: string, authKeys: fpxtParam[], setval?: string) {
-            $("#podio-orgs-loading").show();
-            $("#cboPodioOrg").hide();
-            $("#cboPodioOrg").empty();
-            alert(this.extId + ":" + JSON.stringify(authKeys) + ":" + $('#txtPodioAccessToken').val());
-            var result = new shearnie.tools.Poster().SendSync(
-                baseApiUrl + 'api/process/getorganisations',
-                {
-                    extId: this.extId,
-                    authKeys: JSON.stringify(authKeys),
-                    objParams: JSON.stringify([
-                        {
-                            key: "access_token",
-                            value: $('#txtPodioAccessToken').val()
-                        }])
-                });
-
-            if (result.items.length == 0) {
-                shearnie.tools.html.fillCombo($("#cboPodioOrg"), null, "No orgs");
-                return; 
-            }
-
-            var cd = [];
-            cd.push({
-                getItems: () => {
-                    var ret: shearnie.tools.html.comboItem[] = [];
-                    result.items.forEach(item => {
-                        ret.push({ value: item.id, display: item.name });
-                    });
-                    return ret;
-                }
-            });
-            shearnie.tools.html.fillCombo($("#cboPodioOrg"), cd, "Select organisation");
-
-            if (setval != null)
-                $("#cboPodioOrg").val(setval);
-            $("#podio-orgs-loading").hide();
-            $("#cboPodioOrg").show();
-        }
-
         public setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             $("#assignees-loading").show();
             $("#workspaces-loading").show();
@@ -148,8 +101,52 @@ module fpxt.forms {
             shearnie.tools.html.fillCombo($("#" + target), cd, "Select " + loading);
         }
 
-        public setupAuth(authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+        public setupAuthPre(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             onCompleted();
+        }
+
+        public setupAuthPost(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+            onCompleted();
+        }
+
+        private load_orgs(baseApiUrl: string, authKeys: fpxtParam[], setval?: string) {
+            $("#podio-orgs-loading").show();
+            $("#cboPodioOrg").hide();
+            $("#cboPodioOrg").empty();
+            alert(this.extId + ":" + JSON.stringify(authKeys) + ":" + $('#txtPodioAccessToken').val());
+            var result = new shearnie.tools.Poster().SendSync(
+                baseApiUrl + 'api/process/getorganisations',
+                {
+                    extId: this.extId,
+                    authKeys: JSON.stringify(authKeys),
+                    objParams: JSON.stringify([
+                        {
+                            key: "access_token",
+                            value: $('#txtPodioAccessToken').val()
+                        }])
+                });
+
+            if (result.items.length == 0) {
+                shearnie.tools.html.fillCombo($("#cboPodioOrg"), null, "No orgs");
+                return;
+            }
+
+            var cd = [];
+            cd.push({
+                getItems: () => {
+                    var ret: shearnie.tools.html.comboItem[] = [];
+                    result.items.forEach(item => {
+                        ret.push({ value: item.id, display: item.name });
+                    });
+                    return ret;
+                }
+            });
+            shearnie.tools.html.fillCombo($("#cboPodioOrg"), cd, "Select organisation");
+
+            if (setval != null)
+                $("#cboPodioOrg").val(setval);
+            $("#podio-orgs-loading").hide();
+            $("#cboPodioOrg").show();
         }
 
         public fill(baseApiUrl: string, authKeys: fpxtParam[], values: fpxtParam[]) {

@@ -10,7 +10,11 @@ var fpxt;
                 onCompleted();
             };
 
-            Twitter.prototype.setupAuth = function (authKeys, objParams, onCompleted) {
+            Twitter.prototype.setupAuthPre = function (baseApiUrl, authKeys, objParams, onCompleted) {
+                onCompleted();
+            };
+
+            Twitter.prototype.setupAuthPost = function (baseApiUrl, authKeys, objParams, onCompleted) {
                 if ($('#txtTwitterConsumerKey').val() != '' && $('#txtTwitterConsumerSecret').val() != '') {
                     var bswitch = $('#chkTwitterOauthOption');
                     bswitch.bootstrapSwitch('toggleState');

@@ -10,7 +10,11 @@ var fpxt;
                 onCompleted();
             };
 
-            Facebook.prototype.setupAuth = function (authKeys, objParams, onCompleted) {
+            Facebook.prototype.setupAuthPre = function (baseApiUrl, authKeys, objParams, onCompleted) {
+                onCompleted();
+            };
+
+            Facebook.prototype.setupAuthPost = function (baseApiUrl, authKeys, objParams, onCompleted) {
                 if ($('#txtFacebookAppId').val() != '' && $('#txtFacebookAppSecret').val() != '') {
                     var bswitch = $('#chkFacebookOauthOption');
                     bswitch.bootstrapSwitch('toggleState');

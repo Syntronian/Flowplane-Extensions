@@ -9,8 +9,12 @@ module fpxt.forms {
         public setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             onCompleted();
         }
+        
+        public setupAuthPre(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+            onCompleted();
+        }
 
-        public setupAuth(authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+        public setupAuthPost(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             if ($('#txtTwitterConsumerKey').val() != '' && $('#txtTwitterConsumerSecret').val() != '') {
                 var bswitch: any = $('#chkTwitterOauthOption');
                 bswitch.bootstrapSwitch('toggleState');

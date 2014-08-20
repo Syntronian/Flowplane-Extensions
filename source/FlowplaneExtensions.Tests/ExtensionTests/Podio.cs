@@ -67,10 +67,10 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         {
             var ak = new List<Models.api.FpxtParam>()
             {
-               new  Models.api.FpxtParam { key = "clientId",value = clientId },
-               new  Models.api.FpxtParam { key = "clientSecret",value = clientSecret },
-               new  Models.api.FpxtParam { key = "accessToken",value = accessToken },
-               new  Models.api.FpxtParam { key = "orgId",value = orgId}
+               new  Models.api.FpxtParam { key = "ClientId",value = clientId },
+               new  Models.api.FpxtParam { key = "ClientSecret",value = clientSecret },
+               new  Models.api.FpxtParam { key = "AccessToken",value = accessToken },
+               new  Models.api.FpxtParam { key = "OrgId",value = orgId}
             };
             var authKeys = JsonConvert.SerializeObject(ak);
 

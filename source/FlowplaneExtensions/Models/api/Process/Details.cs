@@ -41,14 +41,14 @@ namespace FlowplaneExtensions.Models.api.Process
 
             if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var clientId = authKeys.FirstOrDefault(k => k.key == "clientId");
-                if (clientId == null) throw new Exception("Invalid clientId");
+                var clientId = authKeys.FirstOrDefault(k => k.key == "ClientId");
+                if (clientId == null) throw new Exception("Invalid client Id");
 
-                var clientSecret = authKeys.FirstOrDefault(k => k.key == "clientSecret");
-                if (clientSecret == null) throw new Exception("Invalid clientSecret");
+                var clientSecret = authKeys.FirstOrDefault(k => k.key == "ClientSecret");
+                if (clientSecret == null) throw new Exception("Invalid client secret");
 
-                var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
-                if (accessToken == null) throw new Exception("Invalid accessToken");
+                var accessToken = authKeys.FirstOrDefault(k => k.key == "AccessToken");
+                if (accessToken == null) throw new Exception("Invalid access token");
 
                 return new Extensions.Podio.Users(
                     new Extensions.Podio.Auth(

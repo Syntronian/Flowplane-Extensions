@@ -81,5 +81,11 @@ namespace FlowplaneExtensions.Controllers
 
             return View("OAuthComplete");
         }
+
+        public ActionResult getorgs(string AccessToken)
+        {
+            var podio = new Extensions.Podio.Orgs(new Extensions.Podio.Auth("", "", AccessToken));
+            return Content(JsonConvert.SerializeObject(podio.List()), "application/json");
+        }
     }
 }

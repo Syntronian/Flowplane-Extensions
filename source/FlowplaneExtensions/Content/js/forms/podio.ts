@@ -18,8 +18,8 @@ module fpxt.forms {
 
             // get data first
             var pd = new Array();
-            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
-            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getworkspaces', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+            pd.push(new shearnie.tools.PostData(fpxt.BaseApiUrl.corepath + 'api/oauth/getpodioassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+            pd.push(new shearnie.tools.PostData(fpxt.BaseApiUrl.corepath + 'api/oauth/getpodioworkspaces', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
             var cd: shearnie.tools.html.comboData[] = [];
             new shearnie.tools.Poster().SendAsync(pd, numErrs => {
@@ -60,26 +60,26 @@ module fpxt.forms {
 
             // load projects and workspace selected
             $("#cboActivityParamWorkspace").change(event => {
-                this.load_Combo(baseApiUrl, authKeys, 'cboActivityParamWorkspace', 'spaceId', 'cboActivityParamApp', 'app', 'api/process/getapps');
+                this.load_Combo(authKeys, 'cboActivityParamWorkspace', 'spaceId', 'cboActivityParamApp', 'app', 'api/oauth/getpodioapps');
             });
 
             $("#cboActivityParamApp").change(event => {
-                this.load_Combo(baseApiUrl, authKeys, 'cboActivityParamApp', 'appId', 'cboActivityParamItem', 'items', 'api/process/getitems');
+                this.load_Combo(authKeys, 'cboActivityParamApp', 'appId', 'cboActivityParamItem', 'items', 'api/oauth/getpodioitems');
             });
         }
 
-        private load_Combo(baseApiUrl: string, authKeys: fpxtParam[], source: string, sourceKey: string, target: string, loading: string, method: string) {
+        private load_Combo(authKeys: fpxtParam[], source: string, sourceKey: string, target: string, loading: string, method: string) {
             $("#" + target).empty();
             $("#" + target).append($('<option>Loading ' + loading + '...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
             var result = new shearnie.tools.Poster().SendSync(
-                baseApiUrl + method,
+                fpxt.BaseApiUrl.corepath + method,
                 {
                     extId: this.extId,
                     authKeys: JSON.stringify(authKeys),
                     objParams: JSON.stringify([
                         {
                             key: sourceKey,
-                            value: $("#" + source).val()
+                            value: $('#' + source).val()
                         }])
                 });
 
@@ -120,9 +120,21 @@ module fpxt.forms {
             var result = new shearnie.tools.Poster().SendSync(
                 fpxt.BaseApiUrl.corepath + 'api/oauth/getpodioorgs',
                 {
-                    ClientId: '',
-                    ClientSecret: '',
-                    AccessToken: $('#txtPodioAccessToken').val()
+                    extId: this.extId,
+                    authKeys: JSON.stringify([
+                        {
+                            key: 'clientId',
+                            value: $('#txtPodioAppId').val()
+                        },
+                        {
+                            key: 'clientSecret',
+                            value: $('#txtPodioAppSecret').val()
+                        },
+                        {
+                            key: 'accessToken',
+                            value: $('#txtPodioAccessToken').val()
+                        }]),
+                    objParams: JSON.stringify('')
                 });
 
             if (result.items.length == 0) {
@@ -174,7 +186,7 @@ module fpxt.forms {
                 }
             });
 
-            this.load_Combo(baseApiUrl, authKeys, 'cboActivityParamWorkspace', 'spaceId', 'cboActivityParamApp', 'app', 'api/process/getapps');
+            this.load_Combo(authKeys, 'cboActivityParamWorkspace', 'spaceId', 'cboActivityParamApp', 'app', 'api/oauth/getpodioapps');
             values.forEach((p) => {
                 switch (p.key) {
                     case 'taskapp':
@@ -182,7 +194,7 @@ module fpxt.forms {
                 }
             });
 
-            this.load_Combo(baseApiUrl, authKeys, 'cboActivityParamApp', 'appId', 'cboActivityParamItem', 'items', 'api/process/getitems');
+            this.load_Combo(authKeys, 'cboActivityParamApp', 'appId', 'cboActivityParamItem', 'items', 'api/oauth/getpodioitems');
             values.forEach((p) => {
                 switch (p.key) {
                     case 'taskitems':

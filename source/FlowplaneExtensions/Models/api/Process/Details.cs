@@ -39,25 +39,6 @@ namespace FlowplaneExtensions.Models.api.Process
                 return new Extensions.Paymo.Users(new Extensions.Paymo.Auth(apiKey.value, username.value, password.value)).List();
             }
 
-            if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
-            {
-                var clientId = authKeys.FirstOrDefault(k => k.key == "clientId");
-                if (clientId == null) throw new Exception("Invalid clientId");
-
-                var clientSecret = authKeys.FirstOrDefault(k => k.key == "clientSecret");
-                if (clientSecret == null) throw new Exception("Invalid clientSecret");
-
-                var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
-                if (accessToken == null) throw new Exception("Invalid accessToken");
-
-                return new Extensions.Podio.Users(
-                    new Extensions.Podio.Auth(
-                        clientId.value, 
-                        clientSecret.value, 
-                        accessToken.value, 
-                        Common.TryGetInt(authKeys.FirstOrDefault(k => k.key == "orgId")))).List();
-            }
-
             if (extId.Equals(new Extensions.Wrike.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
                 return new Extensions.Wrike.Users((Extensions.Wrike.Auth)Common.GetAuthObject(extId, authKeys, null)).Get();
             
@@ -80,9 +61,6 @@ namespace FlowplaneExtensions.Models.api.Process
                 return new Extensions.Asana.Workspaces(new Extensions.Asana.Auth(apiKey.value)).List();
             }
 
-            if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
-                return new Extensions.Podio.Workspaces(Common.GetAuthObject(authKeys)).List();
-            
             throw new Exception("Invalid extension.");
         }
 
@@ -122,56 +100,6 @@ namespace FlowplaneExtensions.Models.api.Process
                         apiKey.value, username.value, password.value, Common.TryGetString(authToken))).List();
             }
 
-            throw new Exception("Invalid extension.");
-        }
-
-        public IApps GetApps(FormDataCollection formData)
-        {
-            var extId = Common.GetValue(formData, "extId");
-            var authKeys = Common.TryGetParams(formData["authKeys"]);
-            var objParams = Common.TryGetParams(formData["objParams"]);
-
-            if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
-            {
-                var spaceId = objParams.FirstOrDefault(k => k.key == "spaceId");
-                int id;
-                if (spaceId == null) throw new Exception("Invalid spaceId");
-                else Int32.TryParse(spaceId.value, out id);
-
-                return new Extensions.Podio.Apps(Common.GetAuthObject(authKeys)).List(id);
-            }
-
-            throw new Exception("Invalid extension.");
-        }
-
-        public IItems GetItems(FormDataCollection formData)
-        {
-            var extId = Common.GetValue(formData, "extId");
-            var authKeys = Common.TryGetParams(formData["authKeys"]);
-            var objParams = Common.TryGetParams(formData["objParams"]);
-
-            if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
-            {
-                var appId = objParams.FirstOrDefault(k => k.key == "appId");
-                int id;
-                if (appId == null) throw new Exception("Invalid appId");
-                else Int32.TryParse(appId.value, out id);
-
-                return new Extensions.Podio.Items(Common.GetAuthObject(authKeys)).List(id);
-            }
-
-            throw new Exception("Invalid extension.");
-        }
-
-        public IOrganisations GetOrganizations(FormDataCollection formData)
-        {
-            var extId = Common.GetValue(formData, "extId");
-            var authKeys = Common.TryGetParams(formData["authKeys"]);
-            var objParams = Common.TryGetParams(formData["objParams"]);
-            
-            if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
-                return new Extensions.Podio.Orgs(Common.GetAuthObject(authKeys)).List();
-        
             throw new Exception("Invalid extension.");
         }
 

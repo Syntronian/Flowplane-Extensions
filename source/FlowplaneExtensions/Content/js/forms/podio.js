@@ -19,8 +19,8 @@ var fpxt;
 
                 // get data first
                 var pd = new Array();
-                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
-                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getworkspaces', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+                pd.push(new shearnie.tools.PostData(fpxt.BaseApiUrl.corepath + 'api/oauth/getpodioassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+                pd.push(new shearnie.tools.PostData(fpxt.BaseApiUrl.corepath + 'api/oauth/getpodioworkspaces', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
                 var cd = [];
                 new shearnie.tools.Poster().SendAsync(pd, function (numErrs) {
@@ -60,23 +60,23 @@ var fpxt;
 
                 // load projects and workspace selected
                 $("#cboActivityParamWorkspace").change(function (event) {
-                    _this.load_Combo(baseApiUrl, authKeys, 'cboActivityParamWorkspace', 'spaceId', 'cboActivityParamApp', 'app', 'api/process/getapps');
+                    _this.load_Combo(authKeys, 'cboActivityParamWorkspace', 'spaceId', 'cboActivityParamApp', 'app', 'api/oauth/getpodioapps');
                 });
 
                 $("#cboActivityParamApp").change(function (event) {
-                    _this.load_Combo(baseApiUrl, authKeys, 'cboActivityParamApp', 'appId', 'cboActivityParamItem', 'items', 'api/process/getitems');
+                    _this.load_Combo(authKeys, 'cboActivityParamApp', 'appId', 'cboActivityParamItem', 'items', 'api/oauth/getpodioitems');
                 });
             };
 
-            Podio.prototype.load_Combo = function (baseApiUrl, authKeys, source, sourceKey, target, loading, method) {
+            Podio.prototype.load_Combo = function (authKeys, source, sourceKey, target, loading, method) {
                 $("#" + target).empty();
                 $("#" + target).append($('<option>Loading ' + loading + '...</option>').attr("value", '').attr("disabled", 'disabled').attr("selected", 'selected'));
-                var result = new shearnie.tools.Poster().SendSync(baseApiUrl + method, {
+                var result = new shearnie.tools.Poster().SendSync(fpxt.BaseApiUrl.corepath + method, {
                     extId: this.extId,
                     authKeys: JSON.stringify(authKeys),
                     objParams: JSON.stringify([{
                             key: sourceKey,
-                            value: $("#" + source).val()
+                            value: $('#' + source).val()
                         }])
                 });
 
@@ -115,9 +115,21 @@ var fpxt;
                 $("#cboPodioOrg").hide();
                 $("#cboPodioOrg").empty();
                 var result = new shearnie.tools.Poster().SendSync(fpxt.BaseApiUrl.corepath + 'api/oauth/getpodioorgs', {
-                    ClientId: '',
-                    ClientSecret: '',
-                    AccessToken: $('#txtPodioAccessToken').val()
+                    extId: this.extId,
+                    authKeys: JSON.stringify([
+                        {
+                            key: 'clientId',
+                            value: $('#txtPodioAppId').val()
+                        },
+                        {
+                            key: 'clientSecret',
+                            value: $('#txtPodioAppSecret').val()
+                        },
+                        {
+                            key: 'accessToken',
+                            value: $('#txtPodioAccessToken').val()
+                        }]),
+                    objParams: JSON.stringify('')
                 });
 
                 if (result.items.length == 0) {
@@ -170,7 +182,7 @@ var fpxt;
                     }
                 });
 
-                this.load_Combo(baseApiUrl, authKeys, 'cboActivityParamWorkspace', 'spaceId', 'cboActivityParamApp', 'app', 'api/process/getapps');
+                this.load_Combo(authKeys, 'cboActivityParamWorkspace', 'spaceId', 'cboActivityParamApp', 'app', 'api/oauth/getpodioapps');
                 values.forEach(function (p) {
                     switch (p.key) {
                         case 'taskapp':
@@ -178,7 +190,7 @@ var fpxt;
                     }
                 });
 
-                this.load_Combo(baseApiUrl, authKeys, 'cboActivityParamApp', 'appId', 'cboActivityParamItem', 'items', 'api/process/getitems');
+                this.load_Combo(authKeys, 'cboActivityParamApp', 'appId', 'cboActivityParamItem', 'items', 'api/oauth/getpodioitems');
                 values.forEach(function (p) {
                     switch (p.key) {
                         case 'taskitems':

@@ -107,6 +107,10 @@ module fpxt.forms {
 
         public setupAuthPost(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             onCompleted();
+            if ($('#txtPodioAppId').val() != '' && $('#txtPodioAppSecret').val() != '') {
+                var bswitch: any = $('#chkPodioOauthOption');
+                bswitch.bootstrapSwitch('toggleState');
+            }
         }
 
         public load_orgs(setval?: string) {

@@ -104,6 +104,10 @@ var fpxt;
 
             Podio.prototype.setupAuthPost = function (baseApiUrl, authKeys, objParams, onCompleted) {
                 onCompleted();
+                if ($('#txtPodioAppId').val() != '' && $('#txtPodioAppSecret').val() != '') {
+                    var bswitch = $('#chkPodioOauthOption');
+                    bswitch.bootstrapSwitch('toggleState');
+                }
             };
 
             Podio.prototype.load_orgs = function (setval) {

@@ -163,28 +163,28 @@ namespace FlowplaneExtensions.Models.api.Register
                     auth_keys = new List<AuthKey>()
                     {
                         new AuthKey() {
-                            key = "ClientId",
+                            key = "clientId",
                             controlId = "txtPodioAppId",
                             controlDescription = "Client Id",
                             required = false,
                             requiredMessage = ""
                         },
                         new AuthKey() {
-                            key = "ClientSecret",
+                            key = "clientSecret",
                             controlId = "txtPodioAppSecret",
                             controlDescription = "Client Secret",
                             required = false,
                             requiredMessage = ""
                         },
                         new AuthKey() {
-                            key = "AccessToken",
+                            key = "accessToken",
                             controlId = "txtPodioAccessToken",
                             controlDescription = "Access token",
                             required = true,
                             requiredMessage = "Connect to podio first."
                         },
                         new AuthKey() {
-                            key = "OrgId",
+                            key = "orgId",
                             controlId = "cboPodioOrg",
                             controlDescription = "Organisation",
                             required = true,

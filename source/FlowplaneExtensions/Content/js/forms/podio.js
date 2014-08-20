@@ -106,18 +106,14 @@ var fpxt;
                 onCompleted();
             };
 
-            Podio.prototype.load_orgs = function (baseApiUrl, authKeys, setval) {
+            Podio.prototype.load_orgs = function (setval) {
                 $("#podio-orgs-loading").show();
                 $("#cboPodioOrg").hide();
                 $("#cboPodioOrg").empty();
-                alert(this.extId + ":" + JSON.stringify(authKeys) + ":" + $('#txtPodioAccessToken').val());
-                var result = new shearnie.tools.Poster().SendSync(baseApiUrl + 'api/process/getorganisations', {
-                    extId: this.extId,
-                    authKeys: JSON.stringify(authKeys),
-                    objParams: JSON.stringify([{
-                            key: "access_token",
-                            value: $('#txtPodioAccessToken').val()
-                        }])
+                var result = new shearnie.tools.Poster().SendSync(fpxt.BaseApiUrl.corepath + 'api/oauth/getpodioorgs', {
+                    ClientId: '',
+                    ClientSecret: '',
+                    AccessToken: $('#txtPodioAccessToken').val()
                 });
 
                 if (result.items.length == 0) {

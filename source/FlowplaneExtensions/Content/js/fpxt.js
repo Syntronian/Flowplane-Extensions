@@ -24,6 +24,17 @@ var fpxt;
             enumerable: true,
             configurable: true
         });
+
+        Object.defineProperty(BaseApiUrl, "corepath", {
+            get: function () {
+                var ret = 'https://flowplane.com/';
+
+                // ret = 'http://localhost/flowplane/';
+                return ret;
+            },
+            enumerable: true,
+            configurable: true
+        });
         BaseApiUrl._baseApiUrl = 'https://fpxt.azurewebsites.net/';
         return BaseApiUrl;
     })();

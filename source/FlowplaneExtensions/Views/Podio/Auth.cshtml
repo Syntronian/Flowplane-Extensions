@@ -14,7 +14,7 @@
 	        $("#dlg-podio-step1").hide();
 	        $("#dlg-podio-step2").show();
 	        var podio = new fpxt.forms.Podio();
-	        podio.load_orgs(BaseApiUrl.path, authKeys);
+	        podio.load_orgs(null);
 	    });
 
 		$('#chkPodioOauthOption').bootstrapSwitch().on('switchChange.bootstrapSwitch', function (event, state) {

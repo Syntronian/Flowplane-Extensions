@@ -15,6 +15,12 @@ module fpxt {
             // ret = 'http://localhost/flowplaneextensions/';
             return ret;
         }
+
+        public static get corepath(): string {
+            var ret = 'https://flowplane.com/';
+            // ret = 'http://localhost/flowplane/';
+            return ret;
+        }
     }
 
     export class ExtensionDialog {

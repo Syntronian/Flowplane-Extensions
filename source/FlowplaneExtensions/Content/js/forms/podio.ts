@@ -109,21 +109,16 @@ module fpxt.forms {
             onCompleted();
         }
 
-        private load_orgs(baseApiUrl: string, authKeys: fpxtParam[], setval?: string) {
+        public load_orgs(setval?: string) {
             $("#podio-orgs-loading").show();
             $("#cboPodioOrg").hide();
             $("#cboPodioOrg").empty();
-            alert(this.extId + ":" + JSON.stringify(authKeys) + ":" + $('#txtPodioAccessToken').val());
             var result = new shearnie.tools.Poster().SendSync(
-                baseApiUrl + 'api/process/getorganisations',
+                fpxt.BaseApiUrl.corepath + 'api/oauth/getpodioorgs',
                 {
-                    extId: this.extId,
-                    authKeys: JSON.stringify(authKeys),
-                    objParams: JSON.stringify([
-                        {
-                            key: "access_token",
-                            value: $('#txtPodioAccessToken').val()
-                        }])
+                    ClientId: '',
+                    ClientSecret: '',
+                    AccessToken: $('#txtPodioAccessToken').val()
                 });
 
             if (result.items.length == 0) {

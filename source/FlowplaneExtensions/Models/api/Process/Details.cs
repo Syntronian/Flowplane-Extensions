@@ -55,7 +55,7 @@ namespace FlowplaneExtensions.Models.api.Process
                         clientId.value, 
                         clientSecret.value, 
                         accessToken.value, 
-                        Common.TryGetInt(authKeys.FirstOrDefault(k => k.key == "organisationId")))).List();
+                        Common.TryGetInt(authKeys.FirstOrDefault(k => k.key == "orgId")))).List();
             }
 
             if (extId.Equals(new Extensions.Wrike.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
@@ -136,7 +136,7 @@ namespace FlowplaneExtensions.Models.api.Process
                 var spaceId = objParams.FirstOrDefault(k => k.key == "spaceId");
                 int id;
                 if (spaceId == null) throw new Exception("Invalid spaceId");
-                else Int32.TryParse(spaceId.ToString(), out id);
+                else Int32.TryParse(spaceId.value, out id);
 
                 return new Extensions.Podio.Apps(Common.GetAuthObject(authKeys)).List(id);
             }
@@ -155,7 +155,7 @@ namespace FlowplaneExtensions.Models.api.Process
                 var appId = objParams.FirstOrDefault(k => k.key == "appId");
                 int id;
                 if (appId == null) throw new Exception("Invalid appId");
-                else Int32.TryParse(appId.ToString(), out id);
+                else Int32.TryParse(appId.value, out id);
 
                 return new Extensions.Podio.Items(Common.GetAuthObject(authKeys)).List(id);
             }

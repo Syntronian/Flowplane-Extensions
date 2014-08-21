@@ -67,6 +67,29 @@ namespace FlowplaneExtensions.Models.api.flow
                 return System.Net.HttpStatusCode.OK.ToString();
             }
 
+            if (extId.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var key = authKeys.FirstOrDefault(k => k.key == "clientId");
+                if (key == null) throw new Exception("Invalid client Id.");
+
+                var secret = authKeys.FirstOrDefault(k => k.key == "clientSecret");
+                if (secret == null) throw new Exception("Invalid client secret.");
+
+                var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
+                if (accessToken == null) throw new Exception("Invalid access token.");
+
+                var orgId = authKeys.FirstOrDefault(k => k.key == "orgId");
+                if (orgId == null) throw new Exception("Invalid organisation.");
+
+                new Extensions.Podio.Tasks(new Extensions.Podio.Auth(key.value, secret.value, accessToken.value, Convert.ToInt32(orgId.value)))
+                    .Add(Convert.ToInt32(Common.TryGetInt(objParams.FirstOrDefault(k => k.key == "taskitem"))),
+                         Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskdesc")),
+                         Common.TryGetInt(objParams.FirstOrDefault(k => k.key == "taskassignee")),
+                         Common.TryGetInt(objParams.FirstOrDefault(k => k.key == "taskduedays")));
+
+                return System.Net.HttpStatusCode.OK.ToString();
+            }
+
             throw new Exception("Invalid extension.");
         }
 

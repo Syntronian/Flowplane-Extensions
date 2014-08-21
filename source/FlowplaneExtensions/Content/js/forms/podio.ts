@@ -197,7 +197,7 @@ module fpxt.forms {
             this.load_Combo(authKeys, 'cboActivityParamApp', 'appId', 'cboActivityParamItem', 'items', 'api/oauth/getpodioitems');
             values.forEach((p) => {
                 switch (p.key) {
-                    case 'taskitems':
+                    case 'taskitem':
                         $("#cboActivityParamItem").val(p.value);
                 }
             });

@@ -12,13 +12,13 @@ module fpxt {
 
         public static get path(): string {
             var ret = BaseApiUrl._baseApiUrl;
-            // ret = 'http://localhost/flowplaneextensions/';
+            //ret = 'http://localhost/flowplaneextensions/';
             return ret;
         }
 
         public static get corepath(): string {
             var ret = 'https://flowplane.com/';
-            // ret = 'http://localhost/flowplane/';
+            //ret = 'http://localhost/flowplane/';
             return ret;
         }
     }
@@ -34,6 +34,7 @@ module fpxt {
             exts.push(new forms.Paymo());
             exts.push(new forms.Podio());
             exts.push(new forms.Twitter());
+            exts.push(new forms.LinkedIn());
 
             return Enumerable.from(exts).firstOrDefault(x => { return x.extId.toLowerCase() == extCode.toLowerCase(); });
         }

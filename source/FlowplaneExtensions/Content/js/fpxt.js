@@ -18,7 +18,7 @@ var fpxt;
             get: function () {
                 var ret = BaseApiUrl._baseApiUrl;
 
-                // ret = 'http://localhost/flowplaneextensions/';
+                //ret = 'http://localhost/flowplaneextensions/';
                 return ret;
             },
             enumerable: true,
@@ -29,7 +29,7 @@ var fpxt;
             get: function () {
                 var ret = 'https://flowplane.com/';
 
-                // ret = 'http://localhost/flowplane/';
+                //ret = 'http://localhost/flowplane/';
                 return ret;
             },
             enumerable: true,
@@ -52,6 +52,7 @@ var fpxt;
             exts.push(new fpxt.forms.Paymo());
             exts.push(new fpxt.forms.Podio());
             exts.push(new fpxt.forms.Twitter());
+            exts.push(new fpxt.forms.LinkedIn());
 
             return Enumerable.from(exts).firstOrDefault(function (x) {
                 return x.extId.toLowerCase() == extCode.toLowerCase();

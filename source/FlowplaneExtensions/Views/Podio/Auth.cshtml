@@ -22,6 +22,8 @@
 				$('.podio-app-keys').show();
 				$('#txtPodioAppId').focus();
 			} else {
+			    $('#txtPodioAppId').val('');
+			    $('#txtPodioAppSecret').val('');
 				$('.podio-app-keys').hide();
 			}
 		});

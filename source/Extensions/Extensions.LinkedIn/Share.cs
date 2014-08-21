@@ -18,6 +18,8 @@ namespace Extensions.LinkedIn
         { 
         }
 
+        public Share(string accessToken) : base("", "", accessToken, "") { }
+
         public string LinkedInShare(string comment)
         {
             using (HttpClient client = new HttpClient())

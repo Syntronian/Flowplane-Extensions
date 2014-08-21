@@ -57,13 +57,13 @@ namespace FlowplaneExtensions.Models.api.flow
 
             if (extId.Equals(new Extensions.LinkedIn.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var message = objParams.FirstOrDefault(k => k.key == "message");
-                if (message == null) throw new Exception("Invalid message");
+                var message = objParams.FirstOrDefault(k => k.key == "linkedinsharestatus");
+                if (message == null) throw new Exception("Invalid linkedin share status");
 
-                var accessToken = authKeys.FirstOrDefault(k => k.key == "accessToken");
-                if (accessToken == null) throw new Exception("Invalid accessToken");
+                var accessToken = authKeys.FirstOrDefault(k => k.key == "AccessToken");
+                if (accessToken == null) throw new Exception("Invalid access Token");
 
-                new Extensions.LinkedIn.Share((Extensions.LinkedIn.Auth)Common.GetAuthObject(extId, authKeys, null)).LinkedInShare(message.value);
+                new Extensions.LinkedIn.Share(accessToken.value).LinkedInShare(message.value);
                 return System.Net.HttpStatusCode.OK.ToString();
             }
 

@@ -58,16 +58,16 @@ namespace FlowplaneExtensions.Controllers
 
             var txtLinkedInApiKey = TempData["txtLinkedInApiKey"].ToString();
             var txtLinkedInApiSecret = TempData["txtLinkedInApiSecret"].ToString();
-
+            var redirectUri = System.Web.HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + System.Web.HttpContext.Current.Request.Url.AbsolutePath;
             if (string.IsNullOrEmpty(txtLinkedInApiKey) && string.IsNullOrEmpty(txtLinkedInApiSecret))
             {
                 // use flowplane
                 var httpClient = new HttpClient();
                 var rs = httpClient.GetAsync(
-                    string.Format(Common.FlowplaneDotCom + "/api/oauth/getaccesstokens/{0}?returnurl={2},linkedinCode={1}",
+                    string.Format(Common.FlowplaneDotCom + "/api/oauth/getaccesstokens/{0}?returnurl={2}&linkedinCode={1}",
                                   new Extensions.LinkedIn.Identity().Code,
                                   Request["code"],
-                                  Request.Url.AbsoluteUri)).Result;
+                                  redirectUri)).Result;
                 if (!rs.IsSuccessStatusCode) throw new Exception(rs.ReasonPhrase);
 
                 var token = JsonConvert.DeserializeObject<Dictionary<string, string>>(rs.Content.ReadAsStringAsync().Result);
@@ -76,7 +76,7 @@ namespace FlowplaneExtensions.Controllers
             }
             else
             {
-                var auth = new Extensions.LinkedIn.Tokens(new Extensions.LinkedIn.Auth(txtLinkedInApiKey, txtLinkedInApiSecret, "", Request.Url.AbsoluteUri));
+                var auth = new Extensions.LinkedIn.Tokens(new Extensions.LinkedIn.Auth(txtLinkedInApiKey, txtLinkedInApiSecret, "", redirectUri));
                 var token = auth.GetAccessToken(Request["code"]);
 
                 ViewBag.LinkedInAccessToken = token;

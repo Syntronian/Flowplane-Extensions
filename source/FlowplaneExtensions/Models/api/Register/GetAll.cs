@@ -203,14 +203,14 @@ namespace FlowplaneExtensions.Models.api.Register
                     auth_keys = new List<AuthKey>()
                     {
                         new AuthKey() {
-                            key = "ApiKey",
+                            key = "ConsumerKey",
                             controlId = "txtLinkedInApiKey",
                             controlDescription = "Api key",
                             required = false,
                             requiredMessage = ""
                         },
                         new AuthKey() {
-                            key = "ApiSecret",
+                            key = "ConsumerSecret",
                             controlId = "txtLinkedInApiSecret",
                             controlDescription = "Api secret",
                             required = false,

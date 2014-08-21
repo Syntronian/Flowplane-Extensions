@@ -89,14 +89,14 @@ namespace FlowplaneExtensions.Models.api.Register
                             controlId = "txtTwitterAccessToken",
                             controlDescription = "Access token",
                             required = true,
-                            requiredMessage = "Access token is required, connect to Facebook first."
+                            requiredMessage = "Access token is required, connect to Twitter first."
                         },
                         new AuthKey() {
                             key = "AccessTokenSecret",
                             controlId = "txtTwitterAccessTokenSecret",
                             controlDescription = "Secret access token",
                             required = true,
-                            requiredMessage = "Secret access token is required, connect to Facebook first."
+                            requiredMessage = "Secret access token is required, connect to Twitter first."
                         }
                     }
                 },
@@ -189,6 +189,39 @@ namespace FlowplaneExtensions.Models.api.Register
                             controlDescription = "Organisation",
                             required = true,
                             requiredMessage = "organisation is required."
+                        }
+                    }
+                },
+
+                new Extension()
+                {
+                    identity = new Extensions.LinkedIn.Identity(),
+                    url_path_auth = urlPrefix + url.Action("Auth", "LinkedIn"),
+                    url_path_header = urlPrefix + url.Action("Header", "LinkedIn"),
+                    url_path_body = urlPrefix + url.Action("Body", "LinkedIn"),
+                    img_src = urlPrefix + url.Content("~//Content/img/ext-linkedin.png"),
+                    auth_keys = new List<AuthKey>()
+                    {
+                        new AuthKey() {
+                            key = "ApiKey",
+                            controlId = "txtLinkedInApiKey",
+                            controlDescription = "Api key",
+                            required = false,
+                            requiredMessage = ""
+                        },
+                        new AuthKey() {
+                            key = "ApiSecret",
+                            controlId = "txtLinkedInApiSecret",
+                            controlDescription = "Api secret",
+                            required = false,
+                            requiredMessage = ""
+                        },
+                        new AuthKey() {
+                            key = "AccessToken",
+                            controlId = "txtLinkedInAccessToken",
+                            controlDescription = "Access token",
+                            required = true,
+                            requiredMessage = "Access token is required, connect to LinkedIn first."
                         }
                     }
                 }

@@ -1,0 +1,59 @@
+﻿<script>
+    var linkedinAuthPopup = function () {
+        var w = 1000;
+        var h = 640;
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
+        window.open("about:blank",
+			"frmLinkedInAuth",
+                "width=" + w + ", height=" + h + ", top=" + top + ", left=" + left + ", toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no");
+        document.getElementById('frm-linkedin-app-keys').submit();
+    }
+    $(document).ready(function () {
+        $('#chkLinkedInOauthOption').bootstrapSwitch().on('switchChange.bootstrapSwitch', function (event, state) {
+            if (state == false) {
+                $('.linkedin-app-keys').show();
+                $('#txtLinkedInApiKey').focus();
+            } else {
+                $('.linkedin-app-keys').hide();
+            }
+        });
+    });
+</script>
+
+<p>
+    <img src="@Url.Content("~/Content/img/ext-linkedin.png")" />
+    &nbsp;
+    Connect to your LinkedIn account.
+</p>
+<div id="btnConnectLinkedIn" class="row" style="margin-top: 20px;">
+    <div class="col-md-6">
+        <p>
+            Oauth with Flowplane:&nbsp;
+            <input type="checkbox" id="chkLinkedInOauthOption" data-size="medium" data-on-text="Yes" data-off-text="No" checked>
+        </p>
+        <form id="frm-linkedin-app-keys" method="post" action="@Url.Action("oauth", "LinkedIn")" target="frmLinkedInAuth">
+            <div class="linkedin-app-keys form-group" style="display: none; margin-bottom: 20px;">
+                <label>
+                    Api Key:
+                </label>
+                <input id="txtLinkedInApiKey" name="txtLinkedInApiKey" class="form-control" autocomplete="off" placeholder="Api Key" type="text" value="" />
+            </div>
+            <div class="linkedin-app-keys form-group" style="display: none;">
+                <label>
+                    Secret Key:
+                </label>
+                <input id="txtLinkedInApiSecret" name="txtLinkedInApiSecret" class="form-control" autocomplete="off" placeholder="Secret Key" type="text" value="" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        <a href="javascript:;"
+           onclick="linkedinAuthPopup();"
+           class="btn green" target="_top">Connect to LinkedIn</a>
+    </div>
+</div>
+
+<input id="txtLinkedInAccessToken" name="txtLinkedInAccessToken" style="display:none;" type="text" value="" />
+<h4 id="lblConnectedToLinkedIn" style="display: none;"><i class="fa fa-check"></i>&nbsp; Connected.</h4>

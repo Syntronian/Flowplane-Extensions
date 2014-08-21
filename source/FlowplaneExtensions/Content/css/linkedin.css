@@ -1,0 +1,51 @@
+﻿.toolbox-event-linkedin {
+	background-color: #EDF0FF;
+	border:4px double #333;
+	-o-border-radius: 2.5em; -moz-border-radius: 2.5em; -webkit-border-radius: 2.5em; border-radius: 2.5em !important;
+	width:2.5em; height:2.5em;
+	vertical-align: middle;
+	text-align:center;
+	z-index:20;
+	position:relative;
+	float: left;
+	margin: 5px;
+	margin-left: 16px;
+	margin-right: 17px;
+	color:black;
+	font-family:helvetica;padding:0.5em;
+	font-size:0.9em;
+	-webkit-transition: all 0.05s linear; -moz-transition: all 0.05s linear; -o-transition: all 0.05s linear; transition: all 0.05s linear;
+}
+
+.toolbox-event-linkedin-l {
+	margin-top: 8px !important;
+	color: #55acee;
+}
+
+.toolbox-event-linkedin:hover {
+	background-color: #fff;
+	-o-box-shadow: 0px 0px 7px #fff;
+	-webkit-box-shadow: 0px 0px 7px #fff;
+	-moz-box-shadow: 0px 0px 7px #fff;
+	box-shadow: 0px 0px 7px #fff;
+	cursor: move;
+	-webkit-transition: all 0.05s linear; -moz-transition: all 0.05s linear; -o-transition: all 0.05s linear; transition: all 0.05s linear;
+}
+
+.toolbox-event-linkedin-drag {
+	background-color: #fff;
+	border:4px double #333;
+	-o-border-radius: 2.5em; -moz-border-radius: 2.5em; -webkit-border-radius: 2.5em; border-radius: 2.5em;
+	width:2.5em; height:2.5em;
+	vertical-align: middle;
+	text-align:center;
+	z-index:20; position:absolute;
+	color:black;
+	font-family:helvetica;padding:0.5em;
+	font-size:0.9em;
+	-o-box-shadow: 5px 5px 12px #aaa;
+	-webkit-box-shadow: 5px 5px 12px #aaa;
+	-moz-box-shadow: 5px 5px 12px #aaa;
+	box-shadow: 5px 5px 12px #aaa;
+	cursor: move;
+}

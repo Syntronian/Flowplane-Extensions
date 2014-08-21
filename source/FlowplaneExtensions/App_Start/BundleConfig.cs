@@ -20,7 +20,8 @@ namespace FlowplaneExtensions
                 "~/Content/css/facebook.css",
                 "~/Content/css/paymo.css",
                 "~/Content/css/podio.css",
-                "~/Content/css/twitter.css"
+                "~/Content/css/twitter.css",
+                "~/Content/css/linkedin.css"
             ));
 
             Bundle js = new ScriptBundle("~/Content/js/all");
@@ -34,7 +35,8 @@ namespace FlowplaneExtensions
                 "~/Content/js/forms/facebook.js",
                 "~/Content/js/forms/paymo.js",
                 "~/Content/js/forms/podio.js",
-                "~/Content/js/forms/twitter.js"
+                "~/Content/js/forms/twitter.js",
+                "~/Content/js/forms/linkedin.js"
             ));
         }
     }

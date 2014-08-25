@@ -53,6 +53,7 @@ var fpxt;
             exts.push(new fpxt.forms.Podio());
             exts.push(new fpxt.forms.Twitter());
             exts.push(new fpxt.forms.LinkedIn());
+            exts.push(new fpxt.forms.Wrike());
 
             return Enumerable.from(exts).firstOrDefault(function (x) {
                 return x.extId.toLowerCase() == extCode.toLowerCase();

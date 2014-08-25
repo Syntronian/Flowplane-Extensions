@@ -224,6 +224,45 @@ namespace FlowplaneExtensions.Models.api.Register
                             requiredMessage = "Access token is required, connect to LinkedIn first."
                         }
                     }
+                },
+                new Extension()
+                {
+                    identity = new Extensions.Wrike.Identity(),
+                    url_path_auth = urlPrefix + url.Action("Auth", "Wrike"),
+                    url_path_header = urlPrefix + url.Action("Header", "Wrike"),
+                    url_path_body = urlPrefix + url.Action("Body", "Wrike"),
+                    img_src = urlPrefix + url.Content("~//Content/img/ext-wrike.png"),
+                    auth_keys = new List<AuthKey>()
+                    {
+                        new AuthKey() {
+                            key = "ConsumerKey",
+                            controlId = "txtWrikeConsumerKey",
+                            controlDescription = "Consumer key",
+                            required = false,
+                            requiredMessage = ""
+                        },
+                        new AuthKey() {
+                            key = "ConsumerSecret",
+                            controlId = "txtWrikeConsumerSecret",
+                            controlDescription = "Consumer secret",
+                            required = false,
+                            requiredMessage = ""
+                        },
+                        new AuthKey() {
+                            key = "AccessToken",
+                            controlId = "txtWrikeAccessToken",
+                            controlDescription = "Access token",
+                            required = true,
+                            requiredMessage = "Access token is required, connect to Wrike first."
+                        },
+                        new AuthKey() {
+                            key = "AccessTokenSecret",
+                            controlId = "txtWrikeAccessTokenSecret",
+                            controlDescription = "Secret access token",
+                            required = true,
+                            requiredMessage = "Secret access token is required, connect to Wrike first."
+                        }
+                    }
                 }
             };
         }

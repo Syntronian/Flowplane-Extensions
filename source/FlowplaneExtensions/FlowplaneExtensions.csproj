@@ -136,6 +136,7 @@
     <Compile Include="Controllers\api\Api_FlowController.cs" />
     <Compile Include="Controllers\api\Api_RegisterController.cs" />
     <Compile Include="Controllers\api\Api_ProcessController.cs" />
+    <Compile Include="Controllers\WrikeController.cs" />
     <Compile Include="Controllers\LinkedInController.cs" />
     <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Controllers\PodioController.cs" />
@@ -160,14 +161,17 @@
     <Content Include="Content\css\paymo.css" />
     <Content Include="Content\css\podio.css" />
     <Content Include="Content\css\twitter.css" />
+    <Content Include="Content\css\wrike.css" />
     <Content Include="Content\img\ext-asana.png" />
     <Content Include="Content\img\ext-facebook.png" />
     <Content Include="Content\img\ext-linkedin.png" />
     <Content Include="Content\img\ext-paymo.png" />
     <Content Include="Content\img\ext-podio.png" />
     <Content Include="Content\img\ext-twitter.png" />
+    <Content Include="Content\img\ext-wrike.png" />
     <Content Include="Content\js\forms\asana.js" />
     <TypeScriptCompile Include="Content\js\forms\linkedin.ts" />
+    <TypeScriptCompile Include="Content\js\forms\wrike.ts" />
     <Content Include="Content\js\forms\facebook.js" />
     <Content Include="Content\js\forms\linkedin.js" />
     <Content Include="Content\js\forms\podio.js" />
@@ -175,8 +179,10 @@
     <Content Include="Content\js\forms\paymo.js" />
     <Content Include="Content\js\forms\paymo.ts" />
     <Content Include="Content\js\forms\twitter.js" />
+    <Content Include="Content\js\forms\wrike.js" />
     <Content Include="Content\js\fpxt.js" />
     <Content Include="Content\js\shearnie\tools.js" />
+    <Content Include="Content\js\typescript-defs\jstree.d.ts" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -229,6 +235,10 @@
     <Content Include="Views\LinkedIn\Body.cshtml" />
     <Content Include="Views\LinkedIn\Header.cshtml" />
     <Content Include="Views\LinkedIn\OAuthComplete.cshtml" />
+    <Content Include="Views\Wrike\Auth.cshtml" />
+    <Content Include="Views\Wrike\Body.cshtml" />
+    <Content Include="Views\Wrike\Header.cshtml" />
+    <Content Include="Views\Wrike\OAuthComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Extensions.Asana\Extensions.Asana.csproj">

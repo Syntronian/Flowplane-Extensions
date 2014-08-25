@@ -390,6 +390,62 @@ var shearnie;
         (function (html) {
             
 
+            function fillTree(tree, checkedNodes) {
+                var selectedNode = [];
+
+                //var tree: any = $('#' + tree);
+                tree.on('changed.jstree', function (e, data) {
+                    if (data.action == 'select_node') {
+                        if (!Enumerable.from(selectedNode).any(function (i) {
+                            return i == data.node.id;
+                        }))
+                            selectedNode.push(data.node.id);
+                    } else if (data.action == 'deselect_node') {
+                        if (Enumerable.from(selectedNode).any(function (i) {
+                            return i == data.node.id;
+                        }))
+                            selectedNode.splice(selectedNode.indexOf(data.node.id), 1);
+                    }
+                }).jstree({
+                    'checkbox': {
+                        "three_state": false
+                    },
+                    'plugins': ["wholerow", "checkbox"],
+                    'core': {
+                        "themes": { "responsive": false },
+                        'data': this.getKids("0")
+                    }
+                });
+
+                // pre-select
+                if (checkedNodes) {
+                    checkedNodes.forEach(function (i) {
+                        $.jstree.reference(i).select_node(i, true);
+                    });
+                    selectedNode = checkedNodes;
+                }
+            }
+            html.fillTree = fillTree;
+
+            var node;
+            function getKids(parentId) {
+                var _this = this;
+                var ret = [];
+
+                Enumerable.from(node).where(function (i) {
+                    return i.parentId == parentId && i.id != parentId;
+                }).forEach(function (i) {
+                    ret.push({
+                        "id": i.id,
+                        "text": i.title,
+                        "children": _this.getKids(i.id)
+                    });
+                });
+
+                return ret;
+            }
+            html.getKids = getKids;
+
             function fillCombo(cbo, items, prompt) {
                 if (cbo == null)
                     return;

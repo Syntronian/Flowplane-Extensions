@@ -21,7 +21,7 @@ namespace FlowplaneExtensions.Models.api.Process
             {
                 var apiKey = authKeys.FirstOrDefault(k => k.key == "API_Key");
                 if (apiKey == null) throw new Exception("Invalid API_Key");
-                
+
                 return new Extensions.Asana.Users(new Auth(apiKey.value)).List();
             }
 
@@ -41,7 +41,7 @@ namespace FlowplaneExtensions.Models.api.Process
 
             if (extId.Equals(new Extensions.Wrike.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
                 return new Extensions.Wrike.Users((Extensions.Wrike.Auth)Common.GetAuthObject(extId, authKeys, null)).Get();
-            
+
             throw new Exception("Invalid extension.");
         }
 
@@ -52,7 +52,7 @@ namespace FlowplaneExtensions.Models.api.Process
             var extId = Common.GetValue(formData, "extId");
             var authKeys = Common.TryGetParams(formData["authKeys"]);
             var objParams = Common.TryGetParams(formData["objParams"]);
-            
+
             if (extId.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
                 var apiKey = authKeys.FirstOrDefault(k => k.key == "API_Key");
@@ -71,12 +71,12 @@ namespace FlowplaneExtensions.Models.api.Process
             var extId = Common.GetValue(formData, "extId");
             var authKeys = Common.TryGetParams(formData["authKeys"]);
             var objParams = Common.TryGetParams(formData["objParams"]);
-            
+
             if (extId.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
                 var apiKey = authKeys.FirstOrDefault(k => k.key == "API_Key");
                 if (apiKey == null) throw new Exception("Invalid API_Key");
-                
+
                 return new Projects(new Auth(apiKey.value)).List(
                     Common.TryGetString(objParams.FirstOrDefault(k => k.key == "workspaceId")) ?? "",
                     Common.TryGetBool(objParams.FirstOrDefault(k => k.key == "archived")));
@@ -126,15 +126,25 @@ namespace FlowplaneExtensions.Models.api.Process
 
                 return new Extensions.Paymo.TaskLists(
                     new Extensions.Paymo.Auth(
-                        apiKey.value, 
-                        username.value, 
-                        password.value, 
+                        apiKey.value,
+                        username.value,
+                        password.value,
                         Common.TryGetString(authToken))).List(Common.TryGetString(projectId));
             }
 
             throw new Exception("Invalid extension.");
         }
 
-        
+        //public ITree GetFolders(FormDataCollection formData)
+        //{
+        //    var extId = Common.GetValue(formData, "extId");
+        //    var authKeys = Common.TryGetParams(formData["authKeys"]);
+        //    var objParams = Common.TryGetParams(formData["objParams"]);
+
+        //    if (extId.Equals(new Extensions.Wrike.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+        //        return new Extensions.Wrike.Folders((Extensions.Wrike.Auth)Common.GetAuthObject(extId, authKeys, null)).Get();
+
+        //    throw new Exception("Invalid extension.");
+        //}
     }
 }

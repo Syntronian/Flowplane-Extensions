@@ -17,12 +17,12 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         private const string accessToken = "YOUR_ACCESS_TOKEN";
         private const string extId = "linkedin";
         
-        [TestMethod]
-        public void ShareUpdate()
-        {
-            var u = new FlowplaneExtensions.Controllers.api.Api_FlowController().ActivateObject(GetCol("YOUR_CALLBACK_URL_HERE", "My fist post: Using LinkedIn web api's from flowplane"));
-            Console.WriteLine(System.Net.HttpStatusCode.OK);
-        }
+        //[TestMethod]
+        //public void ShareUpdate()
+        //{
+        //    var u = new FlowplaneExtensions.Controllers.api.Api_FlowController().ActivateObject(GetCol("YOUR_CALLBACK_URL_HERE", "My fist post: Using LinkedIn web api's from flowplane"));
+        //    Console.WriteLine(System.Net.HttpStatusCode.OK);
+        //}
 
         private FormDataCollection GetCol(string callback, string accessToken = null, string message = null)
         {

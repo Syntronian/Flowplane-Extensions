@@ -6,39 +6,48 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
-
+using ExtensionsCore;
 namespace Extensions.Wrike.Responses.Folders
 {
-    public class Get
+    public class Get : ITree
     {
-        public FoldersTreeDTO tree { get; set; }
+        public FoldersTreeDTO treeDTO { get; set; }
+
+        public ITreeRoot tree
+        {
+            get
+            {
+                return this.treeDTO;
+            }
+
+        }
 
         public Get(string result)
         {
-            this.tree = new JavaScriptSerializer().Deserialize<FoldersTreeDTO>(result);
-            if (this.tree == null)
-            { 
+            this.treeDTO = new JavaScriptSerializer().Deserialize<FoldersTreeDTO>(result);
+            if (this.treeDTO.foldersTree == null)
+            {
                 JObject obj = JsonConvert.DeserializeObject<JObject>(result);
-                if(obj.First.First.Value<string>("code") != null)
+                if (obj.First.First.Value<string>("code") != null)
                     throw new Exception(obj.First.First.Value<string>("code") + " : " + obj.First.Last.Value<string>("message"));
             }
         }
 
-        public class Folders
+        public class Folders : ITreeParent
         {
-            public Folder[] folders { get; set; }
+            public ITreeKids[] folders { get; set; }
         }
 
-        public class Folder
+        public class Folder : ITreeKids
         {
             public string id { get; set; }
             public string parentId { get; set; }
             public string title { get; set; }
         }
 
-        public class FoldersTreeDTO
+        public class FoldersTreeDTO : ITreeRoot
         {
-            public Folders foldersTree { get; set; }
+            public ITreeParent foldersTree { get; set; }
         }
     }
 }

@@ -399,33 +399,90 @@ module shearnie.tools {
 
 module shearnie.tools.html {
 
-	/* fill combo list
-	 * usage:
+    /* fill combo list
+     * usage:
 
-		var pets: shearnie.tools.html.comboData[] = [];
-		pets.push({
-			groupHeading: "Dogs",
-			getItems: () => {
-				var ret: shearnie.tools.html.comboItem[] = [];
-				model.dogs.forEach((item) => {
-					ret.push({ value: item.id, display: item.name });
-				})
-				return ret;
-			}
-		});
-		pets.push({
-			groupHeading: "Cats",
-			getItems: () => {
-				var ret: shearnie.tools.html.comboItem[] = [];
-				model.cats.forEach((item) => {
-					ret.push({ value: item.id, display: item.name });
-				})
-				return ret;
-			}
-		});
+        var pets: shearnie.tools.html.comboData[] = [];
+        pets.push({
+            groupHeading: "Dogs",
+            getItems: () => {
+                var ret: shearnie.tools.html.comboItem[] = [];
+                model.dogs.forEach((item) => {
+                    ret.push({ value: item.id, display: item.name });
+                })
+                return ret;
+            }
+        });
+        pets.push({
+            groupHeading: "Cats",
+            getItems: () => {
+                var ret: shearnie.tools.html.comboItem[] = [];
+                model.cats.forEach((item) => {
+                    ret.push({ value: item.id, display: item.name });
+                })
+                return ret;
+            }
+        });
 
-		shearnie.tools.html.fillCombo($("#pets-combo"), pets, "Select your pet");
-	*/
+        shearnie.tools.html.fillCombo($("#pets-combo"), pets, "Select your pet");
+    */
+
+    export interface treeNode
+    {
+        value: any;
+        display: string;
+        child: treeNode;
+    }
+
+    export function fillTree(tree: JQuery,
+                            checkedNodes: string[])
+    {
+        var selectedNode = [];
+        //var tree: any = $('#' + tree);
+
+        tree.on('changed.jstree', (e, data) => {
+            if (data.action == 'select_node') {
+                if (!Enumerable.from(selectedNode).any((i) => i == data.node.id))
+                    selectedNode.push(data.node.id);
+            } else if (data.action == 'deselect_node') {
+                if (Enumerable.from(selectedNode).any((i) => i == data.node.id))
+                    selectedNode.splice(selectedNode.indexOf(data.node.id), 1);
+            }
+        }).jstree({
+                'checkbox': {
+                    "three_state": false
+                },
+                'plugins': ["wholerow", "checkbox"],
+                'core': {
+                    "themes": { "responsive": false },
+                    'data': this.getKids("0")
+                }
+            });
+
+        // pre-select
+        if (checkedNodes) {
+            checkedNodes.forEach((i) => {
+                $.jstree.reference(i).select_node(i, true);
+            });
+            selectedNode = checkedNodes;
+        }
+    }
+
+    var node: any[];
+    export function getKids(parentId: string): any[]{
+        var ret: any[] = [];
+        
+        Enumerable.from(node).where((i) => i.parentId == parentId && i.id != parentId).forEach((i) => {
+            ret.push({
+                "id": i.id,
+                "text": i.title,
+                "children": this.getKids(i.id)  
+            });
+        });
+
+        return ret;
+    }
+
 	export interface comboData {
 		groupHeading?: string;
 		getItems?: () => comboItem[];

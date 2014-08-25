@@ -52,6 +52,7 @@
     <Compile Include="IIdentity.cs" />
     <Compile Include="IOrganisation.cs" />
     <Compile Include="IProject.cs" />
+    <Compile Include="ITree.cs" />
     <Compile Include="IWorkspace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -18,21 +18,28 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         private const string accessTokenSecret = "YOUR_ACCESS_TOKEN_SECRET_HERE";
         private const string callback = "YOUR_CALLBACK_URL_HERE";
 
+        //[TestMethod]
+        //public void GetAssignees()
+        //{
+        //    var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol());
+        //    Common.Display(o);
+        //}
+
         [TestMethod]
-        public void GetAssignees()
+        public void GetFolders()
         {
-            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetAssignees(GetCol());
-            Common.Display(o);
+            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetFolders(GetCol());
+            //Common.Display(o);
         }
 
         private FormDataCollection GetCol()
         {
             var ak = new List<Models.api.FpxtParam>()
             {
-               new  Models.api.FpxtParam { key = "consumerKey",value = consumerKey },
-               new  Models.api.FpxtParam { key = "consumerSecret",value = consumerSecret },
-               new  Models.api.FpxtParam { key = "accessToken",value = accessToken },
-               new  Models.api.FpxtParam { key = "accessTokenSecret",value = accessTokenSecret },
+               new  Models.api.FpxtParam { key = "ConsumerKey",value = consumerKey },
+               new  Models.api.FpxtParam { key = "ConsumerSecret",value = consumerSecret },
+               new  Models.api.FpxtParam { key = "AccessToken",value = accessToken },
+               new  Models.api.FpxtParam { key = "AccessTokenSecret",value = accessTokenSecret },
                 new  Models.api.FpxtParam { key = "callback",value = callback}
             };
             var authKeys = JsonConvert.SerializeObject(ak);

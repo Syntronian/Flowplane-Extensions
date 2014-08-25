@@ -5,15 +5,16 @@ module fpxt.forms {
     export class Wrike implements IForm {
 
         public extId: string = 'WRIKE';
-        private folders: any[];
         private selectedFolders: string[];
         public setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             $("#assignees-loading").show();
+            $("folders-loading").show();
             $("#cboActivityParamAssignee").hide();
-
+            $("#treeActivityParamFolders").hide();
             // get data first
             var pd = new Array();
             pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getfolders', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
             var cd: shearnie.tools.html.comboData[] = [];
             new shearnie.tools.Poster().SendAsync(pd, numErrs => {
@@ -32,6 +33,11 @@ module fpxt.forms {
                 $("#assignees-loading").hide();
                 $("#cboActivityParamAssignee").show();
 
+                //fill folders
+                shearnie.tools.html.fillTree($("#treeActivityParamFolders"), null);
+                $("#folders-loading").hide();
+                $("#treeActivityParamFolders").show();
+
                 onCompleted();
             });
         }
@@ -40,52 +46,10 @@ module fpxt.forms {
             $("#folders-loading").show();
             $("#treeActivityParamFolders").hide();
 
-            this.selectedFolders = [];
-            var tree: any = $('#treeActivityParamFolders');
-
-            tree.on('changed.jstree', (e, data) => {
-                if (data.action == 'select_node') {
-                    if (!Enumerable.from(this.selectedFolders).any((i) => i == data.node.id))
-                        this.selectedFolders.push(data.node.id);
-                } else if (data.action == 'deselect_node') {
-                    if (Enumerable.from(this.selectedFolders).any((i) => i == data.node.id))
-                        this.selectedFolders.splice(this.selectedFolders.indexOf(data.node.id), 1);
-                }
-            }).jstree({
-                    'checkbox': {
-                        "three_state": false
-                    },
-                    'plugins': ["wholerow", "checkbox"],
-                    'core': {
-                        "themes": { "responsive": false },
-                        'data': this.getKids("0")
-                    }
-                });
-
-            // pre-select
-            if (checkedNodes) {
-                checkedNodes.forEach((i) => {
-                    $.jstree.reference(i).select_node(i, true);
-                });
-                this.selectedFolders = checkedNodes;
-            }
+            shearnie.tools.html.fillTree($("#treeActivityParamFolders"), checkedNodes);
 
             $("#folders-loading").hide();
             $("#treeActivityParamFolders").show();
-        }
-
-        getKids(parentId: string): any[] {
-            var ret: any[] = [];
-
-            Enumerable.from(this.folders).where((i) => i.parentId == parentId && i.id != parentId).forEach((i) => {
-                ret.push({
-                    "id": i.id,
-                    "text": i.title,
-                    "children": this.getKids(i.id)
-                });
-            });
-
-            return ret;
         }
 
         public setupAuthPre(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
@@ -93,6 +57,10 @@ module fpxt.forms {
         }
 
         public setupAuthPost(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
+            if ($('#txtWrikeConsumerKey').val() != '' && $('#txtWrikeConsumerSecret').val() != '') {
+                var bswitch: any = $('#chkWrikeOauthOption');
+                bswitch.bootstrapSwitch('toggleState');
+            }
             onCompleted();
         }
 
@@ -118,8 +86,8 @@ module fpxt.forms {
             this.load_folders(this.selectedFolders);
         }
 
-       
-        public getProperties(): fpxtParam[]{
+
+        public getProperties(): fpxtParam[] {
             if ($("#txtActivityParamTaskDesc").val() == "")
                 throw "Description is required.";
 
@@ -133,4 +101,3 @@ module fpxt.forms {
         }
     }
 }
- 

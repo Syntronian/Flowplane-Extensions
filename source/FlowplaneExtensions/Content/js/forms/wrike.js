@@ -8,11 +8,14 @@ var fpxt;
             }
             Wrike.prototype.setup = function (baseApiUrl, authKeys, objParams, onCompleted) {
                 $("#assignees-loading").show();
+                $("folders-loading").show();
                 $("#cboActivityParamAssignee").hide();
+                $("#treeActivityParamFolders").hide();
 
                 // get data first
                 var pd = new Array();
                 pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+                pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getfolders', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
                 var cd = [];
                 new shearnie.tools.Poster().SendAsync(pd, function (numErrs) {
@@ -31,68 +34,23 @@ var fpxt;
                     $("#assignees-loading").hide();
                     $("#cboActivityParamAssignee").show();
 
+                    //fill folders
+                    shearnie.tools.html.fillTree($("#treeActivityParamFolders"), null);
+                    $("#folders-loading").hide();
+                    $("#treeActivityParamFolders").show();
+
                     onCompleted();
                 });
             };
 
             Wrike.prototype.load_folders = function (checkedNodes) {
-                var _this = this;
                 $("#folders-loading").show();
                 $("#treeActivityParamFolders").hide();
 
-                this.selectedFolders = [];
-                var tree = $('#treeActivityParamFolders');
-
-                tree.on('changed.jstree', function (e, data) {
-                    if (data.action == 'select_node') {
-                        if (!Enumerable.from(_this.selectedFolders).any(function (i) {
-                            return i == data.node.id;
-                        }))
-                            _this.selectedFolders.push(data.node.id);
-                    } else if (data.action == 'deselect_node') {
-                        if (Enumerable.from(_this.selectedFolders).any(function (i) {
-                            return i == data.node.id;
-                        }))
-                            _this.selectedFolders.splice(_this.selectedFolders.indexOf(data.node.id), 1);
-                    }
-                }).jstree({
-                    'checkbox': {
-                        "three_state": false
-                    },
-                    'plugins': ["wholerow", "checkbox"],
-                    'core': {
-                        "themes": { "responsive": false },
-                        'data': this.getKids("0")
-                    }
-                });
-
-                // pre-select
-                if (checkedNodes) {
-                    checkedNodes.forEach(function (i) {
-                        $.jstree.reference(i).select_node(i, true);
-                    });
-                    this.selectedFolders = checkedNodes;
-                }
+                shearnie.tools.html.fillTree($("#treeActivityParamFolders"), checkedNodes);
 
                 $("#folders-loading").hide();
                 $("#treeActivityParamFolders").show();
-            };
-
-            Wrike.prototype.getKids = function (parentId) {
-                var _this = this;
-                var ret = [];
-
-                Enumerable.from(this.folders).where(function (i) {
-                    return i.parentId == parentId && i.id != parentId;
-                }).forEach(function (i) {
-                    ret.push({
-                        "id": i.id,
-                        "text": i.title,
-                        "children": _this.getKids(i.id)
-                    });
-                });
-
-                return ret;
             };
 
             Wrike.prototype.setupAuthPre = function (baseApiUrl, authKeys, objParams, onCompleted) {
@@ -100,6 +58,10 @@ var fpxt;
             };
 
             Wrike.prototype.setupAuthPost = function (baseApiUrl, authKeys, objParams, onCompleted) {
+                if ($('#txtWrikeConsumerKey').val() != '' && $('#txtWrikeConsumerSecret').val() != '') {
+                    var bswitch = $('#chkWrikeOauthOption');
+                    bswitch.bootstrapSwitch('toggleState');
+                }
                 onCompleted();
             };
 

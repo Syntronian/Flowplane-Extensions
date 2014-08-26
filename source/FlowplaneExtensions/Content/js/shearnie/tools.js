@@ -415,7 +415,7 @@ var shearnie;
             
             shearnie.tools.html.fillCombo($("#pets-combo"), pets, "Select your pet");
             */
-            function fillTree(tree, nodes, checkedNodes) {
+            function fillTree(tree, nodes, checkedNodes, onTreeChange) {
                 var selectedNode = [];
 
                 //var tree: any = $('#' + tree);
@@ -423,13 +423,17 @@ var shearnie;
                     if (data.action == 'select_node') {
                         if (!Enumerable.from(selectedNode).any(function (i) {
                             return i == data.node.id;
-                        }))
+                        })) {
                             selectedNode.push(data.node.id);
+                            onTreeChange(selectedNode);
+                        }
                     } else if (data.action == 'deselect_node') {
                         if (Enumerable.from(selectedNode).any(function (i) {
                             return i == data.node.id;
-                        }))
+                        })) {
                             selectedNode.splice(selectedNode.indexOf(data.node.id), 1);
+                            onTreeChange(selectedNode);
+                        }
                     }
                 }).jstree({
                     'checkbox': {
@@ -448,8 +452,8 @@ var shearnie;
                         $.jstree.reference(i).select_node(i, true);
                     });
                     selectedNode = checkedNodes;
+                    onTreeChange(selectedNode);
                 }
-                return selectedNode;
             }
             html.fillTree = fillTree;
 

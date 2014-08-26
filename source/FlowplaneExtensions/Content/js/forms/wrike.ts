@@ -40,7 +40,7 @@ module fpxt.forms {
                 this.folders = pd[1].result.tree.foldersTree.folders;
 
                 //fill folders
-                this.selectedFolders = shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, null);
+                shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, null, this.onTreeChange);
                 $("#folders-loading").hide();
                 $("#treeActivityParamFolders").show();
 
@@ -48,11 +48,16 @@ module fpxt.forms {
             });
         }
 
+        onTreeChange(nodes: string[])
+        {
+            this.selectedFolders = nodes;
+        }
+
         load_folders(checkedNodes: string[]) {
             $("#folders-loading").show();
             $("#treeActivityParamFolders").hide();
 
-            this.selectedFolders = shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, checkedNodes);
+            shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, checkedNodes, this.onTreeChange);
 
             $("#folders-loading").hide();
             $("#treeActivityParamFolders").show();

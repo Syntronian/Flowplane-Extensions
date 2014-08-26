@@ -40,7 +40,7 @@ var fpxt;
                     _this.folders = pd[1].result.tree.foldersTree.folders;
 
                     //fill folders
-                    _this.selectedFolders = shearnie.tools.html.fillTree($("#treeActivityParamFolders"), _this.folders, null);
+                    shearnie.tools.html.fillTree($("#treeActivityParamFolders"), _this.folders, null, _this.onTreeChange);
                     $("#folders-loading").hide();
                     $("#treeActivityParamFolders").show();
 
@@ -48,11 +48,15 @@ var fpxt;
                 });
             };
 
+            Wrike.prototype.onTreeChange = function (nodes) {
+                this.selectedFolders = nodes;
+            };
+
             Wrike.prototype.load_folders = function (checkedNodes) {
                 $("#folders-loading").show();
                 $("#treeActivityParamFolders").hide();
 
-                this.selectedFolders = shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, checkedNodes);
+                shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, checkedNodes, this.onTreeChange);
 
                 $("#folders-loading").hide();
                 $("#treeActivityParamFolders").show();

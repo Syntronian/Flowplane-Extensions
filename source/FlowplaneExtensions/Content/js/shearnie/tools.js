@@ -388,8 +388,33 @@ var shearnie;
 (function (shearnie) {
     (function (tools) {
         (function (html) {
+            /* fill combo list
+            * usage:
             
-
+            var pets: shearnie.tools.html.comboData[] = [];
+            pets.push({
+            groupHeading: "Dogs",
+            getItems: () => {
+            var ret: shearnie.tools.html.comboItem[] = [];
+            model.dogs.forEach((item) => {
+            ret.push({ value: item.id, display: item.name });
+            })
+            return ret;
+            }
+            });
+            pets.push({
+            groupHeading: "Cats",
+            getItems: () => {
+            var ret: shearnie.tools.html.comboItem[] = [];
+            model.cats.forEach((item) => {
+            ret.push({ value: item.id, display: item.name });
+            })
+            return ret;
+            }
+            });
+            
+            shearnie.tools.html.fillCombo($("#pets-combo"), pets, "Select your pet");
+            */
             function fillTree(tree, nodes, checkedNodes) {
                 var selectedNode = [];
 
@@ -424,6 +449,7 @@ var shearnie;
                     });
                     selectedNode = checkedNodes;
                 }
+                return selectedNode;
             }
             html.fillTree = fillTree;
 

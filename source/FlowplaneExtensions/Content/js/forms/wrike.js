@@ -7,6 +7,7 @@ var fpxt;
                 this.extId = 'WRIKE';
             }
             Wrike.prototype.setup = function (baseApiUrl, authKeys, objParams, onCompleted) {
+                var _this = this;
                 $("#assignees-loading").show();
                 $("folders-loading").show();
                 $("#cboActivityParamAssignee").hide();
@@ -36,11 +37,10 @@ var fpxt;
                     $("#assignees-loading").hide();
                     $("#cboActivityParamAssignee").show();
 
-                    //var td: shearnie.tools.html.treeNode;
-                    //td.value = pd[1].result;
-                    //this.folders = pd[1].result;
+                    _this.folders = pd[1].result.tree.foldersTree.folders;
+
                     //fill folders
-                    shearnie.tools.html.fillTree($("#treeActivityParamFolders"), pd[1].result.tree.foldersTree.folders, null);
+                    _this.selectedFolders = shearnie.tools.html.fillTree($("#treeActivityParamFolders"), _this.folders, null);
                     $("#folders-loading").hide();
                     $("#treeActivityParamFolders").show();
 
@@ -52,7 +52,8 @@ var fpxt;
                 $("#folders-loading").show();
                 $("#treeActivityParamFolders").hide();
 
-                // shearnie.tools.html.fillTree($("#treeActivityParamFolders"), checkedNodes);
+                this.selectedFolders = shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, checkedNodes);
+
                 $("#folders-loading").hide();
                 $("#treeActivityParamFolders").show();
             };
@@ -98,10 +99,15 @@ var fpxt;
                     throw "Description is required.";
 
                 var ret = [];
+
+                ret.push({ key: "taskdesc", value: $("#txtActivityParamTaskDesc").val() });
+
                 if ($("#cboActivityParamAssignee").val()) {
                     ret.push({ key: "taskassignee", value: $("#cboActivityParamAssignee").val() });
                     ret.push({ key: "taskassigneename", value: $("#cboActivityParamAssignee option:selected").text() });
                 }
+
+                ret.push({ key: "taskfolders", value: JSON.stringify(this.selectedFolders) });
 
                 return ret;
             };

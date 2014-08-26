@@ -427,12 +427,8 @@ module shearnie.tools.html {
         shearnie.tools.html.fillCombo($("#pets-combo"), pets, "Select your pet");
     */
 
-    export interface treeNode {
-        value: any;
-    }
-
     export function fillTree(tree: JQuery,
-        nodes: treeNode,
+        nodes: any[],
         checkedNodes: string[]) {
         var selectedNode = [];
         //var tree: any = $('#' + tree);
@@ -463,6 +459,7 @@ module shearnie.tools.html {
             });
             selectedNode = checkedNodes;
         }
+        return selectedNode;
     }
 
 

@@ -28,7 +28,7 @@ namespace FlowplaneExtensions.Tests.ExtensionTests
         [TestMethod]
         public void GetFolders()
         {
-            var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetFolders(GetCol());
+            //var o = new FlowplaneExtensions.Controllers.api.Api_ProcessController().GetFolders(GetCol());
             //Common.Display(o);
         }
 

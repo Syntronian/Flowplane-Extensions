@@ -5,6 +5,8 @@ using System.Net.Http.Formatting;
 using System.Web;
 using System.Net.Http;
 using Extensions.Asana;
+using System.Collections.Specialized;
+using Newtonsoft.Json;
 
 namespace FlowplaneExtensions.Models.api.flow
 {
@@ -89,7 +91,18 @@ namespace FlowplaneExtensions.Models.api.flow
 
                 return System.Net.HttpStatusCode.OK.ToString();
             }
-
+            if (extId.Equals(new Extensions.Wrike.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var addParams = new NameValueCollection 
+                {
+                    {Extensions.Wrike.Auth.Parameters.TaskTitle, Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskdesc"))},
+                    {Extensions.Wrike.Auth.Parameters.TaskAssignee, Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskassignee"))},
+                    {Extensions.Wrike.Auth.Parameters.TaskParentIDs, string.Join(",", JsonConvert.DeserializeObject<List<string>>(Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskfolders"))))}
+                };
+                new Extensions.Wrike.Tasks((Extensions.Wrike.Auth)Common.GetAuthObject(extId, authKeys, objParams))
+                    .Create(addParams);
+                return System.Net.HttpStatusCode.OK.ToString();
+            }
             throw new Exception("Invalid extension.");
         }
 

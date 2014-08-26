@@ -6,15 +6,19 @@ module fpxt.forms {
 
         public extId: string = 'WRIKE';
         private selectedFolders: string[];
+        private folders: any[];
         public setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             $("#assignees-loading").show();
             $("folders-loading").show();
             $("#cboActivityParamAssignee").hide();
             $("#treeActivityParamFolders").hide();
             // get data first
+
+            objParams.push({ key: "callback", value: baseApiUrl + 'Wrike/oauth' });
+
             var pd = new Array();
-            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
-            pd.push(new shearnie.tools.PostData(baseApiUrl + 'api/process/getfolders', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+            pd.push(new shearnie.tools.PostData(fpxt.BaseApiUrl.corepath + 'api/oauth/getwrikeassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
+            pd.push(new shearnie.tools.PostData(fpxt.BaseApiUrl.corepath + 'api/oauth/getwrikefolders', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
 
             var cd: shearnie.tools.html.comboData[] = [];
             new shearnie.tools.Poster().SendAsync(pd, numErrs => {
@@ -33,8 +37,12 @@ module fpxt.forms {
                 $("#assignees-loading").hide();
                 $("#cboActivityParamAssignee").show();
 
+                //var td: shearnie.tools.html.treeNode;
+                //td.value = pd[1].result;
+                //this.folders = pd[1].result;
+
                 //fill folders
-                shearnie.tools.html.fillTree($("#treeActivityParamFolders"), null);
+                shearnie.tools.html.fillTree($("#treeActivityParamFolders"), pd[1].result.tree.foldersTree.folders, null);
                 $("#folders-loading").hide();
                 $("#treeActivityParamFolders").show();
 
@@ -46,7 +54,7 @@ module fpxt.forms {
             $("#folders-loading").show();
             $("#treeActivityParamFolders").hide();
 
-            shearnie.tools.html.fillTree($("#treeActivityParamFolders"), checkedNodes);
+            // shearnie.tools.html.fillTree($("#treeActivityParamFolders"), checkedNodes);
 
             $("#folders-loading").hide();
             $("#treeActivityParamFolders").show();

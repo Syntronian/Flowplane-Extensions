@@ -390,7 +390,7 @@ var shearnie;
         (function (html) {
             
 
-            function fillTree(tree, checkedNodes) {
+            function fillTree(tree, nodes, checkedNodes) {
                 var selectedNode = [];
 
                 //var tree: any = $('#' + tree);
@@ -413,7 +413,7 @@ var shearnie;
                     'plugins': ["wholerow", "checkbox"],
                     'core': {
                         "themes": { "responsive": false },
-                        'data': this.getKids("0")
+                        'data': this.getKids("0", nodes)
                     }
                 });
 
@@ -427,12 +427,11 @@ var shearnie;
             }
             html.fillTree = fillTree;
 
-            var node;
-            function getKids(parentId) {
+            function getKids(parentId, allNodes) {
                 var _this = this;
                 var ret = [];
 
-                Enumerable.from(node).where(function (i) {
+                Enumerable.from(allNodes).where(function (i) {
                     return i.parentId == parentId && i.id != parentId;
                 }).forEach(function (i) {
                     ret.push({

@@ -6,6 +6,7 @@ module fpxt.forms {
 
         public extId: string = 'WRIKE';
         private selectedFolders: string[];
+        public sf: string[];
         private folders: any[];
         public setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             $("#assignees-loading").show();
@@ -13,8 +14,6 @@ module fpxt.forms {
             $("#cboActivityParamAssignee").hide();
             $("#treeActivityParamFolders").hide();
             // get data first
-
-            objParams.push({ key: "callback", value: baseApiUrl + 'Wrike/oauth' });
 
             var pd = new Array();
             pd.push(new shearnie.tools.PostData(fpxt.BaseApiUrl.corepath + 'api/oauth/getwrikeassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
@@ -51,12 +50,13 @@ module fpxt.forms {
         onTreeChange(nodes: string[])
         {
             this.selectedFolders = nodes;
+            this.sf = nodes;
         }
 
         load_folders(checkedNodes: string[]) {
             $("#folders-loading").show();
             $("#treeActivityParamFolders").hide();
-
+            this.selectedFolders = [];
             shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, checkedNodes, this.onTreeChange);
 
             $("#folders-loading").hide();
@@ -110,7 +110,7 @@ module fpxt.forms {
                 ret.push({ key: "taskassignee", value: $("#cboActivityParamAssignee").val() });
                 ret.push({ key: "taskassigneename", value: $("#cboActivityParamAssignee option:selected").text() });
             }
-
+         
             ret.push({ key: "taskfolders", value: JSON.stringify(this.selectedFolders) });
 
             return ret;

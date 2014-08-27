@@ -454,6 +454,8 @@ var shearnie;
                     selectedNode = checkedNodes;
                     onTreeChange(selectedNode);
                 }
+
+                return selectedNode;
             }
             html.fillTree = fillTree;
 

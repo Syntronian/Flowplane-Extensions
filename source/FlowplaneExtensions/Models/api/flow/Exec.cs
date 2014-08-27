@@ -93,12 +93,15 @@ namespace FlowplaneExtensions.Models.api.flow
             }
             if (extId.Equals(new Extensions.Wrike.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
             {
-                var addParams = new NameValueCollection 
-                {
-                    {Extensions.Wrike.Auth.Parameters.TaskTitle, Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskdesc"))},
-                    {Extensions.Wrike.Auth.Parameters.TaskAssignee, Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskassignee"))},
-                    {Extensions.Wrike.Auth.Parameters.TaskParentIDs, string.Join(",", JsonConvert.DeserializeObject<List<string>>(Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskfolders"))))}
-                };
+                var assignees = objParams.FirstOrDefault(k => k.key == "taskassignee");
+                var folders = objParams.FirstOrDefault(k => k.key == "taskfolders");
+                var addParams = new NameValueCollection { { Extensions.Wrike.Auth.Parameters.TaskTitle, Common.TryGetString(objParams.FirstOrDefault(k => k.key == "taskdesc")) } };
+
+                if (assignees != null)
+                    addParams.Add(Extensions.Wrike.Auth.Parameters.TaskAssignee, assignees.value);
+                if (folders != null)
+                    addParams.Add(Extensions.Wrike.Auth.Parameters.TaskParentIDs, string.Join(",", JsonConvert.DeserializeObject<List<string>>(folders.value)));
+
                 new Extensions.Wrike.Tasks((Extensions.Wrike.Auth)Common.GetAuthObject(extId, authKeys, objParams))
                     .Create(addParams);
                 return System.Net.HttpStatusCode.OK.ToString();

@@ -14,8 +14,6 @@ var fpxt;
                 $("#treeActivityParamFolders").hide();
 
                 // get data first
-                objParams.push({ key: "callback", value: baseApiUrl + 'Wrike/oauth' });
-
                 var pd = new Array();
                 pd.push(new shearnie.tools.PostData(fpxt.BaseApiUrl.corepath + 'api/oauth/getwrikeassignees', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
                 pd.push(new shearnie.tools.PostData(fpxt.BaseApiUrl.corepath + 'api/oauth/getwrikefolders', { extId: this.extId, authKeys: JSON.stringify(authKeys), objParams: JSON.stringify(objParams) }));
@@ -50,12 +48,13 @@ var fpxt;
 
             Wrike.prototype.onTreeChange = function (nodes) {
                 this.selectedFolders = nodes;
+                this.sf = nodes;
             };
 
             Wrike.prototype.load_folders = function (checkedNodes) {
                 $("#folders-loading").show();
                 $("#treeActivityParamFolders").hide();
-
+                this.selectedFolders = [];
                 shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, checkedNodes, this.onTreeChange);
 
                 $("#folders-loading").hide();

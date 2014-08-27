@@ -430,7 +430,7 @@ module shearnie.tools.html {
     export function fillTree(tree: JQuery,
         nodes: any[],
         checkedNodes: string[],
-        onTreeChange: (nodes: string[]) => void) {
+        onTreeChange: (nodes: string[]) => void): any[] {
         var selectedNode = [];
         //var tree: any = $('#' + tree);
 
@@ -465,6 +465,8 @@ module shearnie.tools.html {
             selectedNode = checkedNodes;
             onTreeChange(selectedNode);
         }
+
+        return selectedNode;
     }
 
 

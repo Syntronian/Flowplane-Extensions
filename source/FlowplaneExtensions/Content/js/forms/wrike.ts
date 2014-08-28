@@ -38,7 +38,7 @@ module fpxt.forms {
                 this.folders = pd[1].result.tree.foldersTree.folders;
 
                 //fill folders
-                shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, null, );// this.onTreeChange);
+                shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, null);// this.onTreeChange);
                 $("#folders-loading").hide();
                 $("#treeActivityParamFolders").show();
 

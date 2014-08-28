@@ -48,7 +48,6 @@ var fpxt;
 
             Wrike.prototype.onTreeChange = function (nodes) {
                 this.selectedFolders = nodes;
-                this.sf = nodes;
             };
 
             Wrike.prototype.load_folders = function (checkedNodes) {
@@ -97,6 +96,15 @@ var fpxt;
                 this.load_folders(this.selectedFolders);
             };
 
+            Wrike.prototype.get_checkednodes = function () {
+                var checked_ids = [];
+                var checked = $.jstree.reference("#treeActivityParamFolders").get_selected();
+                checked.forEach(function (i) {
+                    checked_ids.push(i);
+                });
+                return checked_ids;
+            };
+
             Wrike.prototype.getProperties = function () {
                 if ($("#txtActivityParamTaskDesc").val() == "")
                     throw "Description is required.";
@@ -109,7 +117,7 @@ var fpxt;
                     ret.push({ key: "taskassignee", value: $("#cboActivityParamAssignee").val() });
                     ret.push({ key: "taskassigneename", value: $("#cboActivityParamAssignee option:selected").text() });
                 }
-
+                this.selectedFolders = this.get_checkednodes();
                 ret.push({ key: "taskfolders", value: JSON.stringify(this.selectedFolders) });
 
                 return ret;

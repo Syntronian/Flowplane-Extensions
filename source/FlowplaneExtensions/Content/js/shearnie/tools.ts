@@ -429,21 +429,20 @@ module shearnie.tools.html {
 
     export function fillTree(tree: JQuery,
         nodes: any[],
-        checkedNodes: string[],
-        onTreeChange: (nodes: string[]) => void): any[] {
+        checkedNodes: string[]){
         var selectedNode = [];
-        //var tree: any = $('#' + tree);
+        //,        onTreeChange: (nodes: string[]) => void
 
         tree.on('changed.jstree', (e, data) => {
             if (data.action == 'select_node') {
                 if (!Enumerable.from(selectedNode).any((i) => i == data.node.id)) {
                     selectedNode.push(data.node.id);
-                    onTreeChange(selectedNode);
+                    //onTreeChange(selectedNode);
                 }
             } else if (data.action == 'deselect_node') {
                 if (Enumerable.from(selectedNode).any((i) => i == data.node.id)) {
                     selectedNode.splice(selectedNode.indexOf(data.node.id), 1);
-                    onTreeChange(selectedNode);
+                    //onTreeChange(selectedNode);
                 }
             }
         }).jstree({
@@ -463,7 +462,7 @@ module shearnie.tools.html {
                 $.jstree.reference(i).select_node(i, true);
             });
             selectedNode = checkedNodes;
-            onTreeChange(selectedNode);
+           // onTreeChange(selectedNode);
         }
 
         return selectedNode;

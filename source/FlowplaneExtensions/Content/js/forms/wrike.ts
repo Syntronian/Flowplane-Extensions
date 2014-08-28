@@ -6,7 +6,6 @@ module fpxt.forms {
 
         public extId: string = 'WRIKE';
         private selectedFolders: string[];
-        public sf: string[];
         private folders: any[];
         public setup(baseApiUrl: string, authKeys: fpxtParam[], objParams: fpxtParam[], onCompleted: () => void) {
             $("#assignees-loading").show();
@@ -39,7 +38,7 @@ module fpxt.forms {
                 this.folders = pd[1].result.tree.foldersTree.folders;
 
                 //fill folders
-                shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, null, this.onTreeChange);
+                shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, null, );// this.onTreeChange);
                 $("#folders-loading").hide();
                 $("#treeActivityParamFolders").show();
 
@@ -47,17 +46,16 @@ module fpxt.forms {
             });
         }
 
-        onTreeChange(nodes: string[])
-        {
-            this.selectedFolders = nodes;
-            this.sf = nodes;
-        }
+        //onTreeChange(nodes: string[])
+        //{
+        //    this.selectedFolders = nodes;
+        //}
 
         load_folders(checkedNodes: string[]) {
             $("#folders-loading").show();
             $("#treeActivityParamFolders").hide();
             this.selectedFolders = [];
-            shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, checkedNodes, this.onTreeChange);
+            shearnie.tools.html.fillTree($("#treeActivityParamFolders"), this.folders, checkedNodes);//, this.onTreeChange);
 
             $("#folders-loading").hide();
             $("#treeActivityParamFolders").show();
@@ -97,6 +95,16 @@ module fpxt.forms {
             this.load_folders(this.selectedFolders);
         }
 
+        get_checkednodes(): string[]
+        {
+            var checked_ids = [];
+            var checked = $.jstree.reference("#treeActivityParamFolders").get_selected();
+            checked.forEach((i) => {
+                    checked_ids.push(i);
+                }); 
+            return checked_ids;
+        }
+
 
         public getProperties(): fpxtParam[] {
             if ($("#txtActivityParamTaskDesc").val() == "")
@@ -110,7 +118,7 @@ module fpxt.forms {
                 ret.push({ key: "taskassignee", value: $("#cboActivityParamAssignee").val() });
                 ret.push({ key: "taskassigneename", value: $("#cboActivityParamAssignee option:selected").text() });
             }
-         
+            this.selectedFolders = this.get_checkednodes();
             ret.push({ key: "taskfolders", value: JSON.stringify(this.selectedFolders) });
 
             return ret;

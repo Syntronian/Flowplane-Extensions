@@ -106,6 +106,37 @@ namespace FlowplaneExtensions.Models.api.flow
                     .Create(addParams);
                 return System.Net.HttpStatusCode.OK.ToString();
             }
+            if (extId.Equals(new Extensions.Paymo.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var apiKey = authKeys.FirstOrDefault(k => k.key == "API_Key");
+                if (apiKey == null) throw new Exception("Invalid API_Key");
+
+                var username = authKeys.FirstOrDefault(k => k.key == "username");
+                if (username == null) throw new Exception("Paymo user name is mandatory.");
+
+                var password = authKeys.FirstOrDefault(k => k.key == "password");
+                if (password == null) throw new Exception("Paymo password is mandatory.");
+
+                var projectId = objParams.FirstOrDefault(k => k.key == "taskproject");
+                if (projectId == null) throw new Exception("Paymo project id is mandatory.");
+
+                var tasklistId = objParams.FirstOrDefault(k => k.key == "tasktasklist");
+                if (tasklistId == null) throw new Exception("Paymo task list is mandatory.");
+
+                var name = objParams.FirstOrDefault(k => k.key == "taskdesc");
+                if (name == null) throw new Exception("Paymo task name is mandatory.");
+
+                var assigneeId = objParams.FirstOrDefault(k => k.key == "taskassignee");
+                if (assigneeId == null) throw new Exception("Paymo task assignee is mandatory.");
+
+                var dueDate = objParams.FirstOrDefault(k => k.key == "taskduedays");
+                int dd = 0;
+                if (dueDate != null)
+                    Int32.TryParse(dueDate.value, out dd);
+
+                new Extensions.Paymo.Tasks(new Extensions.Paymo.Auth(apiKey.value,username.value,password.value)).Add(projectId.value, tasklistId.value, name.value, assigneeId.value, dd);
+                return System.Net.HttpStatusCode.OK.ToString();
+            }
             throw new Exception("Invalid extension.");
         }
 

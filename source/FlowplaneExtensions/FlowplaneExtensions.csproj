@@ -247,6 +247,7 @@
     <Content Include="Views\Podio\FlowDetail.cshtml" />
     <Content Include="Views\Paymo\FlowDetail.cshtml" />
     <Content Include="Views\Twitter\FlowDetail.cshtml" />
+    <Content Include="Views\Facebook\FlowDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Extensions.Asana\Extensions.Asana.csproj">

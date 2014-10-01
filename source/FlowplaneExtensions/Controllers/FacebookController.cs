@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Extensions.Asana.Responses.Projects;
 using FlowplaneExtensions.Models.api;
+using FlowplaneExtensions.Models.api.Flow;
 using Newtonsoft.Json;
 
 namespace FlowplaneExtensions.Controllers
@@ -16,10 +17,12 @@ namespace FlowplaneExtensions.Controllers
         {
             return View();
         }
+
         public ActionResult Header()
         {
             return View();
         }
+
         public ActionResult Body()
         {
             return View();
@@ -79,6 +82,14 @@ namespace FlowplaneExtensions.Controllers
             }
 
             return View("OAuthComplete");
+        }
+
+        public ActionResult FlowDetail(string fpxtpms)
+        {
+            if (string.IsNullOrEmpty(fpxtpms)) return View();
+
+            ViewBag.pms = fpxtpms;
+            return View(JsonConvert.DeserializeObject<Detail>(System.Uri.UnescapeDataString(fpxtpms)));
         }
     }
 }

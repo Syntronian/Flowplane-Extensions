@@ -25,6 +25,9 @@ namespace FlowplaneExtensions.Controllers
             if (pms.extensionCode.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
                 return RedirectToAction("FlowDetail", "Asana", new {fpxtpms = fpxtpms});
 
+            if (pms.extensionCode.Equals(new Extensions.Facebook.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+                return RedirectToAction("FlowDetail", "Facebook", new { fpxtpms = fpxtpms });
+
             if (pms.extensionCode.Equals(new Extensions.Paymo.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
                 return RedirectToAction("FlowDetail", "Paymo", new { fpxtpms = fpxtpms });
 

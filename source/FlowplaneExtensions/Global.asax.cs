@@ -26,7 +26,7 @@ namespace FlowplaneExtensions
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
-            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "*");
 #if DEBUG
             // don't cache
             // http://stackoverflow.com/questions/1160105/disable-browser-cache-for-entire-asp-net-website

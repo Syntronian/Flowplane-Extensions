@@ -9,7 +9,7 @@
     });
 </script>
 
-<h5><img src="@Url.Content("~//Content/img/ext-asana.png")" /> &nbsp; Asana Task</h5>
+<h5><img src="@Url.Content("~//Content/img/ext-wrike.png")" /> &nbsp; Wrike Task</h5>
 
 <form class="form-horizontal" role="form">
     <div class="row">
@@ -38,23 +38,6 @@
             </div>
         </div>
     }
-    
-    <div class="row">
-        <div class="col-sm-5">
-            <p>
-                Due:
-            </p>
-        </div>
-        <div class="col-sm-7">
-            <p>
-                @{
-                    var numdays = Model.GetParamValue("taskduedays");
-                    numdays = string.IsNullOrEmpty(numdays) ? "no due date" : numdays += " days";
-                }
-                @numdays
-            </p>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-sm-5">
@@ -65,32 +48,6 @@
         <div class="col-sm-7">
             <p>
                 @Model.GetParamValue("taskassigneename")
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-5">
-            <p>
-                Workspace:
-            </p>
-        </div>
-        <div class="col-sm-7">
-            <p>
-                @Model.GetParamValue("taskworkspacename")
-            </p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-5">
-            <p>
-                Project:
-            </p>
-        </div>
-        <div class="col-sm-7">
-            <p>
-                @Model.GetParamValue("taskprojectname")
             </p>
         </div>
     </div>

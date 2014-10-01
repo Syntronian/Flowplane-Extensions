@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Net.Http;
+using FlowplaneExtensions.Models.api.Flow;
 using Newtonsoft.Json;
 
 using FlowplaneExtensions.Models.api;
@@ -16,14 +17,17 @@ namespace FlowplaneExtensions.Controllers
         {
             return View();
         }
+
         public ActionResult Header()
         {
             return View();
         }
+
         public ActionResult Body()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult oauth(string txtWrikeConsumerKey, string txtWrikeConsumerSecret)
         {
@@ -57,7 +61,6 @@ namespace FlowplaneExtensions.Controllers
                 return Redirect(string.Format("https://www.wrike.com/rest/auth/authorize?{0}", tokens));
             }
         }
-
 
         public ActionResult oauth()
         {
@@ -95,6 +98,14 @@ namespace FlowplaneExtensions.Controllers
             ViewBag.WrikeAccessTokenSecret = oauth_token_secret;
 
             return View("OAuthComplete");
+        }
+
+        public ActionResult FlowDetail(string fpxtpms)
+        {
+            if (string.IsNullOrEmpty(fpxtpms)) return View();
+
+            ViewBag.pms = fpxtpms;
+            return View(JsonConvert.DeserializeObject<Detail>(System.Uri.UnescapeDataString(fpxtpms)));
         }
     }
 }

@@ -243,6 +243,7 @@
     <Content Include="Views\Wrike\Header.cshtml" />
     <Content Include="Views\Wrike\OAuthComplete.cshtml" />
     <Content Include="Views\Asana\FlowDetail.cshtml" />
+    <Content Include="Views\Wrike\FlowDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Extensions.Asana\Extensions.Asana.csproj">

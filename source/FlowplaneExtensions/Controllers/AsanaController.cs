@@ -14,14 +14,17 @@ namespace FlowplaneExtensions.Controllers
         {
             return View();
         }
+
         public ActionResult Header()
         {
             return View();
         }
+
         public ActionResult Body()
         {
             return View();
         }
+
         public ActionResult FlowDetail(string fpxtpms)
         {
             if (string.IsNullOrEmpty(fpxtpms)) return View();

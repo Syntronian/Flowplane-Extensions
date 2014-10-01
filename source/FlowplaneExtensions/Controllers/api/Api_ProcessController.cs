@@ -10,6 +10,7 @@ using System.Net.Http.Formatting;
 
 namespace FlowplaneExtensions.Controllers.api
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class Api_ProcessController : ApiController
     {
         [HttpPost]

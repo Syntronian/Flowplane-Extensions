@@ -10,6 +10,7 @@ using FlowplaneExtensions.Models.api;
 
 namespace FlowplaneExtensions.Controllers.api
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class Api_FlowController : ApiController
     {
         [HttpPost]

@@ -25,6 +25,9 @@ namespace FlowplaneExtensions.Controllers
             if (pms.extensionCode.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
                 return RedirectToAction("FlowDetail", "Asana", new {fpxtpms = fpxtpms});
 
+            if (pms.extensionCode.Equals(new Extensions.Podio.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+                return RedirectToAction("FlowDetail", "Podio", new { fpxtpms = fpxtpms });
+
             if (pms.extensionCode.Equals(new Extensions.Wrike.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
                 return RedirectToAction("FlowDetail", "Wrike", new { fpxtpms = fpxtpms });
 

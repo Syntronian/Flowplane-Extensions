@@ -8,7 +8,6 @@ using System.Web.Http.Cors;
 
 namespace FlowplaneExtensions.Controllers.api
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class Api_RegisterController : ApiController
     {
         [HttpGet]

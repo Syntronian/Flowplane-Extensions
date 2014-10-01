@@ -8,7 +8,7 @@ using Extensions.Asana;
 using System.Collections.Specialized;
 using Newtonsoft.Json;
 
-namespace FlowplaneExtensions.Models.api.flow
+namespace FlowplaneExtensions.Models.api.Flow
 {
     public class Exec
     {

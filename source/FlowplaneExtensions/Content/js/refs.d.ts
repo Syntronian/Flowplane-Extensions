@@ -1,6 +1,7 @@
 ﻿/// <reference path="typescript-defs/jquery.d.ts" />
 /// <reference path="typescript-defs/bootstrap.d.ts" />
 /// <reference path="typescript-defs/linq.d.ts" />
+/// <reference path="typescript-defs/moment.d.ts" />
 /// <reference path="typescript-defs/jstree.d.ts" />
 
 /// <reference path="shearnie/tools.ts" />

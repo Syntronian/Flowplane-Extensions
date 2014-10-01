@@ -17,14 +17,14 @@ namespace FlowplaneExtensions.Controllers.api
         [AllowAnonymous]
         public string ActivateObject(FormDataCollection formData)
         {
-            return new Models.api.flow.Exec().ActivateObject(formData);
+            return new Models.api.Flow.Exec().ActivateObject(formData);
         }
 
         [HttpPost]
         [AllowAnonymous]
         public HttpResponseMessage CompleteActivity(FormDataCollection formData)
         {
-            return new Models.api.flow.Exec().CompleteActivity(formData);
+            return new Models.api.Flow.Exec().CompleteActivity(formData);
         }
     }
 }

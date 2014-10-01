@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Http.Cors;
 using System.Web.Mvc;
+using FlowplaneExtensions.Models.api.Flow;
+using Newtonsoft.Json;
 
 namespace FlowplaneExtensions.Controllers
 {
@@ -12,6 +14,18 @@ namespace FlowplaneExtensions.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult FlowDetail(string fpxtpms)
+        {
+            if (string.IsNullOrEmpty(fpxtpms)) return RedirectToAction("Index");
+
+            var pms = JsonConvert.DeserializeObject<Detail>(System.Uri.UnescapeDataString(fpxtpms));
+
+            if (pms.extensionCode.Equals(new Extensions.Asana.Identity().Code, StringComparison.CurrentCultureIgnoreCase))
+                return RedirectToAction("FlowDetail", "Asana", new {fpxtpms = fpxtpms});
+
+            return RedirectToAction("Index");
         }
     }
 }

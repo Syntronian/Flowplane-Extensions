@@ -14,6 +14,12 @@ namespace FlowplaneExtensions
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "flowdetail",
+                url: "flowdetail",
+                defaults: new { controller = "Home", action = "FlowDetail" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

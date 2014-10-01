@@ -1,0 +1,94 @@
+﻿@using Microsoft.Ajax.Utilities
+@model FlowplaneExtensions.Models.api.Flow.Detail
+
+<script src='@Url.Content("~/Content/js/moment/moment.js")' type='text/javascript'></script>
+<script src='@Url.Content("~/Content/js/forms/apptools.js")' type='text/javascript'></script>
+<script>
+    $(document).ready(function () {
+        fpxt.forms.apptools.fmtDate($('#dtAssigned'), 'll');
+    });
+</script>
+
+<h5><img src="@Url.Content("~//Content/img/ext-asana.png")" /> &nbsp; Asana Task</h5>
+<form class="form-horizontal" role="form">
+    <div class="row">
+        <div class="col-sm-5">
+            <p>
+                Description:
+            </p>
+        </div>
+        <div class="col-sm-7">
+            <p>
+                @Model.GetParamValue("taskdesc")
+            </p>
+        </div>
+    </div>
+    @if (Model.DateCreated != null)
+    {
+        <div class="row">
+            <div class="col-sm-5">
+                <p>
+                    Assigned on:
+                </p>
+            </div>
+            <div class="col-sm-7">
+                <p id="dtAssigned">@Convert.ToDateTime(Model.DateCreated).ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'")</p>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-sm-5">
+            <p>
+                Due:
+            </p>
+        </div>
+        <div class="col-sm-7">
+            <p>
+                @{
+                    var numdays = Model.GetParamValue("taskduedays");
+                    numdays = string.IsNullOrEmpty(numdays) ? "no due date" : numdays += " days";
+                }
+                @numdays
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5">
+            <p>
+                Assigned to:
+            </p>
+        </div>
+        <div class="col-sm-7">
+            <p>
+                @Model.GetParamValue("taskassigneename")
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5">
+            <p>
+                Workspace:
+            </p>
+        </div>
+        <div class="col-sm-7">
+            <p>
+                @Model.GetParamValue("taskworkspacename")
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-5">
+            <p>
+                Project:
+            </p>
+        </div>
+        <div class="col-sm-7">
+            <p>
+                @Model.GetParamValue("taskprojectname")
+            </p>
+        </div>
+    </div>
+</form>

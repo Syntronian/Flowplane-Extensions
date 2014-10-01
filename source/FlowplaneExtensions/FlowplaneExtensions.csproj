@@ -148,9 +148,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\api\flow\Exec.cs" />
+    <Compile Include="Models\api\Flow\Exec.cs" />
     <Compile Include="Models\api\FpxtParam.cs" />
     <Compile Include="Models\api\Process\Details.cs" />
+    <Compile Include="Models\api\Flow\Detail.cs" />
     <Compile Include="Models\api\Register\GetAll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -169,7 +170,9 @@
     <Content Include="Content\img\ext-podio.png" />
     <Content Include="Content\img\ext-twitter.png" />
     <Content Include="Content\img\ext-wrike.png" />
+    <Content Include="Content\js\forms\apptools.js" />
     <Content Include="Content\js\forms\asana.js" />
+    <TypeScriptCompile Include="Content\js\forms\apptools.ts" />
     <TypeScriptCompile Include="Content\js\forms\linkedin.ts" />
     <TypeScriptCompile Include="Content\js\forms\wrike.ts" />
     <Content Include="Content\js\forms\facebook.js" />
@@ -181,6 +184,7 @@
     <Content Include="Content\js\forms\twitter.js" />
     <Content Include="Content\js\forms\wrike.js" />
     <Content Include="Content\js\fpxt.js" />
+    <Content Include="Content\js\moment\moment.js" />
     <Content Include="Content\js\shearnie\tools.js" />
     <Content Include="Content\js\typescript-defs\jstree.d.ts" />
     <Content Include="Global.asax" />
@@ -198,10 +202,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <TypeScriptCompile Include="Content\js\typescript-defs\moment.d.ts" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -239,6 +242,7 @@
     <Content Include="Views\Wrike\Body.cshtml" />
     <Content Include="Views\Wrike\Header.cshtml" />
     <Content Include="Views\Wrike\OAuthComplete.cshtml" />
+    <Content Include="Views\Asana\FlowDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensions\Extensions.Asana\Extensions.Asana.csproj">
